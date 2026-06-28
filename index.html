@@ -53,10 +53,19 @@ h1{
 .side-widget{
     background:#3B3A3A;
     border-radius:18px;
-
     box-shadow:0 0 15px rgba(255,255,255,.03);
-
     transition:.2s;
+}
+
+.widget{
+    padding:20px;
+}
+
+.widget-title{
+    color:white;
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:15px;
 }
 
 .widget:hover,
@@ -65,7 +74,7 @@ h1{
     box-shadow:0 8px 25px rgba(0,0,0,.45);
 }
 
-/* Side panels are the same width as one center widget */
+/* Side panels */
 .side-widget{
     width:378px;
     height:75vh;
@@ -84,13 +93,37 @@ h1{
     <div class="side-widget"></div>
 
     <div class="dashboard">
-        <div class="widget"></div>
-        <div class="widget"></div>
-        <div class="widget"></div>
 
-        <div class="widget"></div>
-        <div class="widget"></div>
-        <div class="widget"></div>
+        <!-- Top Left -->
+        <div class="widget">
+            <div class="widget-title">Index</div>
+        </div>
+
+        <!-- Top Middle -->
+        <div class="widget">
+            <div class="widget-title">Precious Metals</div>
+        </div>
+
+        <!-- Top Right -->
+        <div class="widget">
+            <div class="widget-title"></div>
+        </div>
+
+        <!-- Bottom Left -->
+        <div class="widget">
+            <div class="widget-title">Currencies</div>
+        </div>
+
+        <!-- Bottom Middle -->
+        <div class="widget">
+            <div class="widget-title"></div>
+        </div>
+
+        <!-- Bottom Right -->
+        <div class="widget">
+            <div class="widget-title"></div>
+        </div>
+
     </div>
 
     <div class="side-widget"></div>
