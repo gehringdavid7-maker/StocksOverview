@@ -1,7 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Overview</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; }
+        h1 { text-align:center; margin-top:35px; margin-bottom:35px; font-size:42px; font-weight:600; }
+        .container { width:99vw; display:flex; justify-content:center; align-items:center; gap:90px; }
+        .dashboard { width:1200px; height:75vh; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:32px; }
+        .widget { background:#3B3A3A; border-radius:18px; padding:20px; }
+        .widget-title { text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; width:100%; }
+        
+        .index-item { background:#000; border-radius:12px; padding:12px; margin-bottom:12px; cursor:pointer; 
+                     display:flex; justify-content:space-between; align-items:center; transition: background 0.2s; }
+        .index-item:hover { background: #1a1a1a; }
+        .name { font-size:14px; font-weight:600; }
+        .price { font-size:13px; opacity:0.8; margin-top:2px; }
+        .change { font-size:14px; font-weight:600; }
+        .side-widget { width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
+    </style>
+</head>
+<body>
+
+<h1>Stock Overview</h1>
+<div class="container">
+    <div class="side-widget"></div>
+    <div class="dashboard">
+        <div class="widget" id="indexWidget">
+            <div class="widget-title">Index</div>
+        </div>
+        <div class="widget"><div class="widget-title">Precious Metals</div></div>
+        <div class="widget"></div>
+        <div class="widget"><div class="widget-title">Currencies</div></div>
+        <div class="widget"></div>
+        <div class="widget"></div>
+    </div>
+    <div class="side-widget"></div>
+</div>
+
 <script>
 const indices = [
     { name: "S&P 500", symbol: "^GSPC", tv: "https://www.tradingview.com/symbols/SPX/" },
-    { name: "MSCI World", symbol: "VT", tv: "https://de.tradingview.com/symbols/LSE-SWDA/" },
+    { name: "MSCI World", symbol: "URTH", tv: "https://de.tradingview.com/symbols/LSE-SWDA/" },
     { name: "Nasdaq 100", symbol: "QQQ", tv: "https://de.tradingview.com/symbols/NASDAQ-QQQ/" }
 ];
 
@@ -15,7 +57,7 @@ function initWidgets() {
         div.innerHTML = `
             <div>
                 <div class="name">${item.name}</div>
-                <div class="price" id="price-${index}">Lädt...</div>
+                <div class="price" id="price-${index}">Lade...</div>
             </div>
             <div class="change" id="change-${index}">--</div>
         `;
@@ -23,37 +65,38 @@ function initWidgets() {
     });
 }
 
-// Hilfsfunktion für eine kurze Pause zwischen den Anfragen
-const delay = (ms) => new Promise(res => setTimeout(res, ms));
-
 async function updateValues() {
     for (let i = 0; i < indices.length; i++) {
-        await delay(1000); // 1 Sekunde Pause pro Anfrage für Stabilität
-        
         try {
+            // Wir verwenden einen sehr zuverlässigen Proxy
             const url = `https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/' + indices[i].symbol)}`;
             const response = await fetch(url);
             const data = await response.json();
             
-            if (!data.contents) throw new Error("Keine Daten");
-            
-            const meta = JSON.parse(data.contents).chart.result[0].meta;
-            const price = meta.regularMarketPrice.toFixed(2);
-            const change = (((meta.regularMarketPrice - meta.chartPreviousClose) / meta.chartPreviousClose) * 100).toFixed(2);
-            
-            document.getElementById(`price-${i}`).innerText = `$${price}`;
-            const changeEl = document.getElementById(`change-${i}`);
-            changeEl.innerText = `${change > 0 ? '+' : ''}${change}%`;
-            changeEl.style.color = change >= 0 ? "lime" : "red";
+            if (data.contents) {
+                const json = JSON.parse(data.contents);
+                const meta = json.chart.result[0].meta;
+                const price = meta.regularMarketPrice.toFixed(2);
+                const change = (((meta.regularMarketPrice - meta.chartPreviousClose) / meta.chartPreviousClose) * 100).toFixed(2);
+                
+                document.getElementById(`price-${i}`).innerText = `$${price}`;
+                const changeEl = document.getElementById(`change-${i}`);
+                changeEl.innerText = `${change > 0 ? '+' : ''}${change}%`;
+                changeEl.style.color = change >= 0 ? "lime" : "red";
+            }
         } catch (e) {
-            console.error("Fehler bei " + indices[i].name, e);
-            document.getElementById(`price-${i}`).innerText = "Fehler";
-            document.getElementById(`change-${i}`).innerText = "--";
+            console.error("Fehler bei " + indices[i].name);
         }
+        // Kurze Pause, um Sperren durch den Proxy zu vermeiden
+        await new Promise(resolve => setTimeout(resolve, 1500));
     }
 }
 
 initWidgets();
 updateValues();
-setInterval(updateValues, 60000); // Auf 60 Sek erhöht, um Proxy-Blockaden zu vermeiden
+// Update alle 60 Sekunden reicht völlig aus und schont die Verbindung
+setInterval(updateValues, 60000);
 </script>
+
+</body>
+</html>
