@@ -10,73 +10,78 @@
         h1 { text-align:center; margin:35px 0; font-size:42px; font-weight:600; }
         .container { width:99vw; display:flex; justify-content:center; align-items:center; gap:90px; }
         .dashboard { width:1200px; height:75vh; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:32px; }
+        .widget { background:#3B3A3A; border-radius:18px; padding:20px; }
+        .widget-title { text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; }
         
-        .widget { background:#3B3A3A; border-radius:18px; padding:20px; display:flex; flex-direction:column; }
-        .widget-title { text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; width: 100%; }
-        
-        /* Die Chart-Container im Index-Widget */
-        .tv-wrapper { margin-bottom: 10px; cursor: pointer; border-radius: 12px; overflow: hidden; }
+        /* Das Index-Item */
+        .index-item { background:#000; border-radius:12px; padding:10px; margin-bottom:10px; cursor:pointer; height: 60px; display:flex; align-items:center; justify-content:space-between; }
+        .info { display: flex; flex-direction: column; }
+        .name { font-size: 14px; font-weight: bold; }
+        .price { font-size: 12px; opacity: 0.7; }
+        .change { font-size: 14px; font-weight: bold; }
         .side-widget { width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
     </style>
 </head>
 <body>
 
 <h1>Stock Overview</h1>
-
 <div class="container">
     <div class="side-widget"></div>
-
     <div class="dashboard">
         <div class="widget" id="indexWidget">
             <div class="widget-title">Index</div>
-            
-            <div class="tv-wrapper" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')">
-                <div class="tradingview-widget-container"><div id="tradingview_spx"></div></div>
             </div>
-            <div class="tv-wrapper" onclick="window.open('https://de.tradingview.com/symbols/LSE-SWDA/', '_blank')">
-                <div class="tradingview-widget-container"><div id="tradingview_msci"></div></div>
-            </div>
-            <div class="tv-wrapper" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-QQQ/', '_blank')">
-                <div class="tradingview-widget-container"><div id="tradingview_nasdaq"></div></div>
-            </div>
-        </div>
-
         <div class="widget"><div class="widget-title">Precious Metals</div></div>
-        <div class="widget"><div class="widget-title">Empty</div></div>
+        <div class="widget"></div>
         <div class="widget"><div class="widget-title">Currencies</div></div>
-        <div class="widget"><div class="widget-title">Empty</div></div>
-        <div class="widget"><div class="widget-title">Empty</div></div>
+        <div class="widget"></div>
+        <div class="widget"></div>
     </div>
-
     <div class="side-widget"></div>
 </div>
 
-<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-<script type="text/javascript">
-    function createWidget(containerId, symbol) {
-        new TradingView.widget({
-            "container_id": containerId,
-            "width": "100%",
-            "height": 120,
-            "symbol": symbol,
-            "interval": "D",
-            "timezone": "Etc/UTC",
-            "theme": "dark",
-            "style": "2",
-            "locale": "en",
-            "toolbar_bg": "#f1f3f6",
-            "enable_publishing": false,
-            "hide_top_toolbar": true,
-            "hide_legend": true,
-            "save_image": false,
-            "backgroundColor": "#000000"
-        });
+<script>
+const indices = [
+    { name: "S&P 500", symbol: "^GSPC", tv: "https://www.tradingview.com/symbols/SPX/" },
+    { name: "MSCI World", symbol: "URTH", tv: "https://de.tradingview.com/symbols/LSE-SWDA/" },
+    { name: "Nasdaq", symbol: "^IXIC", tv: "https://de.tradingview.com/symbols/NASDAQ-QQQ/" }
+];
+
+async function updateData() {
+    const container = document.getElementById("indexWidget");
+    // Überschrift beibehalten
+    const title = container.querySelector(".widget-title");
+    container.innerHTML = "";
+    container.appendChild(title);
+
+    for (const item of indices) {
+        try {
+            // Schnelle API-Abfrage über Proxy
+            const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/' + item.symbol)}`);
+            const json = await res.json();
+            const data = JSON.parse(json.contents).chart.result[0].meta;
+            
+            const price = data.regularMarketPrice.toFixed(2);
+            const change = (((data.regularMarketPrice - data.chartPreviousClose) / data.chartPreviousClose) * 100).toFixed(2);
+            
+            const div = document.createElement("div");
+            div.className = "index-item";
+            div.onclick = () => window.open(item.tv, "_blank");
+            div.innerHTML = `
+                <div class="info">
+                    <span class="name">${item.name}</span>
+                    <span class="price">$${price}</span>
+                </div>
+                <div class="change" style="color:${change >= 0 ? 'lime' : 'red'}">${change}%</div>
+            `;
+            container.appendChild(div);
+        } catch (e) { console.error("Ladefehler", e); }
     }
+}
 
-    createWidget("tradingview_spx", "SP:SPX");
-    createWidget("tradingview_msci", "LSE:SWDA");
-    createWidget("tradingview_nasdaq", "NASDAQ:QQQ");
+// Sofort starten und alle 10 Sekunden aktualisieren
+updateData();
+setInterval(updateData, 10000);
 </script>
-
 </body>
 </html>
