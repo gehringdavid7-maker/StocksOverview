@@ -30,7 +30,6 @@ h1{
 
 .container{
     width:99vw;
-    max-width:none;
     margin:auto;
 
     display:flex;
@@ -39,34 +38,20 @@ h1{
     gap:90px;
 }
 
-.side-widget{
-    width:400px;
-    height:75vh;
-
-    background:#3B3A3A;
-    border-radius:18px;
-
-    box-shadow:0 0 15px rgba(255,255,255,.03);
-
-    transition:.2s;
-}
-
 .dashboard{
-    width:100%;
-    max-width:1250px;
+    width:1200px;
     height:75vh;
 
     display:grid;
-
     grid-template-columns:repeat(3,1fr);
     grid-template-rows:repeat(2,1fr);
 
     gap:32px;
 }
 
-.widget{
+.widget,
+.side-widget{
     background:#3B3A3A;
-
     border-radius:18px;
 
     box-shadow:0 0 15px rgba(255,255,255,.03);
@@ -76,11 +61,14 @@ h1{
 
 .widget:hover,
 .side-widget:hover{
-
     transform:translateY(-3px);
-
     box-shadow:0 8px 25px rgba(0,0,0,.45);
+}
 
+/* Side panels are the same width as one center widget */
+.side-widget{
+    width:378px;
+    height:75vh;
 }
 
 </style>
@@ -96,7 +84,6 @@ h1{
     <div class="side-widget"></div>
 
     <div class="dashboard">
-
         <div class="widget"></div>
         <div class="widget"></div>
         <div class="widget"></div>
@@ -104,7 +91,6 @@ h1{
         <div class="widget"></div>
         <div class="widget"></div>
         <div class="widget"></div>
-
     </div>
 
     <div class="side-widget"></div>
