@@ -54,7 +54,6 @@ h1{
     background:#3B3A3A;
     border-radius:18px;
     box-shadow:0 0 15px rgba(255,255,255,.03);
-    transition:.2s;
 }
 
 .widget{
@@ -62,22 +61,50 @@ h1{
 }
 
 .widget-title{
+    text-align:center;
     color:white;
     font-size:20px;
     font-weight:600;
     margin-bottom:15px;
 }
 
-.widget:hover,
-.side-widget:hover{
-    transform:translateY(-3px);
-    box-shadow:0 8px 25px rgba(0,0,0,.45);
-}
-
-/* Side panels */
 .side-widget{
     width:378px;
     height:75vh;
+}
+
+/* INDEX ITEMS */
+.index-item{
+    background:#000;
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:12px;
+    cursor:pointer;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    transition:0.2s;
+}
+
+.index-item:hover{
+    transform:scale(1.02);
+}
+
+.name{
+    font-size:14px;
+    font-weight:600;
+}
+
+.price{
+    font-size:13px;
+    opacity:0.8;
+}
+
+.change{
+    font-size:14px;
+    font-weight:600;
 }
 
 </style>
@@ -94,41 +121,102 @@ h1{
 
     <div class="dashboard">
 
-        <!-- Top Left -->
-        <div class="widget">
+        <!-- INDEX WIDGET -->
+        <div class="widget" id="indexWidget">
             <div class="widget-title">Index</div>
         </div>
 
-        <!-- Top Middle -->
         <div class="widget">
             <div class="widget-title">Precious Metals</div>
         </div>
 
-        <!-- Top Right -->
-        <div class="widget">
-            <div class="widget-title"></div>
-        </div>
+        <div class="widget"></div>
 
-        <!-- Bottom Left -->
         <div class="widget">
             <div class="widget-title">Currencies</div>
         </div>
 
-        <!-- Bottom Middle -->
-        <div class="widget">
-            <div class="widget-title"></div>
-        </div>
-
-        <!-- Bottom Right -->
-        <div class="widget">
-            <div class="widget-title"></div>
-        </div>
+        <div class="widget"></div>
+        <div class="widget"></div>
 
     </div>
 
     <div class="side-widget"></div>
 
 </div>
+
+<script>
+
+const indices = [
+{
+    name:"S&P 500",
+    symbol:"^GSPC",
+    tv:"https://www.tradingview.com/symbols/SPX/"
+},
+{
+    name:"MSCI World",
+    symbol:"SWDA.L",
+    tv:"https://de.tradingview.com/symbols/LSE-SWDA/"
+},
+{
+    name:"Nasdaq (QQQ)",
+    symbol:"QQQ",
+    tv:"https://de.tradingview.com/symbols/NASDAQ-QQQ/"
+}
+];
+
+async function fetchData(symbol){
+    const url = `https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbol}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.quoteResponse.result[0];
+}
+
+async function loadIndex(){
+
+    const container = document.getElementById("indexWidget");
+
+    container.innerHTML = `<div class="widget-title">Index</div>`;
+
+    for(const item of indices){
+
+        try{
+
+            const data = await fetchData(item.symbol);
+
+            const price = data.regularMarketPrice.toFixed(2);
+            const change = data.regularMarketChangePercent.toFixed(2);
+
+            const color = change >= 0 ? "lime" : "red";
+
+            const div = document.createElement("div");
+            div.className = "index-item";
+
+            div.onclick = () => window.open(item.tv, "_blank");
+
+            div.innerHTML = `
+                <div>
+                    <div class="name">${item.name}</div>
+                    <div class="price">${price}</div>
+                </div>
+
+                <div class="change" style="color:${color}">
+                    ${change}%
+                </div>
+            `;
+
+            container.appendChild(div);
+
+        }catch(e){
+            console.log("Error loading", item.symbol);
+        }
+    }
+}
+
+loadIndex();
+setInterval(loadIndex, 10000);
+
+</script>
 
 </body>
 </html>
