@@ -10,32 +10,30 @@
         
         h1{ text-align:center; margin-top:40px; margin-bottom:40px; font-size:50px; font-weight:600; }
         
-        /* Container Breite um 1.2x erhöht */
-        .container{ width: 1920px; margin: 0 auto; display:flex; justify-content:center; align-items:center; gap: 38px; }
+        /* Container Breite angepasst für breitere Side-Widgets */
+        .container{ width: 2352px; margin: 0 auto; display:flex; justify-content:center; align-items:center; gap: 38px; }
         
-        /* Grid: 380px * 1.2 = 456px | 350px * 1.2 = 420px */
         .dashboard{ width: 1440px; height: 900px; display:grid; grid-template-columns: repeat(3, 456px); grid-template-rows: repeat(2, 420px); gap: 38px; }
         
         .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; position: relative; }
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         
-        .index-item{ background:#000; border-radius: 14px; padding: 14px; margin-bottom: 14px; cursor:pointer; 
-                     display:flex; justify-content:space-between; align-items:center; min-height: 60px; }
-        .name{ font-size: 17px; font-weight:600; }
-        .price{ font-size: 16px; opacity:0.8; }
-        .change{ font-size: 17px; font-weight:600; }
+        /* 0.75x Skalierung für Kurs-Items */
+        .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; 
+                     display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
+        .name{ font-size: 12.75px; font-weight:600; }
+        .price{ font-size: 12px; opacity:0.8; }
+        .change{ font-size: 12.75px; font-weight:600; }
         
-        /* Side Widget angepasst */
-        .side-widget{ width: 216px; height: 900px; background:#3B3A3A; border-radius: 22px; }
+        /* Side Widgets doppelt so breit */
+        .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; }
 
-        /* Grid Positionen bleiben gleich */
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
         #metalsWidget  { grid-column: 2 / 3; grid-row: 1 / 2; }
         #currWidget    { grid-column: 1 / 2; grid-row: 2 / 3; }
         #stocksWidget  { grid-column: 2 / 3; grid-row: 2 / 3; }
         #emptyWidget1  { grid-column: 3 / 4; grid-row: 1 / 2; }
-        #emptyWidget2  { grid-column: 3 / 4; grid-row: 2 / 3; cursor: pointer; transition: 0.3s; }
-        #emptyWidget2:hover { background: #4a4a4a; }
+        #emptyWidget2  { grid-column: 3 / 4; grid-row: 2 / 3; }
     </style>
 </head>
 <body>
@@ -78,12 +76,7 @@
         </div>
 
         <div class="widget" id="emptyWidget1"><div class="widget-title">Thesen</div></div>
-        <div class="widget" id="emptyWidget2" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">
-            <div class="widget-title">ChatGPT Chat</div>
-            <div style="text-align: center; margin-top: 60px; font-size: 18px; opacity: 0.8;">
-                Hier klicken zum Chat...
-            </div>
-        </div>
+        <div class="widget" id="emptyWidget2"><div class="widget-title">Placeholder</div></div>
     </div>
     <div class="side-widget"></div>
 </div>
