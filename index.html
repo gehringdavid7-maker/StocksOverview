@@ -13,7 +13,6 @@
         .widget{ background:#3B3A3A; border-radius:18px; padding:20px; }
         .widget-title{ text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; }
         
-        /* Die Items sind jetzt fest im Layout */
         .index-item{ background:#000; border-radius:12px; padding:12px; margin-bottom:12px; cursor:pointer; 
                      display:flex; justify-content:space-between; align-items:center; min-height: 55px; }
         .name{ font-size:14px; font-weight:600; }
@@ -34,8 +33,22 @@
             <div class="index-item" id="item-0"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-1"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-2"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-3"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
-        <div class="widget"><div class="widget-title">Precious Metals</div></div>
+
+        <div class="widget" id="metalsWidget">
+            <div class="widget-title">Precious Metals</div>
+            <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/GOLD/', '_blank')">
+                <div class="name">Gold</div><div class="price">Chart öffnen</div>
+            </div>
+            <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/SILVER/', '_blank')">
+                <div class="name">Silver</div><div class="price">Chart öffnen</div>
+            </div>
+            <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')">
+                <div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div>
+            </div>
+        </div>
+
         <div class="widget"></div>
         <div class="widget"><div class="widget-title">Currencies</div></div>
         <div class="widget"></div>
@@ -48,7 +61,8 @@
 const indices = [
     { symbol: "^SPX", tv: "https://www.tradingview.com/symbols/SPX/" },
     { symbol: "SWDA.LON", tv: "https://de.tradingview.com/symbols/LSE-SWDA/" },
-    { symbol: "QQQ.US", tv: "https://de.tradingview.com/symbols/NASDAQ-QQQ/" }
+    { symbol: "QQQ.US", tv: "https://de.tradingview.com/symbols/NASDAQ-QQQ/" },
+    { symbol: "COPX.US", tv: "https://www.tradingview.com/symbols/AMEX-COPX/" }
 ];
 
 async function fetchData(symbol){
@@ -82,9 +96,7 @@ async function loadIndex(){
     }
 }
 
-// Initialer Aufruf
 loadIndex();
-// Update alle 90 Sekunden
 setInterval(loadIndex, 90000);
 </script>
 
