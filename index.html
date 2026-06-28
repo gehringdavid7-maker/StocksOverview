@@ -10,26 +10,24 @@
         
         h1{ text-align:center; margin-top:40px; margin-bottom:40px; font-size:50px; font-weight:600; }
         
-        /* Container Breite für die breiten Side-Widgets angepasst */
+        /* Container Breite angepasst für breitere Side-Widgets */
         .container{ width: 2352px; margin: 0 auto; display:flex; justify-content:center; align-items:center; gap: 38px; }
         
-        /* Dashboard-Grid: 3 Spalten (456px), 2 Reihen (420px) */
         .dashboard{ width: 1440px; height: 900px; display:grid; grid-template-columns: repeat(3, 456px); grid-template-rows: repeat(2, 420px); gap: 38px; }
         
         .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; position: relative; }
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         
-        /* Kurs-Items 0.75x skaliert */
-        .index-item{ background:#000; border-radius: 8px; padding: 8px; margin-bottom: 7px; cursor:pointer; 
-                     display:flex; justify-content:space-between; align-items:center; min-height: 35px; }
-        .name{ font-size: 10px; font-weight:600; }
-        .price{ font-size: 9px; opacity:0.8; }
-        .change{ font-size: 10px; font-weight:600; }
+        /* 0.75x Skalierung für Kurs-Items */
+        .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; 
+                     display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
+        .name{ font-size: 12.75px; font-weight:600; }
+        .price{ font-size: 12px; opacity:0.8; }
+        .change{ font-size: 12.75px; font-weight:600; }
         
         /* Side Widgets doppelt so breit */
         .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; }
 
-        /* Grid Positionen */
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
         #metalsWidget  { grid-column: 2 / 3; grid-row: 1 / 2; }
         #currWidget    { grid-column: 1 / 2; grid-row: 2 / 3; }
@@ -50,7 +48,7 @@
             <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-1" onclick="window.open('https://de.tradingview.com/symbols/LSE-SWDA/', '_blank')"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-2" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-3" onclick="window.open('https://de.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-3" onclick="window.open('https://www.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
         <div class="widget" id="metalsWidget">
