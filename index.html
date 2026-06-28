@@ -30,8 +30,6 @@ h1{
 
 .container{
     width:99vw;
-    margin:auto;
-
     display:flex;
     justify-content:center;
     align-items:center;
@@ -49,31 +47,20 @@ h1{
     gap:32px;
 }
 
-.widget,
-.side-widget{
+.widget{
     background:#3B3A3A;
     border-radius:18px;
-    box-shadow:0 0 15px rgba(255,255,255,.03);
-}
-
-.widget{
     padding:20px;
 }
 
 .widget-title{
     text-align:center;
-    color:white;
     font-size:20px;
     font-weight:600;
     margin-bottom:15px;
 }
 
-.side-widget{
-    width:378px;
-    height:75vh;
-}
-
-/* INDEX ITEMS */
+/* INDEX CARDS */
 .index-item{
     background:#000;
     border-radius:12px;
@@ -84,12 +71,6 @@ h1{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
-    transition:0.2s;
-}
-
-.index-item:hover{
-    transform:scale(1.02);
 }
 
 .name{
@@ -107,6 +88,13 @@ h1{
     font-weight:600;
 }
 
+.side-widget{
+    width:378px;
+    height:75vh;
+    background:#3B3A3A;
+    border-radius:18px;
+}
+
 </style>
 
 </head>
@@ -117,31 +105,24 @@ h1{
 
 <div class="container">
 
-    <div class="side-widget"></div>
+<div class="side-widget"></div>
 
-    <div class="dashboard">
+<div class="dashboard">
 
-        <!-- INDEX WIDGET -->
-        <div class="widget" id="indexWidget">
-            <div class="widget-title">Index</div>
-        </div>
-
-        <div class="widget">
-            <div class="widget-title">Precious Metals</div>
-        </div>
-
-        <div class="widget"></div>
-
-        <div class="widget">
-            <div class="widget-title">Currencies</div>
-        </div>
-
-        <div class="widget"></div>
-        <div class="widget"></div>
-
+    <div class="widget" id="indexWidget">
+        <div class="widget-title">Index</div>
     </div>
 
-    <div class="side-widget"></div>
+    <div class="widget"><div class="widget-title">Precious Metals</div></div>
+    <div class="widget"></div>
+
+    <div class="widget"><div class="widget-title">Currencies</div></div>
+    <div class="widget"></div>
+    <div class="widget"></div>
+
+</div>
+
+<div class="side-widget"></div>
 
 </div>
 
@@ -150,26 +131,27 @@ h1{
 const indices = [
 {
     name:"S&P 500",
-    symbol:"^GSPC",
+    symbol:"^SPX",
     tv:"https://www.tradingview.com/symbols/SPX/"
 },
 {
     name:"MSCI World",
-    symbol:"SWDA.L",
+    symbol:"SWDA.LON",
     tv:"https://de.tradingview.com/symbols/LSE-SWDA/"
 },
 {
     name:"Nasdaq (QQQ)",
-    symbol:"QQQ",
+    symbol:"QQQ.US",
     tv:"https://de.tradingview.com/symbols/NASDAQ-QQQ/"
 }
 ];
 
+// Stooq API (no CORS issues)
 async function fetchData(symbol){
-    const url = `https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbol}`;
+    const url = `https://stooq.com/q/l/?s=${symbol}&f=sd2t2ohlcv&h&e=json`;
     const res = await fetch(url);
     const data = await res.json();
-    return data.quoteResponse.result[0];
+    return data.symbols[0];
 }
 
 async function loadIndex(){
@@ -184,8 +166,10 @@ async function loadIndex(){
 
             const data = await fetchData(item.symbol);
 
-            const price = data.regularMarketPrice.toFixed(2);
-            const change = data.regularMarketChangePercent.toFixed(2);
+            const price = parseFloat(data.close).toFixed(2);
+            const open = parseFloat(data.open);
+
+            const change = ((price - open) / open * 100).toFixed(2);
 
             const color = change >= 0 ? "lime" : "red";
 
@@ -208,7 +192,7 @@ async function loadIndex(){
             container.appendChild(div);
 
         }catch(e){
-            console.log("Error loading", item.symbol);
+            console.log("error loading", item.symbol);
         }
     }
 }
