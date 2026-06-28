@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard</title>
+<title>Stock Overview</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -16,17 +17,42 @@
 body{
     background:#0D0D0D;
     font-family:Arial, Helvetica, sans-serif;
+    color:white;
+}
+
+h1{
+    text-align:center;
+    margin-top:35px;
+    margin-bottom:35px;
+    font-size:42px;
+    font-weight:600;
+}
+
+.container{
+    width:95vw;
+    max-width:1800px;
+    margin:auto;
 
     display:flex;
     justify-content:center;
-    align-items:center;
+    gap:45px;
+}
 
-    min-height:100vh;
+.side-widget{
+    width:180px;
+    height:75vh;
+
+    background:#3B3A3A;
+    border-radius:18px;
+
+    box-shadow:0 0 15px rgba(255,255,255,.03);
+
+    transition:.2s;
 }
 
 .dashboard{
-    width:90vw;
-    max-width:1400px;
+    flex:1;
+    max-width:1300px;
     height:75vh;
 
     display:grid;
@@ -39,35 +65,44 @@ body{
 
 .widget{
     background:#3B3A3A;
-
     border-radius:18px;
 
-    box-shadow:
-        0 0 15px rgba(255,255,255,.03);
+    box-shadow:0 0 15px rgba(255,255,255,.03);
 
     transition:.2s;
 }
 
-.widget:hover{
+.widget:hover,
+.side-widget:hover{
     transform:translateY(-3px);
 
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.45);
+    box-shadow:0 8px 25px rgba(0,0,0,.45);
 }
-</style>
 
+</style>
 </head>
+
 <body>
 
-<div class="dashboard">
+<h1>Stock Overview</h1>
 
-    <div class="widget"></div>
-    <div class="widget"></div>
-    <div class="widget"></div>
+<div class="container">
 
-    <div class="widget"></div>
-    <div class="widget"></div>
-    <div class="widget"></div>
+    <div class="side-widget"></div>
+
+    <div class="dashboard">
+
+        <div class="widget"></div>
+        <div class="widget"></div>
+        <div class="widget"></div>
+
+        <div class="widget"></div>
+        <div class="widget"></div>
+        <div class="widget"></div>
+
+    </div>
+
+    <div class="side-widget"></div>
 
 </div>
 
