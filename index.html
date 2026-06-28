@@ -38,12 +38,8 @@
 
         <div class="widget" id="metalsWidget">
             <div class="widget-title">Precious Metals</div>
-            <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/GOLD/', '_blank')">
-                <div class="name">Gold</div><div class="price">Chart öffnen</div>
-            </div>
-            <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/SILVER/', '_blank')">
-                <div class="name">Silver</div><div class="price">Chart öffnen</div>
-            </div>
+            <div class="index-item" id="metal-0"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="metal-1"><div><div class="name">Silver</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')">
                 <div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div>
             </div>
@@ -65,6 +61,11 @@ const indices = [
     { symbol: "COPX.US", tv: "https://www.tradingview.com/symbols/AMEX-COPX/" }
 ];
 
+const metals = [
+    { symbol: "XAUUSD", tv: "https://de.tradingview.com/symbols/GOLD/" },
+    { symbol: "XAGUSD", tv: "https://de.tradingview.com/symbols/SILVER/" }
+];
+
 async function fetchData(symbol){
     try {
         const url = `https://stooq.com/q/l/?s=${symbol}&f=sd2t2ohlcv&h&e=json`;
@@ -74,30 +75,38 @@ async function fetchData(symbol){
     } catch(e) { return null; }
 }
 
-async function loadIndex(){
+async function updateDashboard(){
+    // Indizes laden
     for(let i = 0; i < indices.length; i++){
         const data = await fetchData(indices[i].symbol);
-        if(data) {
-            const price = parseFloat(data.close).toFixed(2);
-            const open = parseFloat(data.open);
-            const change = ((price - open) / open * 100).toFixed(2);
-            const color = change >= 0 ? "lime" : "red";
-
-            const el = document.getElementById(`item-${i}`);
-            el.onclick = () => window.open(indices[i].tv, "_blank");
-            el.innerHTML = `
-                <div>
-                    <div class="name">${data.name}</div>
-                    <div class="price">$${price}</div>
-                </div>
-                <div class="change" style="color:${color}">${change}%</div>
-            `;
-        }
+        if(data) updateUI(`item-${i}`, indices[i].tv, data);
+    }
+    // Metalle laden
+    for(let i = 0; i < metals.length; i++){
+        const data = await fetchData(metals[i].symbol);
+        if(data) updateUI(`metal-${i}`, metals[i].tv, data);
     }
 }
 
-loadIndex();
-setInterval(loadIndex, 90000);
+function updateUI(id, tvLink, data) {
+    const price = parseFloat(data.close).toFixed(2);
+    const open = parseFloat(data.open);
+    const change = ((price - open) / open * 100).toFixed(2);
+    const color = change >= 0 ? "lime" : "red";
+
+    const el = document.getElementById(id);
+    el.onclick = () => window.open(tvLink, "_blank");
+    el.innerHTML = `
+        <div>
+            <div class="name">${data.name}</div>
+            <div class="price">$${price}</div>
+        </div>
+        <div class="change" style="color:${color}">${change}%</div>
+    `;
+}
+
+updateDashboard();
+setInterval(updateDashboard, 90000);
 </script>
 
 </body>
