@@ -10,7 +10,6 @@
         
         h1{ text-align:center; margin-top:40px; margin-bottom:40px; font-size:50px; font-weight:600; }
         
-        /* Container Breite angepasst für breitere Side-Widgets */
         .container{ width: 2352px; margin: 0 auto; display:flex; justify-content:center; align-items:center; gap: 38px; }
         
         .dashboard{ width: 1440px; height: 900px; display:grid; grid-template-columns: repeat(3, 456px); grid-template-rows: repeat(2, 420px); gap: 38px; }
@@ -18,14 +17,17 @@
         .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; position: relative; }
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         
-        /* 0.75x Skalierung für Kurs-Items */
         .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; 
                      display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
         .name{ font-size: 12.75px; font-weight:600; }
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        /* Side Widgets doppelt so breit */
+        /* Button Style für Thesen */
+        .thesen-btn { background: #000; color: white; border: 1px solid #555; padding: 12px; border-radius: 10px; 
+                      cursor: pointer; width: 100%; text-align: center; font-weight: 600; margin-top: 10px; transition: 0.3s; }
+        .thesen-btn:hover { background: #222; border-color: #888; }
+
         .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; }
 
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
@@ -69,13 +71,19 @@
         <div class="widget" id="stocksWidget">
             <div class="widget-title">Stocks</div>
             <div class="index-item" id="stock-0" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">PATH</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-1" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-HNST/', '_blank')"><div><div class="name">HNST</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-2" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">CELH</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NYSE-NUVB/', '_blank')"><div><div class="name">NUVB</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">NAUT</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-1" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-HNST/', '_blank')"><div><div class="name">HNST</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-2" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">CELH</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-3" onclick="window.open('https://de.tradingview.com/symbols/NYSE-NUVB/', '_blank')"><div><div class="name">NUVB</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-4" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">NAUT</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
-        <div class="widget" id="emptyWidget1"><div class="widget-title">Thesen</div></div>
+        <div class="widget" id="emptyWidget1">
+            <div class="widget-title">Thesen</div>
+            <button class="thesen-btn" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit?usp=sharing', '_blank')">
+                Nautilus Biotechnologie
+            </button>
+        </div>
+        
         <div class="widget" id="emptyWidget2"><div class="widget-title">Placeholder</div></div>
     </div>
     <div class="side-widget"></div>
