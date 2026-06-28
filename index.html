@@ -23,7 +23,7 @@
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; }
+        .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; padding: 20px; }
 
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
         #stocksWidget  { grid-column: 2 / 3; grid-row: 1 / 2; }
@@ -38,14 +38,17 @@
 <h1>Stock Overview</h1>
 
 <div class="container">
-    <div class="side-widget"></div>
+    <div class="side-widget">
+        <div class="widget-title">Market News</div>
+    </div>
+
     <div class="dashboard">
         <div class="widget" id="indexWidget">
             <div class="widget-title">Index</div>
             <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-1" onclick="window.open('https://de.tradingview.com/symbols/LSE-SWDA/', '_blank')"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-2" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-3" onclick="window.open('https://www.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-3" onclick="window.open('https://de.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
         <div class="widget" id="stocksWidget">
@@ -74,12 +77,23 @@
 
         <div class="widget" id="emptyWidget1">
             <div class="widget-title">Thesen</div>
-            </div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit?usp=sharing', '_blank')"><div class="name">UiPath</div><div class="price">Thesen</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit?usp=sharing', '_blank')"><div class="name">Honest Company</div><div class="price">Thesen</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit?usp=sharing', '_blank')"><div class="name">Nuvation Bio</div><div class="price">Thesen</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit?usp=sharing', '_blank')"><div class="name">Nautilus Bio</div><div class="price">Thesen</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit?usp=sharing', '_blank')"><div class="name">Celsius Holding</div><div class="price">Thesen</div></div>
+        </div>
         
         <div class="widget" id="emptyWidget2">
             <div class="widget-title">Earnings Calls</div>
-            </div>
+            <div class="index-item" onclick="window.open('https://ir.uipath.com/', '_blank')"><div class="name">PATH</div><div class="price">10.12.26</div><div class="change">18:00</div></div>
+            <div class="index-item" onclick="window.open('https://investors.honest.com/', '_blank')"><div class="name">HNST</div><div class="price">10.12.26</div><div class="change">18:00</div></div>
+            <div class="index-item" onclick="window.open('https://investors.nuvationbio.com/', '_blank')"><div class="name">NUVB</div><div class="price">10.12.26</div><div class="change">18:00</div></div>
+            <div class="index-item" onclick="window.open('https://investors.nautilus.bio/', '_blank')"><div class="name">NAUT</div><div class="price">10.12.26</div><div class="change">18:00</div></div>
+            <div class="index-item" onclick="window.open('https://ir.celsiusholdingsinc.com/', '_blank')"><div class="name">CELH</div><div class="price">10.12.26</div><div class="change">18:00</div></div>
+        </div>
     </div>
+
     <div class="side-widget"></div>
 </div>
 
