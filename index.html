@@ -6,24 +6,31 @@
     <title>Stock Overview</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:#0D0D0D; font-family:Arial, sans-serif; color:white; }
-        h1 { text-align:center; margin:35px 0; font-size:42px; font-weight:600; }
+        body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; }
+        
+        h1 { text-align:center; margin-top:35px; margin-bottom:35px; font-size:42px; font-weight:600; }
+        
         .container { width:99vw; display:flex; justify-content:center; align-items:center; gap:90px; }
-        .dashboard { width:1200px; height:75vh; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:32px; }
         
-        /* Widget Styling */
+        .dashboard { 
+            width:1200px; height:75vh; 
+            display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); 
+            gap:32px; 
+        }
+        
         .widget { background:#3B3A3A; border-radius:18px; padding:20px; }
-        .widget-title { text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; width: 100%; }
+        .widget-title { text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; width:100%; }
         
-        /* Index Item Design */
+        /* INDEX ITEMS */
         .index-item { 
-            background:#000; border-radius:12px; padding:15px; margin-bottom:12px; cursor:pointer; 
-            display:flex; justify-content:space-between; align-items:center; transition: 0.3s;
+            background:#000; border-radius:12px; padding:12px; margin-bottom:12px; cursor:pointer; 
+            display:flex; justify-content:space-between; align-items:center; transition: background 0.2s;
         }
         .index-item:hover { background: #1a1a1a; }
-        .name { font-size:15px; font-weight:600; }
-        .price { font-size:13px; opacity:0.8; margin-top: 4px; }
-        .change { font-size:16px; font-weight:700; }
+        
+        .name { font-size:14px; font-weight:600; }
+        .price { font-size:13px; opacity:0.8; margin-top:2px; }
+        .change { font-size:14px; font-weight:600; }
         
         .side-widget { width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
     </style>
@@ -58,24 +65,23 @@ const indices = [
 
 async function updateData() {
     const container = document.getElementById("indexWidget");
-    
-    // Bestehende Items entfernen (außer den Titel)
     const title = container.querySelector(".widget-title");
+    
+    // Container leeren, aber Titel behalten
     container.innerHTML = "";
     container.appendChild(title);
 
-    for (const item of indices) {
+    // Alle Indizes gleichzeitig abrufen
+    const promises = indices.map(async (item) => {
         try {
-            // Fetch über Proxy für CORS
             const url = `https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/' + item.symbol)}`;
             const response = await fetch(url);
             const data = await response.json();
-            const result = JSON.parse(data.contents).chart.result[0].meta;
-
-            const price = result.regularMarketPrice.toFixed(2);
-            const change = (((result.regularMarketPrice - result.chartPreviousClose) / result.chartPreviousClose) * 100).toFixed(2);
-            const color = change >= 0 ? "lime" : "red";
-
+            const meta = JSON.parse(data.contents).chart.result[0].meta;
+            
+            const price = meta.regularMarketPrice.toFixed(2);
+            const change = (((meta.regularMarketPrice - meta.chartPreviousClose) / meta.chartPreviousClose) * 100).toFixed(2);
+            
             const div = document.createElement("div");
             div.className = "index-item";
             div.onclick = () => window.open(item.tv, "_blank");
@@ -84,17 +90,23 @@ async function updateData() {
                     <div class="name">${item.name}</div>
                     <div class="price">$${price}</div>
                 </div>
-                <div class="change" style="color:${color}">${change > 0 ? '+' : ''}${change}%</div>
+                <div class="change" style="color:${change >= 0 ? 'lime' : 'red'}">${change > 0 ? '+' : ''}${change}%</div>
             `;
-            container.appendChild(div);
+            return div;
         } catch (e) {
-            console.error("Fehler beim Laden von " + item.name, e);
+            console.error("Fehler bei " + item.name, e);
+            return null;
         }
-    }
+    });
+
+    // Ergebnisse in den Container einfügen
+    const results = await Promise.all(promises);
+    results.forEach(el => { if (el) container.appendChild(el); });
 }
 
-// Initialer Aufruf und Intervall
+// Initialer Aufruf
 updateData();
+// Update alle 10 Sekunden
 setInterval(updateData, 10000);
 </script>
 
