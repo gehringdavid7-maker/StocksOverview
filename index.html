@@ -6,19 +6,12 @@
     <title>Stock Overview</title>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
-        body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; }
-        h1{ text-align:center; margin-top:35px; margin-bottom:35px; font-size:42px; font-weight:600; }
+        body{ background:#0D0D0D; font-family:Arial, sans-serif; color:white; }
+        h1{ text-align:center; margin:35px 0; font-size:42px; font-weight:600; }
         .container{ width:99vw; display:flex; justify-content:center; align-items:center; gap:90px; }
         .dashboard{ width:1200px; height:75vh; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:32px; }
-        .widget{ background:#3B3A3A; border-radius:18px; padding:20px; }
+        .widget{ background:#3B3A3A; border-radius:18px; padding:20px; overflow: hidden; }
         .widget-title{ text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; }
-        
-        /* Die Items sind jetzt fest im Layout */
-        .index-item{ background:#000; border-radius:12px; padding:12px; margin-bottom:12px; cursor:pointer; 
-                     display:flex; justify-content:space-between; align-items:center; min-height: 55px; }
-        .name{ font-size:14px; font-weight:600; }
-        .price{ font-size:13px; opacity:0.8; }
-        .change{ font-size:14px; font-weight:600; }
         .side-widget{ width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
     </style>
 </head>
@@ -30,11 +23,28 @@
     <div class="side-widget"></div>
     <div class="dashboard">
         <div class="widget" id="indexWidget">
-            <div class="widget-title">Index</div>
-            <div class="index-item" id="item-0"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-1"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-2"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="widget-title">Index Overview</div>
+            <div class="tradingview-widget-container">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+                {
+                  "width": "100%",
+                  "height": "400",
+                  "symbolsGroups": [
+                    { "name": "Indices", "originalName": "Indices", "symbols": [
+                      { "name": "SP:SPX", "displayName": "S&P 500" },
+                      { "name": "LSE:SWDA", "displayName": "MSCI World" },
+                      { "name": "NASDAQ:QQQ", "displayName": "Nasdaq 100" }
+                    ]}
+                  ],
+                  "showSymbolLogo": true,
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "locale": "en"
+                }
+                </script>
+            </div>
         </div>
+        
         <div class="widget"><div class="widget-title">Precious Metals</div></div>
         <div class="widget"></div>
         <div class="widget"><div class="widget-title">Currencies</div></div>
@@ -43,50 +53,6 @@
     </div>
     <div class="side-widget"></div>
 </div>
-
-<script>
-const indices = [
-    { symbol: "^SPX", tv: "https://www.tradingview.com/symbols/SPX/" },
-    { symbol: "SWDA.LON", tv: "https://de.tradingview.com/symbols/LSE-SWDA/" },
-    { symbol: "QQQ.US", tv: "https://de.tradingview.com/symbols/NASDAQ-QQQ/" }
-];
-
-async function fetchData(symbol){
-    try {
-        const url = `https://stooq.com/q/l/?s=${symbol}&f=sd2t2ohlcv&h&e=json`;
-        const res = await fetch(url);
-        const data = await res.json();
-        return data.symbols[0];
-    } catch(e) { return null; }
-}
-
-async function loadIndex(){
-    for(let i = 0; i < indices.length; i++){
-        const data = await fetchData(indices[i].symbol);
-        if(data) {
-            const price = parseFloat(data.close).toFixed(2);
-            const open = parseFloat(data.open);
-            const change = ((price - open) / open * 100).toFixed(2);
-            const color = change >= 0 ? "lime" : "red";
-
-            const el = document.getElementById(`item-${i}`);
-            el.onclick = () => window.open(indices[i].tv, "_blank");
-            el.innerHTML = `
-                <div>
-                    <div class="name">${data.name}</div>
-                    <div class="price">$${price}</div>
-                </div>
-                <div class="change" style="color:${color}">${change}%</div>
-            `;
-        }
-    }
-}
-
-// Initialer Aufruf
-loadIndex();
-// Update alle 90 Sekunden
-setInterval(loadIndex, 90000);
-</script>
 
 </body>
 </html>
