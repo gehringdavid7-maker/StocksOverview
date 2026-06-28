@@ -29,17 +29,18 @@ h1{
 }
 
 .container{
-    width:95vw;
-    max-width:1800px;
+    width:99vw;
+    max-width:none;
     margin:auto;
 
     display:flex;
     justify-content:center;
-    gap:45px;
+    align-items:center;
+    gap:70px;
 }
 
 .side-widget{
-    width:180px;
+    width:300px;
     height:75vh;
 
     background:#3B3A3A;
@@ -51,8 +52,8 @@ h1{
 }
 
 .dashboard{
-    flex:1;
-    max-width:1300px;
+    width:100%;
+    max-width:1250px;
     height:75vh;
 
     display:grid;
@@ -65,6 +66,7 @@ h1{
 
 .widget{
     background:#3B3A3A;
+
     border-radius:18px;
 
     box-shadow:0 0 15px rgba(255,255,255,.03);
@@ -74,12 +76,15 @@ h1{
 
 .widget:hover,
 .side-widget:hover{
+
     transform:translateY(-3px);
 
     box-shadow:0 8px 25px rgba(0,0,0,.45);
+
 }
 
 </style>
+
 </head>
 
 <body>
