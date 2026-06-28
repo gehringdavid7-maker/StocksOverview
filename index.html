@@ -14,14 +14,15 @@
         .widget-title{ text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; }
         
         .index-item{ background:#000; border-radius:12px; padding:12px; margin-bottom:12px; cursor:pointer; 
-                     display:flex; justify-content:space-between; align-items:center; min-height: 55px; }
+                     display:flex; justify-content:space-between; align-items:center; min-height: 50px; }
         .name{ font-size:14px; font-weight:600; }
         .price{ font-size:13px; opacity:0.8; }
         .change{ font-size:14px; font-weight:600; }
         .side-widget{ width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
         
-        /* Positionierung für das untere linke Widget */
+        /* Grid Positionen */
         #currWidget { grid-column: 1 / 2; grid-row: 2 / 3; }
+        #stocksWidget { grid-column: 2 / 3; grid-row: 2 / 3; }
     </style>
 </head>
 <body>
@@ -56,18 +57,25 @@
             <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
-        <div class="widget"></div>
-        <div class="widget"></div>
+        <div class="widget" id="stocksWidget">
+            <div class="widget-title">Stocks</div>
+            <div class="index-item" id="stock-0" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">PATH</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-1" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-HNST/', '_blank')"><div><div class="name">HNST</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-2" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">CELH</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NYSE-NUVB/', '_blank')"><div><div class="name">NUVB</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">NAUT</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+        </div>
+
         <div class="widget"></div>
     </div>
     <div class="side-widget"></div>
 </div>
 
 <script>
-// (Skript bleibt identisch)
 const indices = [ {symbol: "^SPX"}, {symbol: "SWDA.LON"}, {symbol: "QQQ.US"}, {symbol: "COPX.US"} ];
 const metals = [ {symbol: "XAUUSD"}, {symbol: "XAGUSD"} ];
 const curr = [ {symbol: "EURUSD"}, {symbol: "USDJPY"}, {symbol: "USDCHF"}, {symbol: "BTCUSD"} ];
+const stocks = [ {symbol: "PATH.US"}, {symbol: "HNST.US"}, {symbol: "CELH.US"}, {symbol: "NUVB.US"}, {symbol: "NAUT.US"} ];
 
 async function fetchData(symbol){
     try {
@@ -79,26 +87,18 @@ async function fetchData(symbol){
 }
 
 async function updateDashboard(){
-    for(let i = 0; i < indices.length; i++){
-        const data = await fetchData(indices[i].symbol);
-        if(data) updateUI(`item-${i}`, data);
-    }
-    for(let i = 0; i < metals.length; i++){
-        const data = await fetchData(metals[i].symbol);
-        if(data) updateUI(`metal-${i}`, data);
-    }
-    for(let i = 0; i < curr.length; i++){
-        const data = await fetchData(curr[i].symbol);
-        if(data) updateUI(`curr-${i}`, data);
-    }
+    for(let i = 0; i < indices.length; i++){ const data = await fetchData(indices[i].symbol); if(data) updateUI(`item-${i}`, data); }
+    for(let i = 0; i < metals.length; i++){ const data = await fetchData(metals[i].symbol); if(data) updateUI(`metal-${i}`, data); }
+    for(let i = 0; i < curr.length; i++){ const data = await fetchData(curr[i].symbol); if(data) updateUI(`curr-${i}`, data); }
+    for(let i = 0; i < stocks.length; i++){ const data = await fetchData(stocks[i].symbol); if(data) updateUI(`stock-${i}`, data); }
 }
 
 function updateUI(id, data) {
-    const price = parseFloat(data.close).toFixed(4);
+    const price = parseFloat(data.close).toFixed(2);
     const open = parseFloat(data.open);
     const change = ((price - open) / open * 100).toFixed(2);
     const el = document.getElementById(id);
-    el.querySelector('.price').innerText = `${price}`;
+    el.querySelector('.price').innerText = `$${price}`;
     const changeEl = el.querySelector('.change');
     changeEl.innerText = `${change}%`;
     changeEl.style.color = change >= 0 ? "lime" : "red";
