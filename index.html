@@ -19,6 +19,9 @@
         .price{ font-size:13px; opacity:0.8; }
         .change{ font-size:14px; font-weight:600; }
         .side-widget{ width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
+        
+        /* Positionierung für das untere linke Widget */
+        #currWidget { grid-column: 1 / 2; grid-row: 2 / 3; }
     </style>
 </head>
 <body>
@@ -61,6 +64,7 @@
 </div>
 
 <script>
+// (Skript bleibt identisch)
 const indices = [ {symbol: "^SPX"}, {symbol: "SWDA.LON"}, {symbol: "QQQ.US"}, {symbol: "COPX.US"} ];
 const metals = [ {symbol: "XAUUSD"}, {symbol: "XAGUSD"} ];
 const curr = [ {symbol: "EURUSD"}, {symbol: "USDJPY"}, {symbol: "USDCHF"}, {symbol: "BTCUSD"} ];
@@ -90,7 +94,7 @@ async function updateDashboard(){
 }
 
 function updateUI(id, data) {
-    const price = parseFloat(data.close).toFixed(4); // Währungen brauchen 4 Nachkommastellen
+    const price = parseFloat(data.close).toFixed(4);
     const open = parseFloat(data.open);
     const change = ((price - open) / open * 100).toFixed(2);
     const el = document.getElementById(id);
