@@ -44,16 +44,15 @@
 const indices = [
     { name: "S&P 500", symbol: "^GSPC", tv: "https://www.tradingview.com/symbols/SPX/" },
     { name: "MSCI World", symbol: "URTH", tv: "https://de.tradingview.com/symbols/LSE-SWDA/" },
-    { name: "Nasdaq", symbol: "^IXIC", tv: "https://de.tradingview.com/symbols/NASDAQ-QQQ/" }
+    { name: "Nasdaq 100", symbol: "^NDX", tv: "https://de.tradingview.com/symbols/NASDAQ-NDX/" }
 ];
 
-// Initialisierung: Erstellt die Karten einmalig
 function initWidgets() {
     const container = document.getElementById("indexWidget");
     indices.forEach((item, index) => {
         const div = document.createElement("div");
         div.className = "index-item";
-        div.id = `index-${index}`; // Eindeutige ID für jedes Item
+        div.id = `index-${index}`;
         div.onclick = () => window.open(item.tv, "_blank");
         div.innerHTML = `
             <div>
@@ -66,12 +65,17 @@ function initWidgets() {
     });
 }
 
-// Aktualisiert nur die Werte in den vorhandenen Elementen
 async function updateValues() {
     for (let i = 0; i < indices.length; i++) {
+        // Timeout-Logik für 5 Sekunden
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 5000);
+
         try {
             const url = `https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/' + indices[i].symbol)}`;
-            const response = await fetch(url);
+            const response = await fetch(url, { signal: controller.signal });
+            clearTimeout(timeout);
+            
             const data = await response.json();
             const meta = JSON.parse(data.contents).chart.result[0].meta;
             
@@ -82,13 +86,17 @@ async function updateValues() {
             const changeEl = document.getElementById(`change-${i}`);
             changeEl.innerText = `${change > 0 ? '+' : ''}${change}%`;
             changeEl.style.color = change >= 0 ? "lime" : "red";
-        } catch (e) { console.error("Update fehlgeschlagen", e); }
+        } catch (e) {
+            console.error("Fehler bei " + indices[i].name, e);
+            document.getElementById(`price-${i}`).innerText = "N/A";
+            document.getElementById(`change-${i}`).innerText = "--";
+        }
     }
 }
 
 initWidgets();
 updateValues();
-setInterval(updateValues, 30000); // Lädt alle 30 Sekunden neu, ohne die Karten zu löschen
+setInterval(updateValues, 30000);
 </script>
 
 </body>
