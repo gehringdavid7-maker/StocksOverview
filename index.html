@@ -9,7 +9,7 @@
         body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; }
         h1{ text-align:center; margin-top:35px; margin-bottom:35px; font-size:42px; font-weight:600; }
         .container{ width:99vw; display:flex; justify-content:center; align-items:center; gap:90px; }
-        .dashboard{ width:1200px; height:75vh; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:32px; }
+        .dashboard{ width:1200px; height:75vh; display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:repeat(2, 1fr); gap:32px; }
         .widget{ background:#3B3A3A; border-radius:18px; padding:20px; }
         .widget-title{ text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; }
         
@@ -20,11 +20,14 @@
         .change{ font-size:14px; font-weight:600; }
         .side-widget{ width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
 
-        /* Grid Positionen - Rechte Spalte bleibt leer */
+        /* Grid Positionen - Jetzt alle 3 Spalten genutzt */
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
         #metalsWidget  { grid-column: 2 / 3; grid-row: 1 / 2; }
         #currWidget    { grid-column: 1 / 2; grid-row: 2 / 3; }
         #stocksWidget  { grid-column: 2 / 3; grid-row: 2 / 3; }
+        /* Die zwei rechten Widgets */
+        #emptyWidget1  { grid-column: 3 / 4; grid-row: 1 / 2; }
+        #emptyWidget2  { grid-column: 3 / 4; grid-row: 2 / 3; }
     </style>
 </head>
 <body>
@@ -67,11 +70,15 @@
             <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NYSE-NUVB/', '_blank')"><div><div class="name">NUVB</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">NAUT</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
+
+        <div class="widget" id="emptyWidget1"><div class="widget-title">Placeholder</div></div>
+        <div class="widget" id="emptyWidget2"><div class="widget-title">Placeholder</div></div>
     </div>
     <div class="side-widget"></div>
 </div>
 
 <script>
+// (Skript bleibt gleich)
 const indices = [ {symbol: "^SPX"}, {symbol: "SWDA.LON"}, {symbol: "QQQ.US"}, {symbol: "COPX.US"} ];
 const metals = [ {symbol: "XAUUSD"}, {symbol: "XAGUSD"} ];
 const curr = [ {symbol: "EURUSD"}, {symbol: "USDJPY"}, {symbol: "USDCHF"}, {symbol: "BTCUSD"} ];
