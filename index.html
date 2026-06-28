@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock Overview</title>
-<style>
-    *{ margin:0; padding:0; box-sizing:border-box; }
-    body{ background:#0D0D0D; font-family:Arial, sans-serif; color:white; }
-    h1{ text-align:center; margin:35px 0; font-size:42px; font-weight:600; }
-    .container{ width:99vw; display:flex; justify-content:center; align-items:center; gap:90px; }
-    .dashboard{ width:1200px; height:75vh; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:32px; }
-    .widget{ background:#3B3A3A; border-radius:18px; padding:20px; overflow:hidden; }
-    .widget-title{ text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; }
-    .index-item{ background:#000; border-radius:12px; padding:12px; margin-bottom:12px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; }
-    .name{ font-size:14px; font-weight:600; }
-    .price{ font-size:13px; opacity:0.8; }
-    .change{ font-size:14px; font-weight:600; }
-    .side-widget{ width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Overview</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#0D0D0D; font-family:Arial, sans-serif; color:white; }
+        h1 { text-align:center; margin:35px 0; font-size:42px; font-weight:600; }
+        .container { width:99vw; display:flex; justify-content:center; align-items:center; gap:90px; }
+        .dashboard { width:1200px; height:75vh; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(2,1fr); gap:32px; }
+        
+        .widget { background:#3B3A3A; border-radius:18px; padding:20px; display:flex; flex-direction:column; }
+        .widget-title { text-align:center; font-size:20px; font-weight:600; margin-bottom:15px; width: 100%; }
+        
+        /* Die Chart-Container im Index-Widget */
+        .tv-wrapper { margin-bottom: 10px; cursor: pointer; border-radius: 12px; overflow: hidden; }
+        .side-widget { width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
+    </style>
 </head>
 <body>
 
@@ -25,62 +25,57 @@
 
 <div class="container">
     <div class="side-widget"></div>
+
     <div class="dashboard">
         <div class="widget" id="indexWidget">
             <div class="widget-title">Index</div>
+            
+            <div class="tv-wrapper" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')">
+                <div class="tradingview-widget-container"><div id="tradingview_spx"></div></div>
+            </div>
+            <div class="tv-wrapper" onclick="window.open('https://de.tradingview.com/symbols/LSE-SWDA/', '_blank')">
+                <div class="tradingview-widget-container"><div id="tradingview_msci"></div></div>
+            </div>
+            <div class="tv-wrapper" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-QQQ/', '_blank')">
+                <div class="tradingview-widget-container"><div id="tradingview_nasdaq"></div></div>
+            </div>
         </div>
+
         <div class="widget"><div class="widget-title">Precious Metals</div></div>
-        <div class="widget"></div>
+        <div class="widget"><div class="widget-title">Empty</div></div>
         <div class="widget"><div class="widget-title">Currencies</div></div>
-        <div class="widget"></div>
-        <div class="widget"></div>
+        <div class="widget"><div class="widget-title">Empty</div></div>
+        <div class="widget"><div class="widget-title">Empty</div></div>
     </div>
+
     <div class="side-widget"></div>
 </div>
 
-<script>
-const indices = [
-    { name: "S&P 500", symbol: "^GSPC", tv: "https://www.tradingview.com/symbols/SPX/" },
-    { name: "MSCI World", symbol: "URTH", tv: "https://www.tradingview.com/symbols/NYSEARCA-URTH/" },
-    { name: "Nasdaq", symbol: "^IXIC", tv: "https://www.tradingview.com/symbols/NASDAQ-IXIC/" }
-];
-
-async function loadIndex() {
-    const container = document.getElementById("indexWidget");
-    container.innerHTML = `<div class="widget-title">Index</div>`;
-
-    for(const item of indices) {
-        try {
-            // Proxy für Yahoo Finance Daten
-            const url = `https://api.allorigins.win/get?url=${encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/chart/' + item.symbol)}`;
-            const res = await fetch(url);
-            const raw = await res.json();
-            const data = JSON.parse(raw.contents).chart.result[0].meta;
-            
-            const price = data.regularMarketPrice.toFixed(2);
-            const prevClose = data.chartPreviousClose;
-            const change = (((data.regularMarketPrice - prevClose) / prevClose) * 100).toFixed(2);
-            const color = change >= 0 ? "lime" : "red";
-
-            const div = document.createElement("div");
-            div.className = "index-item";
-            div.onclick = () => window.open(item.tv, "_blank");
-            div.innerHTML = `
-                <div>
-                    <div class="name">${item.name}</div>
-                    <div class="price">$${price}</div>
-                </div>
-                <div class="change" style="color:${color}">${change > 0 ? '+':''}${change}%</div>
-            `;
-            container.appendChild(div);
-        } catch(e) {
-            console.error("Error", e);
-        }
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script type="text/javascript">
+    function createWidget(containerId, symbol) {
+        new TradingView.widget({
+            "container_id": containerId,
+            "width": "100%",
+            "height": 120,
+            "symbol": symbol,
+            "interval": "D",
+            "timezone": "Etc/UTC",
+            "theme": "dark",
+            "style": "2",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "hide_top_toolbar": true,
+            "hide_legend": true,
+            "save_image": false,
+            "backgroundColor": "#000000"
+        });
     }
-}
 
-loadIndex();
-setInterval(loadIndex, 60000); // Aktualisiert alle 60 Sek
+    createWidget("tradingview_spx", "SP:SPX");
+    createWidget("tradingview_msci", "LSE:SWDA");
+    createWidget("tradingview_nasdaq", "NASDAQ:QQQ");
 </script>
 
 </body>
