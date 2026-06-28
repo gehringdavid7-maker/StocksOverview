@@ -30,23 +30,30 @@
     <div class="dashboard">
         <div class="widget" id="indexWidget">
             <div class="widget-title">Index</div>
-            <div class="index-item" id="item-0"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-1"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-2"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-3"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-1" onclick="window.open('https://de.tradingview.com/symbols/LSE-SWDA/', '_blank')"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-2" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-3" onclick="window.open('https://www.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
         <div class="widget" id="metalsWidget">
             <div class="widget-title">Precious Metals</div>
-            <div class="index-item" id="metal-0"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="metal-1"><div><div class="name">Silver</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="metal-0" onclick="window.open('https://de.tradingview.com/symbols/GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="metal-1" onclick="window.open('https://de.tradingview.com/symbols/SILVER/', '_blank')"><div><div class="name">Silver</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')">
                 <div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div>
             </div>
         </div>
 
+        <div class="widget" id="currWidget">
+            <div class="widget-title">Currencies & Crypto</div>
+            <div class="index-item" id="curr-0" onclick="window.open('https://de.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-1" onclick="window.open('https://de.tradingview.com/symbols/USDJPY/', '_blank')"><div><div class="name">USD/JPY</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-2" onclick="window.open('https://de.tradingview.com/symbols/USDCHF/', '_blank')"><div><div class="name">USD/CHF</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+        </div>
+
         <div class="widget"></div>
-        <div class="widget"><div class="widget-title">Currencies</div></div>
         <div class="widget"></div>
         <div class="widget"></div>
     </div>
@@ -54,17 +61,9 @@
 </div>
 
 <script>
-const indices = [
-    { symbol: "^SPX", tv: "https://www.tradingview.com/symbols/SPX/" },
-    { symbol: "SWDA.LON", tv: "https://de.tradingview.com/symbols/LSE-SWDA/" },
-    { symbol: "QQQ.US", tv: "https://de.tradingview.com/symbols/NASDAQ-QQQ/" },
-    { symbol: "COPX.US", tv: "https://www.tradingview.com/symbols/AMEX-COPX/" }
-];
-
-const metals = [
-    { symbol: "XAUUSD", tv: "https://de.tradingview.com/symbols/GOLD/" },
-    { symbol: "XAGUSD", tv: "https://de.tradingview.com/symbols/SILVER/" }
-];
+const indices = [ {symbol: "^SPX"}, {symbol: "SWDA.LON"}, {symbol: "QQQ.US"}, {symbol: "COPX.US"} ];
+const metals = [ {symbol: "XAUUSD"}, {symbol: "XAGUSD"} ];
+const curr = [ {symbol: "EURUSD"}, {symbol: "USDJPY"}, {symbol: "USDCHF"}, {symbol: "BTCUSD"} ];
 
 async function fetchData(symbol){
     try {
@@ -76,33 +75,29 @@ async function fetchData(symbol){
 }
 
 async function updateDashboard(){
-    // Indizes laden
     for(let i = 0; i < indices.length; i++){
         const data = await fetchData(indices[i].symbol);
-        if(data) updateUI(`item-${i}`, indices[i].tv, data);
+        if(data) updateUI(`item-${i}`, data);
     }
-    // Metalle laden
     for(let i = 0; i < metals.length; i++){
         const data = await fetchData(metals[i].symbol);
-        if(data) updateUI(`metal-${i}`, metals[i].tv, data);
+        if(data) updateUI(`metal-${i}`, data);
+    }
+    for(let i = 0; i < curr.length; i++){
+        const data = await fetchData(curr[i].symbol);
+        if(data) updateUI(`curr-${i}`, data);
     }
 }
 
-function updateUI(id, tvLink, data) {
-    const price = parseFloat(data.close).toFixed(2);
+function updateUI(id, data) {
+    const price = parseFloat(data.close).toFixed(4); // Währungen brauchen 4 Nachkommastellen
     const open = parseFloat(data.open);
     const change = ((price - open) / open * 100).toFixed(2);
-    const color = change >= 0 ? "lime" : "red";
-
     const el = document.getElementById(id);
-    el.onclick = () => window.open(tvLink, "_blank");
-    el.innerHTML = `
-        <div>
-            <div class="name">${data.name}</div>
-            <div class="price">$${price}</div>
-        </div>
-        <div class="change" style="color:${color}">${change}%</div>
-    `;
+    el.querySelector('.price').innerText = `${price}`;
+    const changeEl = el.querySelector('.change');
+    changeEl.innerText = `${change}%`;
+    changeEl.style.color = change >= 0 ? "lime" : "red";
 }
 
 updateDashboard();
