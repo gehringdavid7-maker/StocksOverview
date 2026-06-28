@@ -20,12 +20,11 @@
         .change{ font-size:14px; font-weight:600; }
         .side-widget{ width:378px; height:75vh; background:#3B3A3A; border-radius:18px; }
 
-        /* Grid Layout Zuweisungen */
+        /* Grid Positionen - Rechte Spalte bleibt leer */
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
         #metalsWidget  { grid-column: 2 / 3; grid-row: 1 / 2; }
         #currWidget    { grid-column: 1 / 2; grid-row: 2 / 3; }
         #stocksWidget  { grid-column: 2 / 3; grid-row: 2 / 3; }
-        #lastWidget    { grid-column: 3 / 4; grid-row: 2 / 3; }
     </style>
 </head>
 <body>
@@ -67,11 +66,6 @@
             <div class="index-item" id="stock-2" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">CELH</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NYSE-NUVB/', '_blank')"><div><div class="name">NUVB</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">NAUT</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-        </div>
-
-        <div class="widget" id="lastWidget">
-            <div class="widget-title">Status</div>
-            <div class="index-item"><div class="name">System</div><div class="price">Online</div></div>
         </div>
     </div>
     <div class="side-widget"></div>
