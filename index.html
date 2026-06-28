@@ -23,11 +23,6 @@
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        /* Button Style für Thesen */
-        .thesen-btn { background: #000; color: white; border: 1px solid #555; padding: 12px; border-radius: 10px; 
-                      cursor: pointer; width: 100%; text-align: center; font-weight: 600; margin-top: 10px; transition: 0.3s; }
-        .thesen-btn:hover { background: #222; border-color: #888; }
-
         .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; }
 
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
@@ -45,14 +40,16 @@
 <div class="container">
     <div class="side-widget"></div>
     <div class="dashboard">
+        <!-- Index -->
         <div class="widget" id="indexWidget">
             <div class="widget-title">Index</div>
             <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-1" onclick="window.open('https://de.tradingview.com/symbols/LSE-SWDA/', '_blank')"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-2" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-3" onclick="window.open('https://www.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-3" onclick="window.open('https://de.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
+        <!-- Precious Metals -->
         <div class="widget" id="metalsWidget">
             <div class="widget-title">Precious Metals</div>
             <div class="index-item" id="metal-0" onclick="window.open('https://de.tradingview.com/symbols/GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -60,6 +57,7 @@
             <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div></div>
         </div>
 
+        <!-- Currencies & Crypto -->
         <div class="widget" id="currWidget">
             <div class="widget-title">Currencies & Crypto</div>
             <div class="index-item" id="curr-0" onclick="window.open('https://de.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -68,6 +66,7 @@
             <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
+        <!-- Stocks -->
         <div class="widget" id="stocksWidget">
             <div class="widget-title">Stocks</div>
             <div class="index-item" id="stock-0" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">PATH</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -77,11 +76,13 @@
             <div class="index-item" id="stock-4" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">NAUT</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
+        <!-- Thesen mit dem neuen Button -->
         <div class="widget" id="emptyWidget1">
             <div class="widget-title">Thesen</div>
-            <button class="thesen-btn" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit?usp=sharing', '_blank')">
-                Nautilus Biotechnologie
-            </button>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit?usp=sharing', '_blank')">
+                <div class="name">Nautilus Biotechnologie</div>
+                <div class="price">Link öffnen</div>
+            </div>
         </div>
         
         <div class="widget" id="emptyWidget2"><div class="widget-title">Placeholder</div></div>
