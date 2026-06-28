@@ -7,6 +7,7 @@
 <title>Stock Overview</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -29,6 +30,8 @@ h1{
 
 .container{
     width:99vw;
+    margin:auto;
+
     display:flex;
     justify-content:center;
     align-items:center;
@@ -46,75 +49,39 @@ h1{
     gap:32px;
 }
 
-.widget{
+.widget,
+.side-widget{
     background:#3B3A3A;
     border-radius:18px;
-    padding:18px;
-
     box-shadow:0 0 15px rgba(255,255,255,.03);
+    transition:.2s;
+}
+
+.widget{
+    padding:20px;
 }
 
 .widget-title{
-    text-align:center;
     color:white;
     font-size:20px;
     font-weight:600;
     margin-bottom:15px;
 }
 
-/* INDEX CARDS */
-.index-item{
-    background:#000;
-    border-radius:14px;
-    padding:12px;
-    margin-bottom:12px;
-    cursor:pointer;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    transition:0.2s;
+.widget:hover,
+.side-widget:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 25px rgba(0,0,0,.45);
 }
 
-.index-item:hover{
-    transform:scale(1.02);
-}
-
-.left{
-    display:flex;
-    flex-direction:column;
-}
-
-.name{
-    font-size:14px;
-    font-weight:600;
-}
-
-.price{
-    font-size:13px;
-    opacity:0.8;
-}
-
-.change{
-    font-size:14px;
-    font-weight:600;
-}
-
-canvas{
-    width:80px;
-    height:30px;
-}
-
-/* SIDE */
+/* Side panels */
 .side-widget{
     width:378px;
     height:75vh;
-    background:#3B3A3A;
-    border-radius:18px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -123,112 +90,45 @@ canvas{
 
 <div class="container">
 
-<div class="side-widget"></div>
+    <div class="side-widget"></div>
 
-<div class="dashboard">
+    <div class="dashboard">
 
-    <div class="widget" id="indexWidget">
-        <div class="widget-title">Index</div>
+        <!-- Top Left -->
+        <div class="widget">
+            <div class="widget-title">Index</div>
+        </div>
+
+        <!-- Top Middle -->
+        <div class="widget">
+            <div class="widget-title">Precious Metals</div>
+        </div>
+
+        <!-- Top Right -->
+        <div class="widget">
+            <div class="widget-title"></div>
+        </div>
+
+        <!-- Bottom Left -->
+        <div class="widget">
+            <div class="widget-title">Currencies</div>
+        </div>
+
+        <!-- Bottom Middle -->
+        <div class="widget">
+            <div class="widget-title"></div>
+        </div>
+
+        <!-- Bottom Right -->
+        <div class="widget">
+            <div class="widget-title"></div>
+        </div>
+
     </div>
 
-    <div class="widget">
-        <div class="widget-title">Precious Metals</div>
-    </div>
-
-    <div class="widget"></div>
-
-    <div class="widget">
-        <div class="widget-title">Currencies</div>
-    </div>
-
-    <div class="widget"></div>
-    <div class="widget"></div>
+    <div class="side-widget"></div>
 
 </div>
-
-<div class="side-widget"></div>
-
-</div>
-
-<script>
-
-const indices = [
-{
-    name:"S&P 500",
-    symbol:"^GSPC",
-    tv:"https://www.tradingview.com/symbols/SPX/"
-},
-{
-    name:"MSCI World",
-    symbol:"SWDA.L",
-    tv:"https://de.tradingview.com/symbols/LSE-SWDA/"
-},
-{
-    name:"Nasdaq (QQQ)",
-    symbol:"QQQ",
-    tv:"https://de.tradingview.com/symbols/NASDAQ-QQQ/"
-}
-];
-
-// store fake sparkline data
-const history = {
-    "^GSPC":[],
-    "SWDA.L":[],
-    "QQQ":[]
-};
-
-async function fetchData(symbol){
-    const url = `https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbol}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    return data.quoteResponse.result[0];
-}
-
-function updateUI(){
-    const container = document.getElementById("indexWidget");
-    container.innerHTML = `<div class="widget-title">Index</div>`;
-
-    indices.forEach(async (item)=>{
-
-        const data = await fetchData(item.symbol);
-
-        const change = data.regularMarketChangePercent.toFixed(2);
-        const price = data.regularMarketPrice.toFixed(2);
-
-        // store history (for simple sparkline)
-        if(!history[item.symbol]) history[item.symbol] = [];
-        history[item.symbol].push(price);
-        if(history[item.symbol].length > 20) history[item.symbol].shift();
-
-        const color = change >= 0 ? "lime" : "red";
-
-        const div = document.createElement("div");
-        div.className = "index-item";
-
-        div.onclick = () => window.open(item.tv, "_blank");
-
-        div.innerHTML = `
-            <div class="left">
-                <div class="name">${item.name}</div>
-                <div class="price">${price}</div>
-            </div>
-
-            <div class="change" style="color:${color}">
-                ${change}%
-            </div>
-        `;
-
-        container.appendChild(div);
-    });
-}
-
-// first load
-updateUI();
-
-// refresh every 10 seconds
-setInterval(updateUI, 10000);
-
-</script>
 
 </body>
 </html>
