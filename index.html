@@ -6,7 +6,16 @@
     <title>Stock Overview</title>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
-        body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; }
+        
+        /* 80% Zoom hinzugefügt */
+        body{ 
+            background:#0D0D0D; 
+            font-family:Arial, Helvetica, sans-serif; 
+            color:white; 
+            padding: 40px 20px; 
+            zoom: 0.8; 
+            transform-origin: top left; 
+        }
         
         .header { text-align: center; margin-bottom: 40px; font-size: 50px; font-weight: 600; }
         
@@ -21,9 +30,9 @@
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        /* News-Button im Widget-Grau */
-        .news-btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 38px; }
-        .news-btn:hover { background: #504f4f; }
+        /* Buttons im Widget-Grau */
+        .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 38px; }
+        .btn:hover { background: #504f4f; }
     </style>
 </head>
 <body>
@@ -49,9 +58,8 @@
             <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
         
-        <button class="news-btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank', 'width=600,height=900');">
-            X-Liste (News)
-        </button>
+        <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank', 'width=600,height=900');">X-Liste (News)</button>
+        <button class="btn" style="margin-top: 15px;" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank');">AI Assistent</button>
     </div>
 
     <div style="display: flex; flex-direction: column;">
