@@ -10,7 +10,10 @@
         
         h1{ text-align:center; margin-top:40px; margin-bottom:40px; font-size:50px; font-weight:600; }
         
-        .container{ width: 2352px; margin: 0 auto; display:flex; justify-content:center; align-items:center; gap: 38px; }
+        /* Container jetzt zentriert mit direktem Zugriff auf News-Button und Dashboard */
+        .container{ width: 1950px; margin: 0 auto; display:flex; justify-content:center; align-items:flex-start; gap: 38px; }
+        
+        .left-column { width: 432px; display: flex; flex-direction: column; }
         
         .dashboard{ width: 1440px; height: 900px; display:grid; grid-template-columns: repeat(3, 456px); grid-template-rows: repeat(2, 420px); gap: 38px; }
         
@@ -23,7 +26,8 @@
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* News-Button Style */
+        .news-btn { width: 432px; height: 80px; background: #1DA1F2; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 20px; font-weight: bold; }
 
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
         #stocksWidget  { grid-column: 2 / 3; grid-row: 1 / 2; }
@@ -38,20 +42,13 @@
 <h1>Stock Overview</h1>
 
 <div class="container">
-    <!-- Linkes Side-Widget (Popup-Funktion) -->
-    <div class="side-widget">
-        <div class="widget-title">News</div>
-        <button onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank', 'width=600,height=900,left=0,top=0');" 
-                style="padding: 20px 40px; background: #1DA1F2; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 18px; font-weight: bold;">
-            X-Liste öffnen
+    <div class="left-column">
+        <button class="news-btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank', 'width=600,height=900');">
+            News (X-Liste öffnen)
         </button>
-        <p style="margin-top: 20px; font-size: 14px; color: #aaa; text-align: center;">
-            Klicke auf den Button und drücke dann <b>[Windows + Pfeiltaste Links]</b>, um die News perfekt an den Rand zu snappen.
-        </p>
     </div>
 
     <div class="dashboard">
-        <!-- Index -->
         <div class="widget" id="indexWidget">
             <div class="widget-title">Index</div>
             <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -60,7 +57,6 @@
             <div class="index-item" id="item-3" onclick="window.open('https://de.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
-        <!-- Stocks -->
         <div class="widget" id="stocksWidget">
             <div class="widget-title">Stocks</div>
             <div class="index-item" id="stock-0" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">UiPath</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -70,7 +66,6 @@
             <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">Celsius Holding</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
-        <!-- Currencies -->
         <div class="widget" id="currWidget">
             <div class="widget-title">Currencies & Crypto</div>
             <div class="index-item" id="curr-0" onclick="window.open('https://de.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -79,7 +74,6 @@
             <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
-        <!-- Metals -->
         <div class="widget" id="metalsWidget">
             <div class="widget-title">Precious Metals</div>
             <div class="index-item" id="metal-0" onclick="window.open('https://de.tradingview.com/symbols/GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -87,7 +81,6 @@
             <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div></div>
         </div>
 
-        <!-- Thesen -->
         <div class="widget" id="emptyWidget1">
             <div class="widget-title">Thesen</div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit?usp=sharing', '_blank')"><div class="name">UiPath</div><div class="price">Thesen</div></div>
@@ -97,7 +90,6 @@
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit?usp=sharing', '_blank')"><div class="name">Celsius Holding</div><div class="price">Thesen</div></div>
         </div>
         
-        <!-- Earnings -->
         <div class="widget" id="emptyWidget2">
             <div class="widget-title">Earnings Calls</div>
             <div class="index-item" onclick="window.open('https://ir.uipath.com/', '_blank')"><div class="name">PATH</div><div class="price">10.12.26</div><div class="change">18:00</div></div>
@@ -107,12 +99,10 @@
             <div class="index-item" onclick="window.open('https://ir.celsiusholdingsinc.com/', '_blank')"><div class="name">CELH</div><div class="price">10.12.26</div><div class="change">18:00</div></div>
         </div>
     </div>
-
-    <!-- Rechtes Side-Widget -->
-    <div class="side-widget"></div>
 </div>
 
 <script>
+    // ... (Script bleibt identisch)
     const indices = [ {symbol: "^SPX"}, {symbol: "SWDA.LON"}, {symbol: "QQQ.US"}, {symbol: "COPX.US"} ];
     const metals = [ {symbol: "XAUUSD"}, {symbol: "XAGUSD"} ];
     const curr = [ {symbol: "EURUSD"}, {symbol: "USDJPY"}, {symbol: "USDCHF"}, {symbol: "BTCUSD"} ];
