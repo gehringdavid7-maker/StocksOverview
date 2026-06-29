@@ -56,7 +56,8 @@
             <div class="index-item" id="curr-0" onclick="window.open('https://de.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="curr-1" onclick="window.open('https://de.tradingview.com/symbols/USDJPY/', '_blank')"><div><div class="name">USD/JPY</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="curr-2" onclick="window.open('https://de.tradingview.com/symbols/USDCHF/', '_blank')"><div><div class="name">USD/CHF</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/GBPUSD/', '_blank')"><div><div class="name">GBP/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-4" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
         
         <div class="spacing"></div>
@@ -117,7 +118,7 @@
 <script>
     const indices = [ {symbol: "^SPX"}, {symbol: "SWDA.LON"}, {symbol: "QQQ.US"}, {symbol: "COPX.US"} ];
     const metals = [ {symbol: "XAUUSD"}, {symbol: "XAGUSD"} ];
-    const curr = [ {symbol: "EURUSD"}, {symbol: "USDJPY"}, {symbol: "USDCHF"}, {symbol: "BTCUSD"} ];
+    const curr = [ {symbol: "EURUSD"}, {symbol: "USDJPY"}, {symbol: "USDCHF"}, {symbol: "GBPUSD"}, {symbol: "BTCUSD"} ];
     const stocks = [ {symbol: "PATH.US"}, {symbol: "HNST.US"}, {symbol: "NUVB.US"}, {symbol: "NAUT.US"}, {symbol: "CELH.US"} ];
 
     async function fetchData(symbol){ try { const res = await fetch(`https://stooq.com/q/l/?s=${symbol}&f=sd2t2ohlcv&h&e=json`); const data = await res.json(); return data.symbols[0]; } catch(e) { return null; } }
