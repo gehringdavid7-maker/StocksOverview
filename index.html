@@ -7,6 +7,7 @@
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
         
+        /* 80% Zoom */
         body{ 
             background:#0D0D0D; 
             font-family:Arial, Helvetica, sans-serif; 
@@ -29,13 +30,13 @@
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        /* Button Design */
-        .btn { width: 456px; height: 50px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 10px; }
+        /* Button Styles (angepasst an den Style der anderen Buttons) */
+        .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 15px; }
         .btn:hover { background: #504f4f; }
         
-        /* Spezieller News-Button */
-        .main-btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 38px; }
-        .main-btn:hover { background: #504f4f; }
+        /* News-Buttons spezifisch */
+        .news-btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 14px; font-weight: bold; margin-top: 15px; }
+        .news-btn:hover { background: #504f4f; }
     </style>
 </head>
 <body>
@@ -44,6 +45,7 @@
 
 <div class="dashboard">
     
+    <!-- Spalte 1 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Index</div>
@@ -61,10 +63,11 @@
             <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
         
-        <button class="main-btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank', 'width=600,height=900');">X-Liste (News)</button>
-        <button class="main-btn" style="margin-top: 15px;" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank', 'width=600,height=900');">AI Assistent</button>
+        <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank', 'width=600,height=900');">X-Liste (News)</button>
+        <button class="btn" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank', 'width=600,height=900');">AI Assistent</button>
     </div>
 
+    <!-- Spalte 2 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Stocks</div>
@@ -81,7 +84,7 @@
             <div class="index-item" id="metal-1" onclick="window.open('https://de.tradingview.com/symbols/SILVER/', '_blank')"><div><div class="name">Silver</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div></div>
         </div>
-        
+
         <button class="btn" onclick="window.open('https://x.com/search?q=%24path&src=typed_query&f=top', '_blank', 'width=600,height=900')">News: UiPath</button>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst&src=typed_query&f=top', '_blank', 'width=600,height=900')">News: Honest Company</button>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb&src=typed_query&f=top', '_blank', 'width=600,height=900')">News: Nuvation Bio</button>
@@ -89,6 +92,7 @@
         <button class="btn" onclick="window.open('https://x.com/search?q=%24CELH&src=cashtag_click', '_blank', 'width=600,height=900')">News: Celsius</button>
     </div>
 
+    <!-- Spalte 3 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Thesen</div>
