@@ -23,7 +23,7 @@
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; padding: 20px; }
+        .side-widget{ width: 432px; height: 900px; background:#3B3A3A; border-radius: 22px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
         #indexWidget   { grid-column: 1 / 2; grid-row: 1 / 2; }
         #stocksWidget  { grid-column: 2 / 3; grid-row: 1 / 2; }
@@ -31,6 +31,11 @@
         #metalsWidget  { grid-column: 2 / 3; grid-row: 2 / 3; }
         #emptyWidget1  { grid-column: 3 / 4; grid-row: 1 / 2; }
         #emptyWidget2  { grid-column: 3 / 4; grid-row: 2 / 3; }
+
+        /* Modal Styles */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); }
+        .modal-content { background-color: #3B3A3A; margin: 5% auto; padding: 20px; width: 600px; height: 80%; border-radius: 20px; position: relative; }
+        .close { color: white; float: right; font-size: 30px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -38,17 +43,17 @@
 <h1>Stock Overview</h1>
 
 <div class="container">
-    <div class="side-widget" style="overflow-y: auto; padding: 0;">
-        <div class="widget-title" style="padding: 20px 20px 0 20px;">News</div>
-        <a class="twitter-timeline" 
-           data-theme="dark" 
-           href="https://twitter.com/i/lists/2071504003737801125?ref_src=twsrc%5Etfw">
-           Liste wird geladen...
-        </a> 
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <!-- Linkes Side-Widget -->
+    <div class="side-widget">
+        <div class="widget-title">News</div>
+        <button onclick="document.getElementById('twitterModal').style.display='block'" 
+                style="padding: 20px 40px; background: #1DA1F2; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 18px; font-weight: bold;">
+            X-Liste öffnen
+        </button>
     </div>
 
     <div class="dashboard">
+        <!-- Index -->
         <div class="widget" id="indexWidget">
             <div class="widget-title">Index</div>
             <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -57,6 +62,7 @@
             <div class="index-item" id="item-3" onclick="window.open('https://www.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
+        <!-- Stocks -->
         <div class="widget" id="stocksWidget">
             <div class="widget-title">Stocks</div>
             <div class="index-item" id="stock-0" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">UiPath</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -66,6 +72,7 @@
             <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">Celsius Holding</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
+        <!-- Currencies -->
         <div class="widget" id="currWidget">
             <div class="widget-title">Currencies & Crypto</div>
             <div class="index-item" id="curr-0" onclick="window.open('https://de.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -74,6 +81,7 @@
             <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
+        <!-- Metals -->
         <div class="widget" id="metalsWidget">
             <div class="widget-title">Precious Metals</div>
             <div class="index-item" id="metal-0" onclick="window.open('https://de.tradingview.com/symbols/GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -81,6 +89,7 @@
             <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div></div>
         </div>
 
+        <!-- Thesen -->
         <div class="widget" id="emptyWidget1">
             <div class="widget-title">Thesen</div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit?usp=sharing', '_blank')"><div class="name">UiPath</div><div class="price">Thesen</div></div>
@@ -90,6 +99,7 @@
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit?usp=sharing', '_blank')"><div class="name">Celsius Holding</div><div class="price">Thesen</div></div>
         </div>
         
+        <!-- Earnings -->
         <div class="widget" id="emptyWidget2">
             <div class="widget-title">Earnings Calls</div>
             <div class="index-item" onclick="window.open('https://ir.uipath.com/', '_blank')"><div class="name">PATH</div><div class="price">10.12.26</div><div class="change">18:00</div></div>
@@ -100,7 +110,19 @@
         </div>
     </div>
 
+    <!-- Rechtes Side-Widget -->
     <div class="side-widget"></div>
+</div>
+
+<!-- Twitter Modal -->
+<div id="twitterModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('twitterModal').style.display='none'">&times;</span>
+        <div style="height: 90%; overflow-y: auto;">
+            <a class="twitter-timeline" data-theme="dark" href="https://twitter.com/i/lists/2071504003737801125">Liste wird geladen...</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+    </div>
 </div>
 
 <script>
