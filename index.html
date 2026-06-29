@@ -7,7 +7,6 @@
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
         
-        /* 80% Zoom */
         body{ 
             background:#0D0D0D; 
             font-family:Arial, Helvetica, sans-serif; 
@@ -30,7 +29,6 @@
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        /* Buttons im Widget-Grau */
         .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 38px; }
         .btn:hover { background: #504f4f; }
     </style>
@@ -41,7 +39,6 @@
 
 <div class="dashboard">
     
-    <!-- Spalte 1: Widgets + News + AI Assistent (beide als Popup) -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Index</div>
@@ -60,37 +57,36 @@
         </div>
         
         <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank', 'width=600,height=900');">X-Liste (News)</button>
-        <!-- AI Assistent mit gleichem Popup-Verhalten -->
         <button class="btn" style="margin-top: 15px;" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank', 'width=600,height=900');">AI Assistent</button>
     </div>
 
-    <!-- Spalte 2 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Stocks</div>
             <div class="index-item" id="stock-0" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">UiPath</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="stock-1" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-HNST/', '_blank')"><div><div class="name">Honest Company</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="stock-2" onclick="window.open('https://www.tradingview.com/symbols/NYSE-NUVB/', '_blank')"><div><div class="name">Nuvation Bio</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">Nautilus Bio</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">Nautilus Biotechnology</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">Celsius Holding</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
         <div class="widget" style="margin-top: 38px;">
-            <div class="widget-title">Precious Metals</div>
-            <div class="index-item" id="metal-0" onclick="window.open('https://de.tradingview.com/symbols/GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="metal-1" onclick="window.open('https://de.tradingview.com/symbols/SILVER/', '_blank')"><div><div class="name">Silver</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div></div>
+            <div class="widget-title">Stock News (X)</div>
+            <div class="index-item" onclick="window.open('https://x.com/search?q=%24path&src=typed_query&f=top', '_blank')"><div class="name">UiPath</div></div>
+            <div class="index-item" onclick="window.open('https://x.com/search?q=%24hnst&src=typed_query&f=top', '_blank')"><div class="name">Honest Company</div></div>
+            <div class="index-item" onclick="window.open('https://x.com/search?q=%24nuvb&src=typed_query&f=top', '_blank')"><div class="name">Nuvation Bio</div></div>
+            <div class="index-item" onclick="window.open('https://x.com/search?q=%24NAUT&src=cashtag_click', '_blank')"><div class="name">Nautilus Biotechnology</div></div>
+            <div class="index-item" onclick="window.open('https://x.com/search?q=%24CELH&src=cashtag_click', '_blank')"><div class="name">Celsius</div></div>
         </div>
     </div>
 
-    <!-- Spalte 3 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Thesen</div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit?usp=sharing', '_blank')"><div class="name">UiPath</div><div class="price">Thesen</div></div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit?usp=sharing', '_blank')"><div class="name">Honest Company</div><div class="price">Thesen</div></div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit?usp=sharing', '_blank')"><div class="name">Nuvation Bio</div><div class="price">Thesen</div></div>
-            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit?usp=sharing', '_blank')"><div class="name">Nautilus Bio</div><div class="price">Thesen</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit?usp=sharing', '_blank')"><div class="name">Nautilus Biotechnology</div><div class="price">Thesen</div></div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit?usp=sharing', '_blank')"><div class="name">Celsius Holding</div><div class="price">Thesen</div></div>
         </div>
         
@@ -107,14 +103,12 @@
 
 <script>
     const indices = [ {symbol: "^SPX"}, {symbol: "SWDA.LON"}, {symbol: "QQQ.US"}, {symbol: "COPX.US"} ];
-    const metals = [ {symbol: "XAUUSD"}, {symbol: "XAGUSD"} ];
     const curr = [ {symbol: "EURUSD"}, {symbol: "USDJPY"}, {symbol: "USDCHF"}, {symbol: "BTCUSD"} ];
     const stocks = [ {symbol: "PATH.US"}, {symbol: "HNST.US"}, {symbol: "NUVB.US"}, {symbol: "NAUT.US"}, {symbol: "CELH.US"} ];
 
     async function fetchData(symbol){ try { const res = await fetch(`https://stooq.com/q/l/?s=${symbol}&f=sd2t2ohlcv&h&e=json`); const data = await res.json(); return data.symbols[0]; } catch(e) { return null; } }
     async function updateDashboard(){
         for(let i = 0; i < indices.length; i++){ const data = await fetchData(indices[i].symbol); if(data) updateUI(`item-${i}`, data); }
-        for(let i = 0; i < metals.length; i++){ const data = await fetchData(metals[i].symbol); if(data) updateUI(`metal-${i}`, data); }
         for(let i = 0; i < curr.length; i++){ const data = await fetchData(curr[i].symbol); if(data) updateUI(`curr-${i}`, data); }
         for(let i = 0; i < stocks.length; i++){ const data = await fetchData(stocks[i].symbol); if(data) updateUI(`stock-${i}`, data); }
     }
