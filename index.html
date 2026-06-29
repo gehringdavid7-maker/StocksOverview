@@ -38,8 +38,14 @@
 <h1>Stock Overview</h1>
 
 <div class="container">
-    <div class="side-widget">
-        <div class="widget-title">Market News</div>
+    <div class="side-widget" style="overflow-y: auto; padding: 0;">
+        <div class="widget-title" style="padding: 20px 20px 0 20px;">News</div>
+        <a class="twitter-timeline" 
+           data-theme="dark" 
+           href="https://twitter.com/i/lists/2071504003737801125?ref_src=twsrc%5Etfw">
+           Liste wird geladen...
+        </a> 
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
 
     <div class="dashboard">
@@ -48,7 +54,7 @@
             <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-1" onclick="window.open('https://de.tradingview.com/symbols/LSE-SWDA/', '_blank')"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-2" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-3" onclick="window.open('https://de.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-3" onclick="window.open('https://www.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
 
         <div class="widget" id="stocksWidget">
