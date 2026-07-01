@@ -17,7 +17,6 @@
         .btn-group-title { text-align: center; font-size: 20px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; }
         .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 10px; }
         .btn:hover { background: #504f4f; }
-        .spacing { margin-top: 26.6px; }
     </style>
 </head>
 <body>
@@ -65,6 +64,9 @@
         <div class="btn-group-title">News</div>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
     </div>
 
     <div style="display: flex; flex-direction: column;">
@@ -72,11 +74,17 @@
             <div class="widget-title">Thesen</div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit', '_blank')"><div class="name">UiPath</div></div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit', '_blank')"><div class="name">Honest Company</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit', '_blank')"><div class="name">Nuvation Bio</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit', '_blank')"><div class="name">Nautilus Biotech</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit', '_blank')"><div class="name">Celsius Holding</div></div>
         </div>
         <div class="widget" style="margin-top: 38px;">
             <div class="widget-title">Earnings Calls (CEST)</div>
             <div class="index-item"><div class="name">PATH</div><div class="price">04.09.26</div></div>
             <div class="index-item"><div class="name">HNST</div><div class="price">05.08.26</div></div>
+            <div class="index-item"><div class="name">NUVB</div><div class="price">06.08.26</div></div>
+            <div class="index-item"><div class="name">NAUT</div><div class="price">28.07.26</div></div>
+            <div class="index-item"><div class="name">CELH</div><div class="price">06.08.26</div></div>
         </div>
     </div>
 </div>
@@ -86,7 +94,6 @@
     let goldPrice = 0, silverPrice = 0;
 
     async function update() {
-        // Stocks via Finnhub
         const stocks = [
             {id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'},
             {id: 'stock-0', s: 'PATH'}, {id: 'stock-1', s: 'HNST'}, {id: 'stock-2', s: 'NUVB'}, {id: 'stock-3', s: 'NAUT'}, {id: 'stock-4', s: 'CELH'}
@@ -104,7 +111,6 @@
             });
         }
 
-        // Forex/Metals via Yahoo (Proxy: AllOrigins zur Umgehung von CORS)
         const forex = [
             {id: 'curr-0', s: 'EURUSD=X'}, {id: 'curr-1', s: 'JPY=X'}, {id: 'curr-2', s: 'CHF=X'}, {id: 'curr-3', s: 'GBPUSD=X'}, {id: 'curr-4', s: 'BTC-USD'},
             {id: 'metal-0', s: 'GC=F'}, {id: 'metal-1', s: 'SI=F'}
