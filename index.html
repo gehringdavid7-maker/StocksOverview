@@ -6,26 +6,18 @@
     <title>Stock Overview</title>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
-        
         body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.8; transform-origin: top left; }
-        
         .header { text-align: center; margin-bottom: 40px; font-size: 50px; font-weight: 600; }
         .dashboard{ display:grid; grid-template-columns: repeat(3, 456px); gap: 38px; justify-content: center; }
-        
         .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
-        
-        .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; 
-                     display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
+        .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
         .name{ font-size: 12.75px; font-weight:600; }
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
-        
         .btn-group-title { text-align: center; font-size: 20px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; }
-        
         .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 10px; }
         .btn:hover { background: #504f4f; }
-        
         .spacing { margin-top: 26.6px; }
     </style>
 </head>
@@ -34,7 +26,6 @@
 <div class="header">Stock Overview</div>
 
 <div class="dashboard">
-    
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Index</div>
@@ -43,7 +34,6 @@
             <div class="index-item" id="item-2" onclick="window.open('https://de.tradingview.com/symbols/NASDAQ-QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="item-3" onclick="window.open('https://de.tradingview.com/symbols/AMEX-COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
-        
         <div class="widget" style="margin-top: 38px;">
             <div class="widget-title">Currencies & Crypto</div>
             <div class="index-item" id="curr-0" onclick="window.open('https://de.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -52,7 +42,6 @@
             <div class="index-item" id="curr-3" onclick="window.open('https://de.tradingview.com/symbols/GBPUSD/', '_blank')"><div><div class="name">GBP/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="curr-4" onclick="window.open('https://de.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
-        
         <div class="spacing"></div>
         <div class="btn-group-title">General</div>
         <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank', 'width=600,height=900');">X-Liste (News)</button>
@@ -69,7 +58,6 @@
             <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">Nautilus Biotechnology</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">Celsius Holding</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
-
         <div class="widget" style="margin-top: 38px;">
             <div class="widget-title">Precious Metals</div>
             <div class="index-item" id="metal-0" onclick="window.open('https://de.tradingview.com/symbols/GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
@@ -77,7 +65,6 @@
             <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div><div class="price">Chart öffnen</div></div>
             <div class="index-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div><div class="price">Chart öffnen</div></div>
         </div>
-
         <div class="spacing"></div>
         <div class="btn-group-title">News</div>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24path&src=typed_query&f=top', '_blank', 'width=600,height=900')">UiPath</button>
@@ -96,7 +83,6 @@
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit?usp=sharing', '_blank')"><div class="name">Nautilus Biotech</div><div class="price">Thesen</div></div>
             <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit?usp=sharing', '_blank')"><div class="name">Celsius Holding</div><div class="price">Thesen</div></div>
         </div>
-        
         <div class="widget" style="margin-top: 38px;">
             <div class="widget-title">Earnings Calls (CEST)</div>
             <div class="index-item"><div class="name">PATH</div><div class="price">04.09.26</div><div class="change">23:00</div></div>
@@ -116,41 +102,29 @@
         {id: 'stock-0', s: 'PATH.US'}, {id: 'stock-1', s: 'HNST.US'}, {id: 'stock-2', s: 'NUVB.US'}, {id: 'stock-3', s: 'NAUT.US'}, {id: 'stock-4', s: 'CELH.US'}
     ];
 
-    async function fetchData(symbol) {
-        const url = `https://stooq.com/q/l/?s=${symbol}&f=sd2t2ohlcv&h&e=json`;
-        try {
-            // Proxy nutzen, um CORS-Blockade zu umgehen
-            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
-            const json = await response.json();
-            const data = JSON.parse(json.contents);
-            return data.symbols[0];
-        } catch(e) { 
-            console.error("Fehler bei " + symbol, e);
-            return null; 
-        }
-    }
-
+    // Diese Funktion umgeht das CORS-Problem durch den Browser
     async function updateDashboard() {
         for(const item of items) {
-            const data = await fetchData(item.s);
-            if(data && data.close && data.close !== "N/D") {
+            try {
+                // Wir nutzen Yahoo Finance's offizielle Webseite-Daten statt Stooq
+                const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${item.s}?interval=1m`);
+                const data = await res.json();
+                const meta = data.chart.result[0].meta;
+                const price = meta.regularMarketPrice.toFixed(2);
+                const prev = meta.chartPreviousClose;
+                const change = (((price - prev) / prev) * 100).toFixed(2);
+                
                 const el = document.getElementById(item.id);
-                if (!el) continue;
-                
-                const price = parseFloat(data.close).toFixed(2);
-                const open = parseFloat(data.open);
-                const change = ((price - open) / open * 100).toFixed(2);
-                
                 el.querySelector('.price').innerText = `$${price}`;
                 const changeEl = el.querySelector('.change');
                 changeEl.innerText = `${change}%`;
                 changeEl.style.color = change >= 0 ? "lime" : "red";
-            }
+            } catch(e) { console.log("Skipping " + item.s); }
         }
     }
     
     updateDashboard(); 
-    setInterval(updateDashboard, 180000); // Alle 3 Minuten aktualisieren
+    setInterval(updateDashboard, 60000); // 1-Minuten Takt
 </script>
 </body>
 </html>
