@@ -11,6 +11,7 @@
         .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
+        .index-item:hover{ background: #1a1a1a; }
         .name{ font-size: 12.75px; font-weight:600; }
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
@@ -26,18 +27,18 @@
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Index</div>
-            <div class="index-item" id="item-0"><div><div class="name">S&P 500</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-1"><div><div class="name">MSCI World</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-2"><div><div class="name">Nasdaq (QQQ)</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-3"><div><div class="name">COPX</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-1" onclick="window.open('https://www.tradingview.com/symbols/URTH/', '_blank')"><div><div class="name">MSCI World</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-2" onclick="window.open('https://www.tradingview.com/symbols/QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="item-3" onclick="window.open('https://www.tradingview.com/symbols/COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">--</div></div><div class="change">--</div></div>
         </div>
         <div class="widget" style="margin-top: 38px;">
             <div class="widget-title">Currencies & Crypto</div>
-            <div class="index-item" id="curr-0"><div><div class="name">EUR/USD</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-1"><div><div class="name">USD/JPY</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-2"><div><div class="name">USD/CHF</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-3"><div><div class="name">GBP/USD</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-4"><div><div class="name">BTC/USD</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-0" onclick="window.open('https://www.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-1" onclick="window.open('https://www.tradingview.com/symbols/USDJPY/', '_blank')"><div><div class="name">USD/JPY</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-2" onclick="window.open('https://www.tradingview.com/symbols/USDCHF/', '_blank')"><div><div class="name">USD/CHF</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-3" onclick="window.open('https://www.tradingview.com/symbols/GBPUSD/', '_blank')"><div><div class="name">GBP/USD</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-4" onclick="window.open('https://www.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">--</div></div><div class="change">--</div></div>
         </div>
         <div class="btn-group-title">General</div>
         <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
@@ -48,25 +49,22 @@
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Stocks</div>
-            <div class="index-item" id="stock-0"><div><div class="name">UiPath</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-1"><div><div class="name">Honest Company</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-2"><div><div class="name">Nuvation Bio</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-3"><div><div class="name">Nautilus Biotechnology</div><div class="price">--</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-4"><div><div class="name">Celsius Holding</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-0" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">UiPath</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-1" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-HNST/', '_blank')"><div><div class="name">Honest Company</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-2" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NUVB/', '_blank')"><div><div class="name">Nuvation Bio</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">Nautilus Biotechnology</div><div class="price">--</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">Celsius Holding</div><div class="price">--</div></div><div class="change">--</div></div>
         </div>
         <div class="widget" style="margin-top: 38px;">
             <div class="widget-title">Precious Metals</div>
-            <div class="index-item" id="metal-0"><div><div class="name">Gold</div><div class="price">--</div></div></div>
-            <div class="index-item" id="metal-1"><div><div class="name">Silver</div><div class="price">--</div></div></div>
+            <div class="index-item" id="metal-0" onclick="window.open('https://www.tradingview.com/symbols/TVC-GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">--</div></div></div>
+            <div class="index-item" id="metal-1" onclick="window.open('https://www.tradingview.com/symbols/TVC-SILVER/', '_blank')"><div><div class="name">Silver</div><div class="price">--</div></div></div>
             <div class="index-item"><div class="name">Gold/Silver Ratio</div><div class="price" id="ratio">--</div></div>
             <div class="index-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div></div>
         </div>
         <div class="btn-group-title">News</div>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
     </div>
 
     <div style="display: flex; flex-direction: column;">
