@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Overview</title>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
@@ -24,8 +23,8 @@
 <body>
 
 <div class="header">Stock Overview</div>
-
 <div class="dashboard">
+    <!-- Spalte 1 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Index</div>
@@ -49,6 +48,7 @@
         <button class="btn" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
     </div>
 
+    <!-- Spalte 2 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Stocks</div>
@@ -62,37 +62,50 @@
             <div class="widget-title">Precious Metals</div>
             <div class="index-item" id="metal-0"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="metal-1"><div><div class="name">Silver</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div></div>
+            <div class="index-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div></div>
         </div>
+        <div class="spacing"></div>
+        <div class="btn-group-title">News</div>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
     </div>
 
+    <!-- Spalte 3 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Thesen</div>
-            <div class="index-item">Thesen Links...</div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit', '_blank')"><div class="name">UiPath</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit', '_blank')"><div class="name">Honest Company</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit', '_blank')"><div class="name">Nuvation Bio</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit', '_blank')"><div class="name">Nautilus Biotech</div></div>
+            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit', '_blank')"><div class="name">Celsius Holding</div></div>
         </div>
         <div class="widget" style="margin-top: 38px;">
             <div class="widget-title">Earnings Calls (CEST)</div>
-            <div class="index-item"><div class="name">PATH</div><div class="price">04.09.26</div><div class="change">23:00</div></div>
-            <div class="index-item"><div class="name">HNST</div><div class="price">05.08.26</div><div class="change">22:45</div></div>
-            <div class="index-item"><div class="name">NUVB</div><div class="price">06.08.26</div><div class="change">TBA</div></div>
-            <div class="index-item"><div class="name">NAUT</div><div class="price">28.07.26</div><div class="change">14:30</div></div>
-            <div class="index-item"><div class="name">CELH</div><div class="price">06.08.26</div><div class="change">TBA</div></div>
+            <div class="index-item"><div class="name">PATH</div><div class="price">04.09.26</div></div>
+            <div class="index-item"><div class="name">HNST</div><div class="price">05.08.26</div></div>
+            <div class="index-item"><div class="name">NUVB</div><div class="price">06.08.26</div></div>
+            <div class="index-item"><div class="name">NAUT</div><div class="price">28.07.26</div></div>
+            <div class="index-item"><div class="name">CELH</div><div class="price">06.08.26</div></div>
         </div>
     </div>
 </div>
 
 <script>
     const API_KEY = 'd92k0d1r01qs541v7k7gd92k0d1r01qs541v7k80';
-    
-    const symbols = [
+    const config = [
         {id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'},
         {id: 'metal-0', s: 'OANDA:XAUUSD'}, {id: 'metal-1', s: 'OANDA:XAGUSD'},
-        {id: 'curr-0', s: 'OANDA:EURUSD'}, {id: 'curr-1', s: 'OANDA:USDJPY'}, {id: 'curr-2', s: 'OANDA:USDCHF'}, {id: 'curr-3', s: 'OANDA:GBPUSD'}, {id: 'curr-4', s: 'BINANCE:BTCUSDT'},
+        {id: 'curr-0', s: 'OANDA:EURUSD'}, {id: 'curr-1', s: 'OANDA:USDJPY'}, {id: 'curr-2', s: 'OANDA:USDCHF'}, {id: 'curr-3', s: 'GBPUSD'}, {id: 'curr-4', s: 'BINANCE:BTCUSDT'},
         {id: 'stock-0', s: 'PATH'}, {id: 'stock-1', s: 'HNST'}, {id: 'stock-2', s: 'NUVB'}, {id: 'stock-3', s: 'NAUT'}, {id: 'stock-4', s: 'CELH'}
     ];
 
     async function update() {
-        for(const item of symbols) {
+        for(const item of config) {
             try {
                 const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${item.s}&token=${API_KEY}`);
                 const data = await res.json();
@@ -100,10 +113,10 @@
                     const el = document.getElementById(item.id);
                     el.querySelector('.price').innerText = `$${data.c.toFixed(2)}`;
                     const change = (((data.c - data.pc) / data.pc) * 100).toFixed(2);
-                    el.querySelector('.change').innerText = `${change}%`;
-                    el.querySelector('.change').style.color = change >= 0 ? "lime" : "red";
+                    const chEl = el.querySelector('.change');
+                    if(chEl) { chEl.innerText = `${change}%`; chEl.style.color = change >= 0 ? "lime" : "red"; }
                 }
-            } catch(e) { console.error("Fehler bei " + item.s); }
+            } catch(e) { console.error("Error " + item.s); }
         }
     }
     update();
