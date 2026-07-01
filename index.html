@@ -59,7 +59,7 @@
             <div class="widget-title">Precious Metals</div>
             <div class="index-item" id="metal-0" onclick="window.open('https://www.tradingview.com/symbols/TVC-GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div></div>
             <div class="index-item" id="metal-1" onclick="window.open('https://www.tradingview.com/symbols/TVC-SILVER/', '_blank')"><div><div class="name">Silver</div><div class="price">Lädt...</div></div></div>
-            <div class="index-item" onclick="window.open('https://www.tradingview.com/symbols/GOLD-SILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div><div class="price" id="ratio">--</div></div>
+            <div class="index-item"><div class="name">Gold/Silver Ratio</div><div class="price" id="ratio">--</div></div>
             <div class="index-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div></div>
         </div>
         <div class="btn-group-title">News</div>
@@ -119,10 +119,8 @@
         ];
 
         for(const item of forex) {
-            const url = `https://query1.finance.yahoo.com/v8/finance/chart/${item.s}`;
-            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-            .then(r => r.json()).then(data => {
-                const d = JSON.parse(data.contents);
+            fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${item.s}`)
+            .then(r => r.json()).then(d => {
                 const p = d.chart.result[0].meta.regularMarketPrice;
                 document.getElementById(item.id).querySelector('.price').innerText = p.toFixed(2);
                 if(item.id === 'metal-0') goldPrice = p;
