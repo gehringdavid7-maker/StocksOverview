@@ -23,7 +23,6 @@
 
 <div class="header">Stock Overview</div>
 <div class="dashboard">
-    <!-- Spalte 1 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Index</div>
@@ -46,7 +45,6 @@
         <button class="btn" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
     </div>
 
-    <!-- Spalte 2 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Stocks</div>
@@ -66,9 +64,11 @@
         <div class="btn-group-title">News</div>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
         <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
+        <button class="btn" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
     </div>
 
-    <!-- Spalte 3 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Thesen</div>
@@ -94,7 +94,6 @@
     let goldPrice = 0, silverPrice = 0;
 
     async function update() {
-        // Stocks via Finnhub
         const stocks = [
             {id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'},
             {id: 'stock-0', s: 'PATH'}, {id: 'stock-1', s: 'HNST'}, {id: 'stock-2', s: 'NUVB'}, {id: 'stock-3', s: 'NAUT'}, {id: 'stock-4', s: 'CELH'}
@@ -112,13 +111,12 @@
             });
         }
 
-        // Forex/Metals via Yahoo Finance
-        const forex = [
+        const external = [
             {id: 'curr-0', s: 'EURUSD=X'}, {id: 'curr-1', s: 'JPY=X'}, {id: 'curr-2', s: 'CHF=X'}, {id: 'curr-3', s: 'GBPUSD=X'}, {id: 'curr-4', s: 'BTC-USD'},
             {id: 'metal-0', s: 'GC=F'}, {id: 'metal-1', s: 'SI=F'}
         ];
 
-        for(const item of forex) {
+        for(const item of external) {
             fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${item.s}`)
             .then(r => r.json()).then(d => {
                 const p = d.chart.result[0].meta.regularMarketPrice;
