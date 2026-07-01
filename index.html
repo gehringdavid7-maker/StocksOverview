@@ -63,29 +63,28 @@
             <div class="index-item" id="metal-0"><div><div class="name">Gold</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
             <div class="index-item" id="metal-1"><div><div class="name">Silver</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
-        <div class="spacing"></div>
-        <div class="btn-group-title">News</div>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
     </div>
 
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Thesen</div>
-            <div class="index-item"><div class="name">UiPath</div></div>
-            <div class="index-item"><div class="name">Honest Company</div></div>
+            <div class="index-item">Thesen Links...</div>
+        </div>
+        <div class="widget" style="margin-top: 38px;">
+            <div class="widget-title">Earnings Calls (CEST)</div>
+            <div class="index-item"><div class="name">PATH</div><div class="price">04.09.26</div><div class="change">23:00</div></div>
+            <div class="index-item"><div class="name">HNST</div><div class="price">05.08.26</div><div class="change">22:45</div></div>
+            <div class="index-item"><div class="name">NUVB</div><div class="price">06.08.26</div><div class="change">TBA</div></div>
+            <div class="index-item"><div class="name">NAUT</div><div class="price">28.07.26</div><div class="change">14:30</div></div>
+            <div class="index-item"><div class="name">CELH</div><div class="price">06.08.26</div><div class="change">TBA</div></div>
         </div>
     </div>
 </div>
 
 <script>
-    const API_KEY = 'DEIN_API_KEY_HIER_EINTRAGEN'; // <--- HIER DEINEN KEY EINSETZEN
+    const API_KEY = 'd92k0d1r01qs541v7k7gd92k0d1r01qs541v7k80';
     
-    // Mapping für Finnhub
-    const dataMapping = [
+    const symbols = [
         {id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'},
         {id: 'metal-0', s: 'OANDA:XAUUSD'}, {id: 'metal-1', s: 'OANDA:XAGUSD'},
         {id: 'curr-0', s: 'OANDA:EURUSD'}, {id: 'curr-1', s: 'OANDA:USDJPY'}, {id: 'curr-2', s: 'OANDA:USDCHF'}, {id: 'curr-3', s: 'OANDA:GBPUSD'}, {id: 'curr-4', s: 'BINANCE:BTCUSDT'},
@@ -93,7 +92,7 @@
     ];
 
     async function update() {
-        for(const item of dataMapping) {
+        for(const item of symbols) {
             try {
                 const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${item.s}&token=${API_KEY}`);
                 const data = await res.json();
@@ -101,9 +100,8 @@
                     const el = document.getElementById(item.id);
                     el.querySelector('.price').innerText = `$${data.c.toFixed(2)}`;
                     const change = (((data.c - data.pc) / data.pc) * 100).toFixed(2);
-                    const chEl = el.querySelector('.change');
-                    chEl.innerText = `${change}%`;
-                    chEl.style.color = change >= 0 ? "lime" : "red";
+                    el.querySelector('.change').innerText = `${change}%`;
+                    el.querySelector('.change').style.color = change >= 0 ? "lime" : "red";
                 }
             } catch(e) { console.error("Fehler bei " + item.s); }
         }
