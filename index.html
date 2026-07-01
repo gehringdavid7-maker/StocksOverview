@@ -2,84 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Overview</title>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
         body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.8; transform-origin: top left; }
         .header { text-align: center; margin-bottom: 40px; font-size: 50px; font-weight: 600; }
         .dashboard{ display:grid; grid-template-columns: repeat(3, 456px); gap: 38px; justify-content: center; }
-        .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
+        .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: auto; }
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
+        .index-item:hover{ background: #1a1a1a; }
         .name{ font-size: 12.75px; font-weight:600; }
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
-        .btn-group-title { text-align: center; font-size: 20px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; }
-        .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 10px; }
+        .btn { width: 100%; height: 50px; background: #3B3A3A; color: white; border: none; border-radius: 15px; cursor: pointer; font-weight: bold; margin-bottom: 10px; }
         .btn:hover { background: #504f4f; }
+        .spacing { margin-top: 26.6px; }
     </style>
 </head>
 <body>
 
 <div class="header">Stock Overview</div>
+
 <div class="dashboard">
+    <!-- Spalte 1 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Index</div>
-            <div class="index-item" id="item-0"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-1"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-2"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="item-3"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="idx-SPY" onclick="window.open('https://www.tradingview.com/symbols/SPY/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="idx-URTH" onclick="window.open('https://www.tradingview.com/symbols/URTH/', '_blank')"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="idx-QQQ" onclick="window.open('https://www.tradingview.com/symbols/QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="idx-COPX" onclick="window.open('https://www.tradingview.com/symbols/COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
         <div class="widget" style="margin-top: 38px;">
             <div class="widget-title">Currencies & Crypto</div>
-            <div class="index-item" id="curr-0"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-1"><div><div class="name">USD/JPY</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-2"><div><div class="name">USD/CHF</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-3"><div><div class="name">GBP/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="curr-4"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="curr-EURUSD" onclick="window.open('https://www.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div></div>
+            <div class="index-item" id="curr-USDJPY" onclick="window.open('https://www.tradingview.com/symbols/USDJPY/', '_blank')"><div><div class="name">USD/JPY</div><div class="price">Lädt...</div></div></div>
+            <div class="index-item" id="curr-USDCHF" onclick="window.open('https://www.tradingview.com/symbols/USDCHF/', '_blank')"><div><div class="name">USD/CHF</div><div class="price">Lädt...</div></div></div>
+            <div class="index-item" id="curr-GBPUSD" onclick="window.open('https://www.tradingview.com/symbols/GBPUSD/', '_blank')"><div><div class="name">GBP/USD</div><div class="price">Lädt...</div></div></div>
+            <div class="index-item" id="curr-BTC" onclick="window.open('https://www.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div></div>
         </div>
-        <div class="btn-group-title">General</div>
-        <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
-        <button class="btn" onclick="window.open('https://chatgpt.com/', '_blank')">AI Assistent</button>
         <button class="btn" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
     </div>
 
+    <!-- Spalte 2 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
             <div class="widget-title">Stocks</div>
-            <div class="index-item" id="stock-0"><div><div class="name">UiPath</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-1"><div><div class="name">Honest Company</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-2"><div><div class="name">Nuvation Bio</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-3"><div><div class="name">Nautilus Biotechnology</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
-            <div class="index-item" id="stock-4"><div><div class="name">Celsius Holding</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stk-PATH" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">UiPath</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stk-HNST" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-HNST/', '_blank')"><div><div class="name">Honest Company</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stk-NUVB" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NUVB/', '_blank')"><div><div class="name">Nuvation Bio</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stk-NAUT" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">Nautilus Biotech</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
+            <div class="index-item" id="stk-CELH" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">Celsius Holding</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         </div>
-        <div class="widget" style="margin-top: 38px;">
-            <div class="widget-title">Precious Metals</div>
-            <div class="index-item" id="metal-0"><div><div class="name">Gold</div><div class="price">Lädt...</div></div></div>
-            <div class="index-item" id="metal-1"><div><div class="name">Silver</div><div class="price">Lädt...</div></div></div>
-            <div class="index-item" onclick="window.open('https://de.tradingview.com/symbols/TVC-GOLDSILVER/', '_blank')"><div class="name">Gold/Silver Ratio</div><div class="price" id="ratio">--</div></div>
-            <div class="index-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div></div>
-        </div>
-        <div class="btn-group-title">News</div>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
     </div>
 
+    <!-- Spalte 3 -->
     <div style="display: flex; flex-direction: column;">
         <div class="widget">
-            <div class="widget-title">Thesen</div>
-            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit', '_blank')"><div class="name">UiPath</div></div>
-            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit', '_blank')"><div class="name">Honest Company</div></div>
-            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit', '_blank')"><div class="name">Nuvation Bio</div></div>
-            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit', '_blank')"><div class="name">Nautilus Biotech</div></div>
-            <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit', '_blank')"><div class="name">Celsius Holding</div></div>
-        </div>
-        <div class="widget" style="margin-top: 38px;">
-            <div class="widget-title">Investor Relations</div>
+            <div class="widget-title">Earnings Calls</div>
             <div class="index-item" onclick="window.open('https://ir.uipath.com/', '_blank')"><div class="name">UiPath (PATH)</div><div class="price">04.09.26</div></div>
             <div class="index-item" onclick="window.open('https://investors.thehonestcompany.com/', '_blank')"><div class="name">Honest Co (HNST)</div><div class="price">05.08.26</div></div>
             <div class="index-item" onclick="window.open('https://investors.nuvationbio.com/', '_blank')"><div class="name">Nuvation Bio (NUVB)</div><div class="price">06.08.26</div></div>
@@ -90,44 +72,46 @@
 </div>
 
 <script>
-    const API_KEY = 'd92k0d1r01qs541v7k7gd92k0d1r01qs541v7k80';
-    let goldPrice = 0, silverPrice = 0;
+    const API_KEY = 'HIER_DEINEN_KEY_EINTRAGEN'; // Finnhub Key hier einfügen
 
-    async function update() {
-        const stocks = [
-            {id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'},
-            {id: 'stock-0', s: 'PATH'}, {id: 'stock-1', s: 'HNST'}, {id: 'stock-2', s: 'NUVB'}, {id: 'stock-3', s: 'NAUT'}, {id: 'stock-4', s: 'CELH'}
+    // Finnhub für Aktien/Indizes
+    async function updateFinnhub() {
+        const symbols = [
+            {id: 'idx-SPY', s: 'SPY'}, {id: 'idx-URTH', s: 'URTH'}, {id: 'idx-QQQ', s: 'QQQ'}, {id: 'idx-COPX', s: 'COPX'},
+            {id: 'stk-PATH', s: 'PATH'}, {id: 'stk-HNST', s: 'HNST'}, {id: 'stk-NUVB', s: 'NUVB'}, {id: 'stk-NAUT', s: 'NAUT'}, {id: 'stk-CELH', s: 'CELH'}
         ];
-
-        for(const item of stocks) {
+        for(const item of symbols) {
             fetch(`https://finnhub.io/api/v1/quote?symbol=${item.s}&token=${API_KEY}`)
             .then(r => r.json()).then(d => {
                 if(d.c) {
-                    document.getElementById(item.id).querySelector('.price').innerText = `$${d.c.toFixed(2)}`;
-                    const ch = ((d.c - d.pc) / d.pc * 100).toFixed(2);
-                    const el = document.getElementById(item.id).querySelector('.change');
-                    if(el) { el.innerText = `${ch}%`; el.style.color = ch >= 0 ? "lime" : "red"; }
+                    const el = document.getElementById(item.id);
+                    el.querySelector('.price').innerText = `$${d.c.toFixed(2)}`;
+                    const change = (((d.c - d.pc) / d.pc) * 100).toFixed(2);
+                    const chEl = el.querySelector('.change');
+                    chEl.innerText = `${change}%`;
+                    chEl.style.color = change >= 0 ? "lime" : "red";
                 }
             });
         }
+    }
 
-        const external = [
-            {id: 'curr-0', s: 'EURUSD=X'}, {id: 'curr-1', s: 'JPY=X'}, {id: 'curr-2', s: 'CHF=X'}, {id: 'curr-3', s: 'GBPUSD=X'}, {id: 'curr-4', s: 'BTC-USD'},
-            {id: 'metal-0', s: 'GC=F'}, {id: 'metal-1', s: 'SI=F'}
+    // Yahoo für Währungen (wegen Finnhub Limitierungen)
+    async function updateYahoo() {
+        const items = [
+            {id: 'curr-EURUSD', s: 'EURUSD=X'}, {id: 'curr-USDJPY', s: 'JPY=X'}, 
+            {id: 'curr-USDCHF', s: 'CHF=X'}, {id: 'curr-GBPUSD', s: 'GBPUSD=X'}, {id: 'curr-BTC', s: 'BTC-USD'}
         ];
-
-        for(const item of external) {
+        for(const item of items) {
             fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${item.s}`)
             .then(r => r.json()).then(d => {
                 const p = d.chart.result[0].meta.regularMarketPrice;
-                document.getElementById(item.id).querySelector('.price').innerText = p.toFixed(2);
-                if(item.id === 'metal-0') goldPrice = p;
-                if(item.id === 'metal-1') silverPrice = p;
-                if(goldPrice && silverPrice) document.getElementById('ratio').innerText = (goldPrice / silverPrice).toFixed(2);
+                document.getElementById(item.id).querySelector('.price').innerText = p.toFixed(4).replace(/\.?0+$/, "");
             });
         }
     }
-    update(); setInterval(update, 60000);
+
+    updateFinnhub(); updateYahoo();
+    setInterval(() => { updateFinnhub(); updateYahoo(); }, 60000);
 </script>
 </body>
 </html>
