@@ -7,16 +7,25 @@
         * { margin:0; padding:0; box-sizing:border-box; }
         body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 20px; }
         .header { text-align: center; margin-bottom: 20px; font-size: 40px; font-weight: 600; }
-        .dashboard { display: grid; grid-template-columns: repeat(4, 300px); gap: 20px; justify-content: center; }
-        .widget { background:#3B3A3A; border-radius: 20px; padding: 20px; height: 320px; overflow: hidden; }
-        .widget-wide { background:#3B3A3A; border-radius: 20px; padding: 20px; height: 320px; grid-column: span 2; overflow: hidden; }
+        
+        .dashboard { 
+            display: grid; 
+            grid-template-columns: repeat(4, 300px); 
+            gap: 20px; 
+            justify-content: center; 
+        }
+        
+        .widget { background:#3B3A3A; border-radius: 22px; padding: 24px; height: 320px; overflow: hidden; }
+        .widget-wide { background:#3B3A3A; border-radius: 22px; padding: 24px; height: 320px; grid-column: span 2; overflow: hidden; }
+        
         .widget-title { text-align:center; font-size: 18px; font-weight:600; margin-bottom:15px; }
-        .index-item { background:#000; border-radius: 10px; padding: 10px; margin-bottom: 8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 40px; }
+        .index-item { background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 40px; }
         .index-item:hover { background: #1a1a1a; }
-        .name { font-size: 12px; font-weight:600; }
-        .price { font-size: 11px; opacity:0.8; }
-        .change { font-size: 12px; font-weight:600; }
-        .btn { width: 100%; height: 40px; background: #3B3A3A; color: white; border: 1px solid #555; border-radius: 10px; cursor: pointer; margin-bottom: 5px; font-weight: bold; }
+        .name { font-size: 12.75px; font-weight:600; }
+        .price { font-size: 12px; opacity:0.8; }
+        .change { font-size: 12.75px; font-weight:600; }
+        
+        .btn { width: 100%; height: 45px; background: #3B3A3A; color: white; border: 1px solid #555; border-radius: 12px; cursor: pointer; margin-bottom: 8px; font-weight: bold; }
         .btn:hover { background: #504f4f; }
     </style>
 </head>
@@ -25,56 +34,55 @@
 <div class="header">Stock Overview</div>
 
 <div class="dashboard">
-    <div class="widget"><div class="widget-title">Index</div>
+    <div class="widget" id="w1-1">
+        <div class="widget-title">Index</div>
         <div class="index-item" id="item-0" onclick="window.open('https://www.tradingview.com/symbols/SPX/', '_blank')"><div><div class="name">S&P 500</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="item-1" onclick="window.open('https://www.tradingview.com/symbols/URTH/', '_blank')"><div><div class="name">MSCI World</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="item-2" onclick="window.open('https://www.tradingview.com/symbols/QQQ/', '_blank')"><div><div class="name">Nasdaq (QQQ)</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="item-3" onclick="window.open('https://www.tradingview.com/symbols/COPX/', '_blank')"><div><div class="name">COPX</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
     </div>
-    <div class="widget-wide"><div class="widget-title">S&P 500 Chart 1</div></div>
-    <div class="widget"></div> <div class="widget"><div class="widget-title">Stocks</div>
+    <div class="widget" id="w2-1">
+        <div class="widget-title">Stocks</div>
         <div class="index-item" id="stock-0" onclick="window.open('https://www.tradingview.com/symbols/NYSE-PATH/', '_blank')"><div><div class="name">UiPath</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="stock-1" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-HNST/', '_blank')"><div><div class="name">Honest Company</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="stock-2" onclick="window.open('https://www.tradingview.com/symbols/NYSE-NUVB/', '_blank')"><div><div class="name">Nuvation Bio</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="stock-3" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-NAUT/', '_blank')"><div><div class="name">Nautilus Biotechnology</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="stock-4" onclick="window.open('https://www.tradingview.com/symbols/NASDAQ-CELH/', '_blank')"><div><div class="name">Celsius Holding</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
     </div>
-    <div class="widget-wide"><div class="widget-title">S&P 500 Chart 2</div></div>
-    <div class="widget"></div>
-
-    <div class="widget"><div class="widget-title">Currencies & Crypto</div>
+    <div class="widget" id="w3-1">
+        <div class="widget-title">Currencies & Crypto</div>
         <div class="index-item" id="curr-0" onclick="window.open('https://www.tradingview.com/symbols/EURUSD/', '_blank')"><div><div class="name">EUR/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="curr-1" onclick="window.open('https://www.tradingview.com/symbols/USDJPY/', '_blank')"><div><div class="name">USD/JPY</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="curr-2" onclick="window.open('https://www.tradingview.com/symbols/USDCHF/', '_blank')"><div><div class="name">USD/CHF</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="curr-3" onclick="window.open('https://www.tradingview.com/symbols/GBPUSD/', '_blank')"><div><div class="name">GBP/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
         <div class="index-item" id="curr-4" onclick="window.open('https://www.tradingview.com/symbols/BTCUSD/', '_blank')"><div><div class="name">BTC/USD</div><div class="price">Lädt...</div></div><div class="change">--</div></div>
     </div>
-    <div class="widget-wide"><div class="widget-title">Economic Calendar</div></div>
-    <div class="widget"></div>
-
-    <div class="widget"><div class="widget-title">Precious Metals</div>
-        <div class="index-item" id="metal-0" onclick="window.open('https://www.tradingview.com/symbols/TVC-GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div></div>
-        <div class="index-item" id="metal-1" onclick="window.open('https://www.tradingview.com/symbols/TVC-SILVER/', '_blank')"><div><div class="name">Silver</div><div class="price">Lädt...</div></div></div>
+    <div class="widget" id="w4-1">
+        <div class="widget-title">Precious Metals</div>
+        <div class="index-item" id="metal-0"><div><div class="name">Gold</div><div class="price">Lädt...</div></div></div>
+        <div class="index-item" id="metal-1"><div><div class="name">Silver</div><div class="price">Lädt...</div></div></div>
         <div class="index-item"><div class="name">Gold/Silver Ratio</div><div class="price" id="ratio">--</div></div>
-        <div class="index-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div></div>
     </div>
-    <div class="widget-wide"><div class="widget-title">Earnings Calls</div></div>
-    <div class="widget"></div>
-
-    <div class="widget"><div class="widget-title">General</div>
+    <div class="widget" id="w5-1">
+        <div class="widget-title">General</div>
         <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
         <button class="btn" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">AI Assistent</button>
         <button class="btn" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
     </div>
-    <div class="widget-wide"><div class="widget-title">News Knöpfe</div>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
-        <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
-    </div>
-    <div class="widget"><div class="widget-title">Thesen</div>
+
+    <div class="widget-wide" id="w1-2"><div class="widget-title">S&P 500 Widget 1</div></div>
+    <div class="widget-wide" id="w2-2"><div class="widget-title">S&P 500 Widget 2</div></div>
+    <div class="widget-wide" id="w3-2"><div class="widget-title">Economic Calendar</div></div>
+    <div class="widget-wide" id="w4-2"><div class="widget-title">Earnings Calls</div></div>
+    <div class="widget-wide" id="w5-2"><div class="widget-title">News Knöpfe</div></div>
+
+    <div class="widget" id="w5-3">
+        <div class="widget-title">Thesen</div>
         <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit', '_blank')"><div class="name">UiPath</div></div>
         <div class="index-item" onclick="window.open('https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit', '_blank')"><div class="name">Honest Company</div></div>
         <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit', '_blank')"><div class="name">Nuvation Bio</div></div>
+        <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit', '_blank')"><div class="name">Nautilus Biotech</div></div>
+        <div class="index-item" onclick="window.open('https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit', '_blank')"><div class="name">Celsius Holding</div></div>
     </div>
 </div>
 
@@ -82,10 +90,7 @@
     const API_KEY = 'd92k0d1r01qs541v7k7gd92k0d1r01qs541v7k80';
     let goldPrice = 0, silverPrice = 0;
     async function update() {
-        const stocks = [
-            {id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'},
-            {id: 'stock-0', s: 'PATH'}, {id: 'stock-1', s: 'HNST'}, {id: 'stock-2', s: 'NUVB'}, {id: 'stock-3', s: 'NAUT'}, {id: 'stock-4', s: 'CELH'}
-        ];
+        const stocks = [{id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'}, {id: 'stock-0', s: 'PATH'}, {id: 'stock-1', s: 'HNST'}, {id: 'stock-2', s: 'NUVB'}, {id: 'stock-3', s: 'NAUT'}, {id: 'stock-4', s: 'CELH'}];
         for(const item of stocks) {
             fetch(`https://finnhub.io/api/v1/quote?symbol=${item.s}&token=${API_KEY}`)
             .then(r => r.json()).then(d => {
@@ -98,10 +103,7 @@
                 }
             });
         }
-        const forex = [
-            {id: 'curr-0', s: 'EURUSD=X'}, {id: 'curr-1', s: 'JPY=X'}, {id: 'curr-2', s: 'USDCHF=X'}, {id: 'curr-3', s: 'GBPUSD=X'}, {id: 'curr-4', s: 'BTC-USD'},
-            {id: 'metal-0', s: 'GC=F'}, {id: 'metal-1', s: 'SI=F'}
-        ];
+        const forex = [{id: 'curr-0', s: 'EURUSD=X'}, {id: 'curr-1', s: 'JPY=X'}, {id: 'curr-2', s: 'CHF=X'}, {id: 'curr-3', s: 'GBPUSD=X'}, {id: 'curr-4', s: 'BTC-USD'}, {id: 'metal-0', s: 'GC=F'}, {id: 'metal-1', s: 'SI=F'}];
         for(const item of forex) {
             fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://query1.finance.yahoo.com/v8/finance/chart/${item.s}`)}`)
             .then(r => r.json()).then(data => {
