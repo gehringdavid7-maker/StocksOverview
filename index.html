@@ -12,27 +12,19 @@
         .clock-container { margin-top: 10px; }
         
         .main-container { display: flex; flex-direction: column; align-items: center; gap: 38px; }
-        /* Auf 5 Spalten erweitert */
-        .dashboard{ display:grid; grid-template-columns: repeat(5, 456px); gap: 38px; }
+        .dashboard { display: grid; grid-template-columns: repeat(5, 456px); gap: 38px; }
         
-        /* Breite der Bottom-Section angepasst auf 5x 456px + 4x 38px Gaps = 2432px */
-        .bottom-section { display: flex; flex-direction: column; gap: 38px; width: 2432px; }
-        
-        .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
-        .w-std { width: 456px; height: 420px; }
+        .widget { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
         .w-wide { width: 950px; height: 420px; }
+        .w-extra-wide { width: 1444px; height: 420px; } /* 3 Widgets breit */
         
-        .widget-wrapper { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; }
+        .widget-wrapper { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
         
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .ticker-item { background: #1A1A1A; border-radius: 10.5px; margin-bottom: 9px; height: 54px; display: flex; align-items: center; overflow: hidden; }
         
         .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 10.5px; cursor: pointer; text-decoration: none; margin-bottom: 9px; border: none; width: 100%; font-size: 21px; }
         .white-btn-style:hover { background: #e0e0e0 !important; }
-        
-        .btn-group-title { text-align: center; font-size: 20px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; }
-        .btn { width: 100%; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 10px; }
-        .btn:hover { background: #504f4f; }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-economic-map.js"></script>
@@ -55,7 +47,6 @@
             <div class="ticker-item"><tv-single-ticker symbol="AMEX:COPX"></tv-single-ticker></div>
             <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:QQQ"></tv-single-ticker></div>
         </div>
-
         <div class="widget">
             <div class="widget-title">Stocks</div>
             <div class="ticker-item"><tv-single-ticker symbol="NYSE:PATH"></tv-single-ticker></div>
@@ -64,7 +55,6 @@
             <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:CELH"></tv-single-ticker></div>
             <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:NAUT"></tv-single-ticker></div>
         </div>
-
         <div class="widget">
             <div class="widget-title">Currencies & Crypto</div>
             <div class="ticker-item"><tv-single-ticker symbol="OANDA:EURUSD"></tv-single-ticker></div>
@@ -73,7 +63,6 @@
             <div class="ticker-item"><tv-single-ticker symbol="OANDA:GBPUSD"></tv-single-ticker></div>
             <div class="ticker-item"><tv-single-ticker symbol="BITSTAMP:BTCUSD"></tv-single-ticker></div>
         </div>
-
         <div class="widget">
             <div class="widget-title">Precious Metals</div>
             <div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD"></tv-single-ticker></div>
@@ -81,17 +70,34 @@
             <div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER"></tv-single-ticker></div>
             <div class="white-btn-style" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')">Silber 1kg (CHF)</div>
         </div>
-
         <div class="widget">
             <div class="widget-title">General</div>
-            <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
-            <button class="btn" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">AI Assistent</button>
-            <button class="btn" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
+            <button class="white-btn-style" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
+            <button class="white-btn-style" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">AI Assistent</button>
+            <button class="white-btn-style" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
         </div>
     </div>
 
     <div class="dashboard">
-         <div class="widget" style="grid-column: span 2;">
+        <div class="widget-wrapper w-wide" style="grid-column: span 2;">
+            <div class="widget-title">Market Heatmap</div>
+            <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px); width:100%;"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                { "dataSource": "SPX500", "blockSize": "market_cap_basic", "blockColor": "change", "grouping": "sector", "locale": "en", "colorTheme": "dark", "width": "100%", "height": "100%" }
+                </script>
+            </div>
+        </div>
+        <div class="widget-wrapper" style="width: 456px;">
+            <div class="widget-title">Daily News</div>
+            <div class="tradingview-widget-container" style="height:100%; width:100%;">
+              <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+              { "displayMode": "regular", "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "locale": "en", "width": "100%", "height": "100%" }
+              </script>
+            </div>
+        </div>
+        <div class="widget" style="grid-column: span 2;">
             <div class="widget-title">Thesen</div>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">UiPath</a>
             <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">Honest Company</a>
@@ -99,21 +105,29 @@
             <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">Nautilus Biotech</a>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit" target="_blank">Celsius Holding</a>
         </div>
-        <div class="widget" style="grid-column: span 2;">
-            <div class="widget-title">Earnings Calls (CEST)</div>
-            <button class="white-btn-style" onclick="window.open('https://ir.uipath.com/?utm_source=chatgpt.com', '_blank')">PATH: 04.09.26</button>
-            <button class="white-btn-style" onclick="window.open('https://investors.honest.com/?utm_source=chatgpt.com', '_blank')">HNST: 05.08.26</button>
-            <button class="white-btn-style" onclick="window.open('https://investors.nuvationbio.com/investors/default.aspx?utm_source=chatgpt.com', '_blank')">NUVB: 06.08.26</button>
-            <button class="white-btn-style" onclick="window.open('https://investors.nautilus.bio/?utm_source=chatgpt.com', '_blank')">NAUT: 28.07.26</button>
-            <button class="white-btn-style" onclick="window.open('https://ir.celsiusholdingsinc.com/overview/?utm_source=chatgpt.com', '_blank')">CELH: 06.08.26</button>
+    </div>
+
+    <div class="dashboard">
+        <div class="widget-wrapper" style="grid-column: span 3; width: 1444px;">
+            <div class="widget-title">Economic Map</div>
+            <tv-economic-map transparent></tv-economic-map>
+        </div>
+        <div class="widget-wrapper" style="width: 456px;">
+            <div class="widget-title">Economic Calendar</div>
+            <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                { "colorTheme": "dark", "isTransparent": true, "locale": "en", "countryFilter": "us,eu,de,ch,au,cn", "importanceFilter": "0,1", "width": "100%", "height": "100%" }
+                </script>
+            </div>
         </div>
         <div class="widget">
-            <div class="widget-title">News (Stocks)</div>
-            <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
-            <button class="btn" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
-            <button class="btn" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
-            <button class="btn" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
-            <button class="btn" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
+            <div class="widget-title">Stock News</div>
+            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
+            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
+            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
+            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
+            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
         </div>
     </div>
 </div>
