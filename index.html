@@ -23,7 +23,6 @@
         .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 54px; }
         .index-item:hover{ background: #1a1a1a; }
         
-        /* 1.2x höhere Buttons (64.8px) in Weiß mit schwarzem Text */
         .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 10.5px; cursor: pointer; text-decoration: none; margin-bottom: 9px; border: none; width: 100%; font-size: 14px; }
         .white-btn-style:hover { background: #e0e0e0 !important; }
         
@@ -109,6 +108,51 @@
                 <button class="white-btn-style" onclick="window.open('https://investors.nautilus.bio/?utm_source=chatgpt.com', '_blank')">NAUT: 28.07.26</button>
                 <button class="white-btn-style" onclick="window.open('https://ir.celsiusholdingsinc.com/overview/?utm_source=chatgpt.com', '_blank')">CELH: 06.08.26</button>
             </div>
+        </div>
+    </div>
+
+    <div class="bottom-section">
+        <div class="bottom-row">
+            <div class="widget-wide">
+                <div class="widget-title">Market Heatmap</div>
+                <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                    <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px); width:100%;"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                    {
+                      "dataSource": "SPX500",
+                      "blockSize": "market_cap_basic",
+                      "blockColor": "change",
+                      "grouping": "sector",
+                      "locale": "en",
+                      "colorTheme": "dark",
+                      "width": "100%",
+                      "height": "100%"
+                    }
+                    </script>
+                </div>
+            </div>
+            <div class="widget-standard">
+                <div class="widget-title">Daily News</div>
+                <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                  <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
+                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                  {
+                    "displayMode": "regular",
+                    "feedMode": "all_symbols",
+                    "colorTheme": "dark",
+                    "isTransparent": true,
+                    "locale": "en",
+                    "width": "100%",
+                    "height": "100%"
+                  }
+                  </script>
+                </div>
+            </div>
+        </div>
+
+        <div class="widget-economic">
+            <div class="widget-title">Economic Map</div>
+            <tv-economic-map transparent></tv-economic-map>
         </div>
     </div>
 </div>
