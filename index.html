@@ -22,12 +22,16 @@
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
         .index-item:hover{ background: #1a1a1a; }
+        
+        /* Gold CHF Item Höhe angepasst */
+        .gold-chf-item { height: 54px; } 
+        
         .name{ font-size: 12.75px; font-weight:600; }
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
         
-        /* Ticker Styling passend zu .index-item */
-        .ticker-item { background:#000; border-radius: 10.5px; margin-bottom: 9px; height: 45px; display: flex; align-items: center; overflow: hidden; }
+        /* 1.2x höhere Ticker */
+        .ticker-item { background:#000; border-radius: 10.5px; margin-bottom: 9px; height: 54px; display: flex; align-items: center; overflow: hidden; }
         
         .btn-group-title { text-align: center; font-size: 20px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; }
         .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 10px; }
@@ -76,11 +80,11 @@
             <div class="widget" style="margin-top: 38px;">
                 <div class="widget-title">Precious Metals</div>
                 
-                <div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD"></tv-single-ticker></div>
-                <div class="ticker-item"><tv-single-ticker symbol="TVC:SILVER"></tv-single-ticker></div>
-                <div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER"></tv-single-ticker></div>
+                <div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD" transparent></tv-single-ticker></div>
+                <div class="ticker-item"><tv-single-ticker symbol="TVC:SILVER" transparent></tv-single-ticker></div>
+                <div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER" transparent></tv-single-ticker></div>
                 
-                <div class="index-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div></div>
+                <div class="index-item gold-chf-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div></div>
             </div>
             <div class="btn-group-title">News</div>
             <button class="btn" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
