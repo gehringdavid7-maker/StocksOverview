@@ -11,13 +11,15 @@
         .main-container { display: flex; flex-direction: column; align-items: center; gap: 38px; }
         .dashboard{ display:grid; grid-template-columns: repeat(3, 456px); gap: 38px; }
         
-        /* Container für die unteren Zeilen */
-        .bottom-section { display: flex; flex-direction: column; gap: 38px; width: 950px; }
+        .bottom-section { display: flex; flex-direction: column; gap: 38px; width: 1450px; } /* Angepasst auf Gesamtbreite */
         .bottom-row { display: grid; grid-template-columns: 950px 456px; gap: 38px; }
         
         .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
         .widget-wide { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 550px; width: 950px; }
         .widget-standard { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 550px; width: 456px; }
+        
+        /* Container für die Economic Map mit fester Höhe */
+        .widget-economic { background:#3B3A3A; border-radius: 22px; padding: 24px; height: 600px; width: 1444px; }
         
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 45px; }
@@ -29,6 +31,8 @@
         .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 10px; }
         .btn:hover { background: #504f4f; }
     </style>
+    <!-- TradingView Script im Head -->
+    <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-economic-map.js"></script>
 </head>
 <body>
 
@@ -36,6 +40,7 @@
 
 <div class="main-container">
     <div class="dashboard">
+        <!-- Spalte 1-3 Inhalt bleibt gleich -->
         <div style="display: flex; flex-direction: column;">
             <div class="widget">
                 <div class="widget-title">Index</div>
@@ -118,6 +123,7 @@
         </div>
     </div>
 
+    <!-- Unterer Bereich -->
     <div class="bottom-section">
         <div class="bottom-row">
             <div class="widget-wide">
@@ -157,15 +163,15 @@
             </div>
         </div>
 
-        <div class="widget-wide">
+        <div class="widget-economic">
             <div class="widget-title">Economic Map</div>
-            <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-economic-map.js"></script>
             <tv-economic-map></tv-economic-map>
         </div>
     </div>
 </div>
 
 <script>
+    // Dein JS bleibt identisch
     const API_KEY = 'd92k0d1r01qs541v7k7gd92k0d1r01qs541v7k80';
     let goldPrice = 0, silverPrice = 0;
 
@@ -174,7 +180,6 @@
             {id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'},
             {id: 'stock-0', s: 'PATH'}, {id: 'stock-1', s: 'HNST'}, {id: 'stock-2', s: 'NUVB'}, {id: 'stock-3', s: 'NAUT'}, {id: 'stock-4', s: 'CELH'}
         ];
-
         for(const item of stocks) {
             fetch(`https://finnhub.io/api/v1/quote?symbol=${item.s}&token=${API_KEY}`)
             .then(r => r.json()).then(d => {
@@ -187,12 +192,10 @@
                 }
             });
         }
-
         const forex = [
             {id: 'curr-0', s: 'EURUSD=X'}, {id: 'curr-1', s: 'JPY=X'}, {id: 'curr-2', s: 'CHF=X'}, {id: 'curr-3', s: 'GBPUSD=X'}, {id: 'curr-4', s: 'BTC-USD'},
             {id: 'metal-0', s: 'GC=F'}, {id: 'metal-1', s: 'SI=F'}
         ];
-
         for(const item of forex) {
             fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://query1.finance.yahoo.com/v8/finance/chart/${item.s}`) }`)
             .then(r => r.json()).then(data => {
