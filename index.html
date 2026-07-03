@@ -6,7 +6,10 @@
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
         body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.8; transform-origin: top left; }
-        .header { text-align: center; margin-bottom: 40px; font-size: 50px; font-weight: 600; }
+        
+        .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+        .header { font-size: 50px; font-weight: 600; }
+        .clock-container { margin-top: 10px; }
         
         .main-container { display: flex; flex-direction: column; align-items: center; gap: 38px; }
         .dashboard{ display:grid; grid-template-columns: repeat(3, 456px); gap: 38px; }
@@ -34,7 +37,12 @@
 </head>
 <body>
 
-<div class="header">Stock Overview</div>
+<div class="header-container">
+    <div class="header">Stock Overview</div>
+    <div class="clock-container">
+        <iframe src="https://free.timeanddate.com/clock/iahjfplq/n268/fcfff/tct/pct/ftb/tt0/tw0/tm1/td2/th2/tb4" frameborder="0" width="88" height="34" allowtransparency="true"></iframe>
+    </div>
+</div>
 
 <div class="main-container">
     <div class="dashboard">
