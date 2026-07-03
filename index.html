@@ -17,8 +17,6 @@
         .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
         .widget-wide { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 550px; width: 950px; }
         .widget-standard { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 550px; width: 456px; }
-        
-        /* Container für die Economic Map */
         .widget-economic { background:#3B3A3A; border-radius: 22px; padding: 24px; height: 600px; width: 1444px; overflow: hidden; }
         
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
@@ -27,11 +25,16 @@
         .name{ font-size: 12.75px; font-weight:600; }
         .price{ font-size: 12px; opacity:0.8; }
         .change{ font-size: 12.75px; font-weight:600; }
+        
+        /* Ticker Styling passend zu .index-item */
+        .ticker-item { background:#000; border-radius: 10.5px; margin-bottom: 9px; height: 45px; display: flex; align-items: center; overflow: hidden; }
+        
         .btn-group-title { text-align: center; font-size: 20px; font-weight: 600; margin-top: 20px; margin-bottom: 5px; }
         .btn { width: 456px; height: 60px; background: #3B3A3A; color: white; border: none; border-radius: 22px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 10px; }
         .btn:hover { background: #504f4f; }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-economic-map.js"></script>
+    <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
 </head>
 <body>
 
@@ -72,9 +75,11 @@
             </div>
             <div class="widget" style="margin-top: 38px;">
                 <div class="widget-title">Precious Metals</div>
-                <div class="index-item" id="metal-0" onclick="window.open('https://www.tradingview.com/symbols/TVC-GOLD/', '_blank')"><div><div class="name">Gold</div><div class="price">Lädt...</div></div></div>
-                <div class="index-item" id="metal-1" onclick="window.open('https://www.tradingview.com/symbols/TVC-SILVER/', '_blank')"><div><div class="name">Silver</div><div class="price">Lädt...</div></div></div>
-                <div class="index-item"><div class="name">Gold/Silver Ratio</div><div class="price" id="ratio">--</div></div>
+                
+                <div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD"></tv-single-ticker></div>
+                <div class="ticker-item"><tv-single-ticker symbol="TVC:SILVER"></tv-single-ticker></div>
+                <div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER"></tv-single-ticker></div>
+                
                 <div class="index-item" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')"><div class="name">Silber 1kg (CHF)</div></div>
             </div>
             <div class="btn-group-title">News</div>
@@ -169,8 +174,6 @@
 
 <script>
     const API_KEY = 'd92k0d1r01qs541v7k7gd92k0d1r01qs541v7k80';
-    let goldPrice = 0, silverPrice = 0;
-
     async function update() {
         const stocks = [
             {id: 'item-0', s: 'SPY'}, {id: 'item-1', s: 'URTH'}, {id: 'item-2', s: 'QQQ'}, {id: 'item-3', s: 'COPX'},
@@ -189,8 +192,7 @@
             });
         }
         const forex = [
-            {id: 'curr-0', s: 'EURUSD=X'}, {id: 'curr-1', s: 'JPY=X'}, {id: 'curr-2', s: 'CHF=X'}, {id: 'curr-3', s: 'GBPUSD=X'}, {id: 'curr-4', s: 'BTC-USD'},
-            {id: 'metal-0', s: 'GC=F'}, {id: 'metal-1', s: 'SI=F'}
+            {id: 'curr-0', s: 'EURUSD=X'}, {id: 'curr-1', s: 'JPY=X'}, {id: 'curr-2', s: 'USDCHF=X'}, {id: 'curr-3', s: 'GBPUSD=X'}, {id: 'curr-4', s: 'BTC-USD'}
         ];
         for(const item of forex) {
             fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://query1.finance.yahoo.com/v8/finance/chart/${item.s}`) }`)
@@ -198,14 +200,10 @@
                 const d = JSON.parse(data.contents);
                 const p = d.chart.result[0].meta.regularMarketPrice;
                 document.getElementById(item.id).querySelector('.price').innerText = p.toFixed(2);
-                if(item.id === 'metal-0') goldPrice = p;
-                if(item.id === 'metal-1') silverPrice = p;
-                if(goldPrice && silverPrice) document.getElementById('ratio').innerText = (goldPrice / silverPrice).toFixed(2);
             });
         }
     }
     update(); setInterval(update, 60000);
 </script>
 </body>
-</html>
 </html>
