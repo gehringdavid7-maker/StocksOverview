@@ -18,8 +18,9 @@
         .widget-wide { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 550px; width: 950px; }
         .widget-standard { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 550px; width: 456px; }
         
-        /* Widget-Größe für Map und Kalender angepasst */
-        .widget-standard-size { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 706px; }
+        /* Neue Klassen für die untere Sektion */
+        .widget-map-wide { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 950px; }
+        .widget-calendar-std { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
         
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 54px; }
@@ -63,7 +64,6 @@
                 <div class="ticker-item"><tv-single-ticker symbol="OANDA:GBPUSD"></tv-single-ticker></div>
                 <div class="ticker-item"><tv-single-ticker symbol="BITSTAMP:BTCUSD"></tv-single-ticker></div>
             </div>
-            <button class="btn" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
         </div>
 
         <div style="display: flex; flex-direction: column;">
@@ -105,33 +105,12 @@
     </div>
 
     <div class="bottom-section">
-        <div class="bottom-row">
-            <div class="widget-wide">
-                <div class="widget-title">Market Heatmap</div>
-                <div class="tradingview-widget-container" style="height:100%; width:100%;">
-                    <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px); width:100%;"></div>
-                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-                    { "dataSource": "SPX500", "blockSize": "market_cap_basic", "blockColor": "change", "grouping": "sector", "locale": "en", "colorTheme": "dark", "width": "100%", "height": "100%" }
-                    </script>
-                </div>
-            </div>
-            <div class="widget-standard">
-                <div class="widget-title">Daily News</div>
-                <div class="tradingview-widget-container" style="height:100%; width:100%;">
-                  <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
-                  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                  { "displayMode": "regular", "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "locale": "en", "width": "100%", "height": "100%" }
-                  </script>
-                </div>
-            </div>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: 706px 706px; gap: 38px;">
-            <div class="widget-standard-size">
+        <div style="display: grid; grid-template-columns: 950px 456px; gap: 38px;">
+            <div class="widget-map-wide">
                 <div class="widget-title">Economic Map</div>
                 <tv-economic-map transparent></tv-economic-map>
             </div>
-            <div class="widget-standard-size">
+            <div class="widget-calendar-std">
                 <div class="widget-title">Economic Calendar</div>
                 <div class="tradingview-widget-container" style="height:100%; width:100%;">
                     <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
