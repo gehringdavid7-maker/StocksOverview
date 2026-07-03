@@ -17,7 +17,7 @@
         .widget{ background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
         .widget-wide { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 550px; width: 950px; }
         .widget-standard { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 550px; width: 456px; }
-        .widget-economic { background:#3B3A3A; border-radius: 22px; padding: 24px; height: 600px; width: 1444px; overflow: hidden; }
+        .widget-economic { background:#3B3A3A; border-radius: 22px; padding: 0; height: 600px; width: 1444px; overflow: hidden; }
         
         .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .index-item{ background:#000; border-radius: 10.5px; padding: 10.5px; margin-bottom: 9px; cursor:pointer; display:flex; justify-content:space-between; align-items:center; min-height: 54px; }
@@ -37,7 +37,6 @@
         .btn:hover { background: #504f4f; }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
-    <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-economic-map.js"></script>
 </head>
 <body>
 
@@ -151,8 +150,20 @@
         </div>
 
         <div class="widget-economic">
-            <div class="widget-title">Economic Map</div>
-            <tv-economic-map transparent></tv-economic-map>
+            <div class="tradingview-widget-container" style="height:100%; width:100%;">
+                <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                {
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "locale": "en",
+                  "countryFilter": "us,eu,de,ch,au,cn",
+                  "importanceFilter": "0,1",
+                  "width": "100%",
+                  "height": "100%"
+                }
+                </script>
+            </div>
         </div>
     </div>
 </div>
