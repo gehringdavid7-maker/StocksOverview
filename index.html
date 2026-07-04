@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Stock Overview</title>
     <style>
-        *{ margin:0; padding:0; box-sizing:border-box; }
-        body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.55; transform-origin: top left; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.55; transform-origin: top left; }
         
         .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
         .header { font-size: 50px; font-weight: 600; }
@@ -15,11 +15,10 @@
         .dashboard { display: grid; grid-template-columns: repeat(5, 456px); gap: 38px; margin-bottom: 38px; }
         
         .widget { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
-        .w-wide { width: 950px; height: 420px; }
-        
+        .w-wide { width: 950px; }
         .widget-wrapper { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
         
-        .widget-title{ text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
+        .widget-title { text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .ticker-item { background: #1A1A1A; border-radius: 10.5px; margin-bottom: 9px; height: 54px; display: flex; align-items: center; overflow: hidden; }
         
         .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 10.5px; cursor: pointer; text-decoration: none; margin-bottom: 9px; border: none; width: 100%; font-size: 21px; }
@@ -39,42 +38,11 @@
 
 <div class="main-container">
     <div class="dashboard">
-        <div class="widget">
-            <div class="widget-title">Index</div>
-            <div class="ticker-item"><tv-single-ticker symbol="SIX:WORLD"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="AMEX:VOO"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="AMEX:COPX"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:QQQ"></tv-single-ticker></div>
-        </div>
-        <div class="widget">
-            <div class="widget-title">Stocks</div>
-            <div class="ticker-item"><tv-single-ticker symbol="NYSE:PATH"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="NYSE:NUVB"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:HNST"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:CELH"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:NAUT"></tv-single-ticker></div>
-        </div>
-        <div class="widget">
-            <div class="widget-title">Currencies & Crypto</div>
-            <div class="ticker-item"><tv-single-ticker symbol="OANDA:EURUSD"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="FX:USDJPY"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="OANDA:USDCHF"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="OANDA:GBPUSD"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="BITSTAMP:BTCUSD"></tv-single-ticker></div>
-        </div>
-        <div class="widget">
-            <div class="widget-title">Precious Metals</div>
-            <div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="TVC:SILVER"></tv-single-ticker></div>
-            <div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER"></tv-single-ticker></div>
-            <div class="white-btn-style" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')">Silber 1kg (CHF)</div>
-        </div>
-        <div class="widget">
-            <div class="widget-title">General</div>
-            <button class="white-btn-style" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
-            <button class="white-btn-style" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">AI Assistent</button>
-            <button class="white-btn-style" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
-        </div>
+        <div class="widget"><div class="widget-title">Index</div><div class="ticker-item"><tv-single-ticker symbol="SIX:WORLD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="AMEX:VOO"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="AMEX:COPX"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:QQQ"></tv-single-ticker></div></div>
+        <div class="widget"><div class="widget-title">Stocks</div><div class="ticker-item"><tv-single-ticker symbol="NYSE:PATH"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NYSE:NUVB"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:HNST"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:CELH"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:NAUT"></tv-single-ticker></div></div>
+        <div class="widget"><div class="widget-title">Currencies & Crypto</div><div class="ticker-item"><tv-single-ticker symbol="OANDA:EURUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="FX:USDJPY"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="OANDA:USDCHF"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="OANDA:GBPUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="BITSTAMP:BTCUSD"></tv-single-ticker></div></div>
+        <div class="widget"><div class="widget-title">Precious Metals</div><div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="TVC:SILVER"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER"></tv-single-ticker></div><div class="white-btn-style" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')">Silber 1kg (CHF)</div></div>
+        <div class="widget"><div class="widget-title">General</div><button class="white-btn-style" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button><button class="white-btn-style" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">AI Assistent</button><button class="white-btn-style" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button></div>
     </div>
 
     <div class="dashboard">
@@ -82,21 +50,17 @@
             <div class="widget-title">Market Heatmap</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
                 <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px); width:100%;"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-                { "dataSource": "SPX500", "blockSize": "market_cap_basic", "blockColor": "change", "grouping": "sector", "locale": "en", "colorTheme": "dark", "width": "100%", "height": "100%" }
-                </script>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{ "dataSource": "SPX500", "blockSize": "market_cap_basic", "blockColor": "change", "grouping": "sector", "locale": "en", "colorTheme": "dark", "width": "100%", "height": "100%" }</script>
             </div>
         </div>
-        <div class="widget-wrapper">
+        <div class="widget-wrapper" style="grid-column: 4;">
             <div class="widget-title">Daily News</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
               <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
-              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-              { "displayMode": "regular", "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "locale": "en", "width": "100%", "height": "100%" }
-              </script>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>{ "displayMode": "regular", "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "locale": "en", "width": "100%", "height": "100%" }</script>
             </div>
         </div>
-        <div class="widget">
+        <div class="widget" style="grid-column: 5;">
             <div class="widget-title">Stock News</div>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
@@ -111,16 +75,14 @@
             <div class="widget-title">Economic Map</div>
             <tv-economic-map transparent></tv-economic-map>
         </div>
-        <div class="widget-wrapper">
+        <div class="widget-wrapper" style="grid-column: 4;">
             <div class="widget-title">Economic Calendar</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
                 <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
-                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                { "colorTheme": "dark", "isTransparent": true, "locale": "en", "countryFilter": "us,eu,de,ch,au,cn", "importanceFilter": "0,1", "width": "100%", "height": "100%" }
-                </script>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>{ "colorTheme": "dark", "isTransparent": true, "locale": "en", "countryFilter": "us,eu,de,ch,au,cn", "importanceFilter": "0,1", "width": "100%", "height": "100%" }</script>
             </div>
         </div>
-        <div class="widget">
+        <div class="widget" style="grid-column: 5;">
             <div class="widget-title">Earnings Calls (CEST)</div>
             <button class="white-btn-style" onclick="window.open('https://ir.uipath.com/?utm_source=chatgpt.com', '_blank')">PATH: 04.09.26</button>
             <button class="white-btn-style" onclick="window.open('https://investors.honest.com/?utm_source=chatgpt.com', '_blank')">HNST: 05.08.26</button>
@@ -128,7 +90,7 @@
             <button class="white-btn-style" onclick="window.open('https://investors.nautilus.bio/?utm_source=chatgpt.com', '_blank')">NAUT: 28.07.26</button>
             <button class="white-btn-style" onclick="window.open('https://ir.celsiusholdingsinc.com/overview/?utm_source=chatgpt.com', '_blank')">CELH: 06.08.26</button>
         </div>
-        <div class="widget">
+        <div class="widget" style="grid-column: 5;">
             <div class="widget-title">Thesen</div>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">UiPath</a>
             <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">Honest Company</a>
