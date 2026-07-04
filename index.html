@@ -5,8 +5,8 @@
     <title>Stock Overview</title>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
-        /* Zoom auf 0.6 angepasst */
-        body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.6; transform-origin: top left; }
+        /* Zoom auf 0.55 angepasst */
+        body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.55; transform-origin: top left; }
         
         .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
         .header { font-size: 50px; font-weight: 600; }
@@ -88,37 +88,22 @@
                 </script>
             </div>
         </div>
-        <div class="widget-wrapper" style="width: 456px;">
-            <div class="widget-title">Daily News</div>
-            <div class="tradingview-widget-container" style="height:100%; width:100%;">
-              <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
-              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-              { "displayMode": "regular", "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "locale": "en", "width": "100%", "height": "100%" }
-              </script>
-            </div>
-        </div>
-        <div class="widget" style="grid-column: span 2;">
-            <div class="widget-title">Thesen</div>
-            <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">UiPath</a>
-            <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">Honest Company</a>
-            <a class="white-btn-style" href="https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit" target="_blank">Nuvation Bio</a>
-            <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">Nautilus Biotech</a>
-            <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit" target="_blank">Celsius Holding</a>
-        </div>
-    </div>
-
-    <div class="dashboard">
-        <div class="widget-wrapper" style="grid-column: span 3; width: 1444px;">
-            <div class="widget-title">Economic Map</div>
-            <tv-economic-map transparent></tv-economic-map>
-        </div>
-        <div class="widget-wrapper" style="width: 456px;">
+        <div class="widget-wrapper">
             <div class="widget-title">Economic Calendar</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
                 <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
                 { "colorTheme": "dark", "isTransparent": true, "locale": "en", "countryFilter": "us,eu,de,ch,au,cn", "importanceFilter": "0,1", "width": "100%", "height": "100%" }
                 </script>
+            </div>
+        </div>
+        <div class="widget-wrapper">
+            <div class="widget-title">Daily News</div>
+            <div class="tradingview-widget-container" style="height:100%; width:100%;">
+              <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+              { "displayMode": "regular", "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "locale": "en", "width": "100%", "height": "100%" }
+              </script>
             </div>
         </div>
         <div class="widget">
@@ -128,6 +113,21 @@
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24nuvb', '_blank')">Nuvation Bio</button>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <div class="widget-wrapper w-wide" style="grid-column: span 2;">
+            <div class="widget-title">Economic Map</div>
+            <tv-economic-map transparent></tv-economic-map>
+        </div>
+        <div class="widget" style="grid-column: span 3; width: 1444px;">
+            <div class="widget-title">Thesen</div>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">UiPath</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">Honest Company</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit" target="_blank">Nuvation Bio</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">Nautilus Biotech</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit" target="_blank">Celsius Holding</a>
         </div>
     </div>
 </div>
