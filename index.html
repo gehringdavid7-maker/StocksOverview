@@ -68,13 +68,10 @@
             <div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD"></tv-single-ticker></div>
             <div class="ticker-item"><tv-single-ticker symbol="TVC:SILVER"></tv-single-ticker></div>
             <div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER"></tv-single-ticker></div>
+            <div class="white-btn-style" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')">Silber 1kg (CHF)</div>
         </div>
         <div class="widget">
             <div class="widget-title">General</div>
-            <button class="white-btn-style" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
-            <button class="white-btn-style" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">AI Assistent</button>
-            <button class="white-btn-style" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
-            <div class="white-btn-style" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')">Silber 1kg (CHF)</div>
         </div>
     </div>
 
@@ -88,7 +85,7 @@
                 </script>
             </div>
         </div>
-        <div class="widget-wrapper" style="width: 456px;">
+        <div class="widget-wrapper">
             <div class="widget-title">Daily News</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
               <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
@@ -105,7 +102,14 @@
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
         </div>
-        <div class="widget-wrapper" style="width: 456px;">
+    </div>
+
+    <div class="dashboard">
+        <div class="widget-wrapper w-wide" style="grid-column: span 2;">
+            <div class="widget-title">Economic Map</div>
+            <tv-economic-map transparent></tv-economic-map>
+        </div>
+        <div class="widget-wrapper">
             <div class="widget-title">Economic Calendar</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
                 <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
@@ -114,32 +118,21 @@
                 </script>
             </div>
         </div>
-    </div>
-
-    <div class="dashboard" style="align-items: start;">
-        <div class="widget-wrapper w-wide" style="grid-column: span 2;">
-            <div class="widget-title">Economic Map</div>
-            <tv-economic-map transparent></tv-economic-map>
+        <div class="widget">
+            <div class="widget-title">Earnings Calls (CEST)</div>
+            <button class="white-btn-style" onclick="window.open('https://ir.uipath.com/?utm_source=chatgpt.com', '_blank')">PATH: 04.09.26</button>
+            <button class="white-btn-style" onclick="window.open('https://investors.honest.com/?utm_source=chatgpt.com', '_blank')">HNST: 05.08.26</button>
+            <button class="white-btn-style" onclick="window.open('https://investors.nuvationbio.com/investors/default.aspx?utm_source=chatgpt.com', '_blank')">NUVB: 06.08.26</button>
+            <button class="white-btn-style" onclick="window.open('https://investors.nautilus.bio/?utm_source=chatgpt.com', '_blank')">NAUT: 28.07.26</button>
+            <button class="white-btn-style" onclick="window.open('https://ir.celsiusholdingsinc.com/overview/?utm_source=chatgpt.com', '_blank')">CELH: 06.08.26</button>
         </div>
-        
-        <div style="grid-column: span 3; display: grid; grid-template-columns: repeat(3, 456px); gap: 38px;">
-            <div class="widget">
-                <div class="widget-title">Thesen</div>
-                <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">UiPath</a>
-                <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">Honest Company</a>
-                <a class="white-btn-style" href="https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit" target="_blank">Nuvation Bio</a>
-                <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">Nautilus Biotech</a>
-                <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit" target="_blank">Celsius Holding</a>
-            </div>
-            
-            <div class="widget">
-                <div class="widget-title">Earnings Calls (CEST)</div>
-                <button class="white-btn-style" onclick="window.open('https://ir.uipath.com/?utm_source=chatgpt.com', '_blank')">PATH: 04.09.26</button>
-                <button class="white-btn-style" onclick="window.open('https://investors.honest.com/?utm_source=chatgpt.com', '_blank')">HNST: 05.08.26</button>
-                <button class="white-btn-style" onclick="window.open('https://investors.nuvationbio.com/investors/default.aspx?utm_source=chatgpt.com', '_blank')">NUVB: 06.08.26</button>
-                <button class="white-btn-style" onclick="window.open('https://investors.nautilus.bio/?utm_source=chatgpt.com', '_blank')">NAUT: 28.07.26</button>
-                <button class="white-btn-style" onclick="window.open('https://ir.celsiusholdingsinc.com/overview/?utm_source=chatgpt.com', '_blank')">CELH: 06.08.26</button>
-            </div>
+        <div class="widget">
+            <div class="widget-title">Thesen</div>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">UiPath</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">Honest Company</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit" target="_blank">Nuvation Bio</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">Nautilus Biotech</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit" target="_blank">Celsius Holding</a>
         </div>
     </div>
 </div>
