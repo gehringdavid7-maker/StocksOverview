@@ -53,14 +53,14 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{ "dataSource": "SPX500", "blockSize": "market_cap_basic", "blockColor": "change", "grouping": "sector", "locale": "en", "colorTheme": "dark", "width": "100%", "height": "100%" }</script>
             </div>
         </div>
-        <div class="widget-wrapper" style="grid-column: 3;">
+        <div class="widget-wrapper" style="grid-column: 4;">
             <div class="widget-title">Daily News</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
               <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
               <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>{ "displayMode": "regular", "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "locale": "en", "width": "100%", "height": "100%" }</script>
             </div>
         </div>
-        <div class="widget" style="grid-column: 4 / span 2;">
+        <div class="widget" style="grid-column: 5;">
             <div class="widget-title">Stock News</div>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24path', '_blank')">UiPath</button>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
@@ -71,18 +71,18 @@
     </div>
 
     <div class="dashboard">
-        <div class="widget-wrapper" style="grid-column: span 2;">
+        <div class="widget-wrapper w-wide" style="grid-column: span 2;">
             <div class="widget-title">Economic Map</div>
             <tv-economic-map transparent></tv-economic-map>
         </div>
-        <div class="widget-wrapper" style="grid-column: 3;">
+        <div class="widget-wrapper" style="grid-column: 4;">
             <div class="widget-title">Economic Calendar</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
                 <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>{ "colorTheme": "dark", "isTransparent": true, "locale": "en", "countryFilter": "us,eu,de,ch,au,cn", "importanceFilter": "0,1", "width": "100%", "height": "100%" }</script>
             </div>
         </div>
-        <div class="widget" style="grid-column: 4;">
+        <div class="widget" style="grid-column: 5;">
             <div class="widget-title">Earnings Calls (CEST)</div>
             <button class="white-btn-style" onclick="window.open('https://ir.uipath.com/?utm_source=chatgpt.com', '_blank')">PATH: 04.09.26</button>
             <button class="white-btn-style" onclick="window.open('https://investors.honest.com/?utm_source=chatgpt.com', '_blank')">HNST: 05.08.26</button>
@@ -97,6 +97,24 @@
             <a class="white-btn-style" href="https://docs.google.com/document/d/1YeuJg2p13AniTs5E0PYjb-zA5sedeXAkr9Z7cyV12nw/edit" target="_blank">Nuvation Bio</a>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">Nautilus Biotech</a>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit" target="_blank">Celsius Holding</a>
+        </div>
+    </div>
+    
+    <div class="dashboard">
+        <div class="widget">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NYSE:PATH", "colorTheme": "dark", "width": 400, "height": 400 }</script>
+        </div>
+        <div class="widget">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:HNST", "colorTheme": "dark", "width": 400, "height": 400 }</script>
+        </div>
+    </div>
+    
+    <div class="dashboard">
+        <div class="widget">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NYSE:NUVB", "colorTheme": "dark", "width": 400, "height": 400 }</script>
+        </div>
+        <div class="widget">
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:NAUT", "colorTheme": "dark", "width": 400, "height": 400 }</script>
         </div>
     </div>
 </div>
