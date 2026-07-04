@@ -5,7 +5,6 @@
     <title>Stock Overview</title>
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; }
-        /* Zoom auf 0.55 angepasst */
         body{ background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.55; transform-origin: top left; }
         
         .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
@@ -13,7 +12,7 @@
         .clock-container { margin-top: 10px; }
         
         .main-container { display: flex; flex-direction: column; align-items: center; gap: 38px; }
-        .dashboard { display: grid; grid-template-columns: repeat(5, 456px); gap: 38px; }
+        .dashboard { display: grid; grid-template-columns: repeat(5, 456px); gap: 38px; margin-bottom: 38px; }
         
         .widget { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
         .w-wide { width: 950px; height: 420px; }
@@ -72,6 +71,9 @@
         </div>
         <div class="widget">
             <div class="widget-title">General</div>
+            <button class="white-btn-style" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button>
+            <button class="white-btn-style" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">AI Assistent</button>
+            <button class="white-btn-style" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button>
         </div>
     </div>
 
