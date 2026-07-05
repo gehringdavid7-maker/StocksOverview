@@ -5,23 +5,39 @@
     <title>Stock Overview</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.55; transform-origin: top left; }
+        body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 20px; zoom: 0.55; transform-origin: top left; }
         
-        .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
+        .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
         .header { font-size: 50px; font-weight: 600; }
         .clock-container { margin-top: 10px; transform: scale(2); transform-origin: center top; }
         
-        .main-container { display: flex; flex-direction: column; align-items: center; gap: 38px; }
-        .dashboard { display: grid; grid-template-columns: repeat(5, 456px); gap: 38px; margin-bottom: 38px; }
+        .main-container { display: flex; flex-direction: column; align-items: center; gap: 0; }
         
-        .widget { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
-        .w-wide { width: 950px; }
-        .widget-wrapper { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
+        /* Grid ohne Abstände für nahtlosen Look */
+        .dashboard { display: grid; grid-template-columns: repeat(5, 456px); gap: 0; margin-bottom: 0; }
+        
+        /* Widgets mit feinem Rahmen statt Lücke */
+        .widget { 
+            background:#3B3A3A; 
+            padding: 24px; 
+            overflow: hidden; 
+            height: 420px; 
+            width: 456px; 
+            border: 1px solid #222222;
+        }
+        .w-wide { width: 912px; } /* 456 * 2 */
+        .widget-wrapper { 
+            background:#3B3A3A; 
+            padding: 24px; 
+            overflow: hidden; 
+            height: 420px; 
+            border: 1px solid #222222;
+        }
         
         .widget-title { text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
-        .ticker-item { background: #1A1A1A; border-radius: 10.5px; margin-bottom: 9px; height: 54px; display: flex; align-items: center; overflow: hidden; }
+        .ticker-item { background: #1A1A1A; border-radius: 6px; margin-bottom: 6px; height: 50px; display: flex; align-items: center; overflow: hidden; }
         
-        .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 10.5px; cursor: pointer; text-decoration: none; margin-bottom: 9px; border: none; width: 100%; font-size: 21px; }
+        .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; text-decoration: none; margin-bottom: 6px; border: none; width: 100%; font-size: 20px; }
         .white-btn-style:hover { background: #e0e0e0 !important; }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
@@ -101,22 +117,10 @@
     </div>
     
     <div class="dashboard">
-        <div class="widget">
-            <div class="widget-title">PATH Financials</div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NYSE:PATH", "colorTheme": "dark", "width": 400, "height": 340 }</script>
-        </div>
-        <div class="widget">
-            <div class="widget-title">HNST Financials</div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:HNST", "colorTheme": "dark", "width": 400, "height": 340 }</script>
-        </div>
-        <div class="widget">
-            <div class="widget-title">NUVB Financials</div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NYSE:NUVB", "colorTheme": "dark", "width": 400, "height": 340 }</script>
-        </div>
-        <div class="widget">
-            <div class="widget-title">NAUT Financials</div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:NAUT", "colorTheme": "dark", "width": 400, "height": 340 }</script>
-        </div>
+        <div class="widget"><div class="widget-title">PATH Financials</div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NYSE:PATH", "colorTheme": "dark", "width": 400, "height": 340 }</script></div>
+        <div class="widget"><div class="widget-title">HNST Financials</div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:HNST", "colorTheme": "dark", "width": 400, "height": 340 }</script></div>
+        <div class="widget"><div class="widget-title">NUVB Financials</div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NYSE:NUVB", "colorTheme": "dark", "width": 400, "height": 340 }</script></div>
+        <div class="widget"><div class="widget-title">NAUT Financials</div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:NAUT", "colorTheme": "dark", "width": 400, "height": 340 }</script></div>
     </div>
 </div>
 </body>
