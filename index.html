@@ -28,7 +28,7 @@
         .zoom-btn { position: absolute; right: 10px; top: -5px; cursor: pointer; font-size: 24px; background: none; border: none; color: white; z-index: 10; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; }
         .overlay.active { display: flex; }
-        .overlay-content { width: 950px; height: 420px; transform: scale(1.7); background: #3B3A3A; border-radius: 22px; padding: 24px; position: relative; }
+        .overlay-content { width: 90vw; height: 80vh; background: #3B3A3A; border-radius: 22px; padding: 24px; position: relative; }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-economic-map.js"></script>
@@ -38,7 +38,7 @@
 <div id="chart-overlay" class="overlay" onclick="toggleOverlay()">
     <div class="overlay-content" onclick="event.stopPropagation()">
         <div class="widget-title">Chart <button class="zoom-btn" onclick="toggleOverlay()">X</button></div>
-        <div id="chart-mount" style="height: 340px; width: 100%;"></div>
+        <div id="chart-mount" style="height: 90%; width: 100%;"></div>
     </div>
 </div>
 
