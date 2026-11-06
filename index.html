@@ -7,6 +7,20 @@
         * { margin:0; padding:0; box-sizing:border-box; }
         body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.55; transform-origin: top left; position: relative; min-height: 100vh; overflow-x: hidden; }
 
+        /* Der große Globus als eigene Hintergrundebene (Layer -1), exakt hinter dem Daily-News-Widget platziert */
+        #bg-globe {
+            position: fixed;
+            /* Passt die Position exakt an die Spalte/Zeile des Daily-News-Widgets an */
+            top: 360px; 
+            left: 1040px; 
+            transform: translate(-50%, 0);
+            width: 850px;
+            height: 850px;
+            z-index: -1;
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
         .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; position: relative; z-index: 1; }
         .header { font-size: 50px; font-weight: 600; }
         .clock-container { margin-top: 10px; transform: scale(2); transform-origin: center top; }
@@ -20,24 +34,6 @@
         .w-wide { width: 950px; }
         .widget-wrapper { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; position: relative; }
         
-        /* Großes Daily News Widget mit großem Globus im Hintergrund */
-        .widget-wrapper-globe { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; position: relative; }
-        #bg-globe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 700px;  /* Wieder schön groß gemacht */
-            height: 700px;
-            z-index: 0;
-            opacity: 0.65;
-            pointer-events: none;
-        }
-        .widget-wrapper-globe > * {
-            position: relative;
-            z-index: 1;
-        }
-        
         .widget-title { text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .ticker-item { background: #1A1A1A; border-radius: 10.5px; margin-bottom: 9px; height: 54px; display: flex; align-items: center; overflow: hidden; }
         
@@ -47,6 +43,9 @@
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
 </head>
 <body>
+
+<!-- Der Globus-Layer im Hintergrund -->
+<canvas id="bg-globe"></canvas>
 
 <div class="header-container">
     <div class="header">Stock Overview</div>
@@ -73,9 +72,8 @@
             </div>
         </div>
         
-        <!-- Daily News Widget mit großem Globus dahinter -->
-        <div class="widget-wrapper-globe" style="grid-column: 3;">
-            <canvas id="bg-globe"></canvas>
+        <!-- Daily News Widget -->
+        <div class="widget-wrapper" style="grid-column: 3;">
             <div class="widget-title">Daily News</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
               <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
@@ -128,16 +126,15 @@
     </div>
 </div>
 
-<!-- JavaScript für den großen, rotierenden Globus -->
+<!-- JavaScript für den großen Hintergrund-Globus -->
 <script>
     const canvas = document.getElementById('bg-globe');
     const ctx = canvas.getContext('2d');
 
-    // Auflösung erhöht für gestochen scharfe Großdarstellung hinter dem Widget
-    canvas.width = 700;
-    canvas.height = 700;
+    canvas.width = 850;
+    canvas.height = 850;
 
-    const globeRadius = 280; // Wieder größerer Radius
+    const globeRadius = 380; // Schön groß skaliert
     const lats = 14;
     const lons = 28;
     let angle = 0;
@@ -148,10 +145,10 @@
         const centerX = canvas.width * 0.5;
         const centerY = canvas.height * 0.5;
 
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
         ctx.lineWidth = 2;
 
-        angle += 0.003;
+        angle += 0.002;
 
         // Breitengrade
         for (let i = 1; i < lats; i++) {
