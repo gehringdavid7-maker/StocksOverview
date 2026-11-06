@@ -20,17 +20,17 @@
         .w-wide { width: 950px; }
         .widget-wrapper { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; position: relative; }
         
-        /* Spezial-Wrapper für das Daily News Widget mit absolut positioniertem Globus dahinter */
+        /* Großes Daily News Widget mit großem Globus im Hintergrund */
         .widget-wrapper-globe { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; position: relative; }
         #bg-globe {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 420px;
-            height: 420px;
+            width: 700px;  /* Wieder schön groß gemacht */
+            height: 700px;
             z-index: 0;
-            opacity: 0.75;
+            opacity: 0.65;
             pointer-events: none;
         }
         .widget-wrapper-globe > * {
@@ -73,7 +73,7 @@
             </div>
         </div>
         
-        <!-- Daily News Widget mit dem Globus direkt dahinter platziert -->
+        <!-- Daily News Widget mit großem Globus dahinter -->
         <div class="widget-wrapper-globe" style="grid-column: 3;">
             <canvas id="bg-globe"></canvas>
             <div class="widget-title">Daily News</div>
@@ -128,18 +128,18 @@
     </div>
 </div>
 
-<!-- JavaScript für den rotierenden Globus im Daily-News-Widget -->
+<!-- JavaScript für den großen, rotierenden Globus -->
 <script>
     const canvas = document.getElementById('bg-globe');
     const ctx = canvas.getContext('2d');
 
-    // Feste Größe passend zum Widget
-    canvas.width = 400;
-    canvas.height = 350;
+    // Auflösung erhöht für gestochen scharfe Großdarstellung hinter dem Widget
+    canvas.width = 700;
+    canvas.height = 700;
 
-    const globeRadius = 150; 
-    const lats = 10;
-    const lons = 20;
+    const globeRadius = 280; // Wieder größerer Radius
+    const lats = 14;
+    const lons = 28;
     let angle = 0;
 
     function drawGlobe() {
@@ -151,7 +151,7 @@
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
         ctx.lineWidth = 2;
 
-        angle += 0.02;
+        angle += 0.003;
 
         // Breitengrade
         for (let i = 1; i < lats; i++) {
@@ -160,7 +160,7 @@
             let y = centerY + globeRadius * Math.sin(lat);
 
             ctx.beginPath();
-            let points = 40;
+            let points = 50;
             for (let j = 0; j <= points; j++) {
                 let lon = (j / points) * Math.PI * 2 + angle;
                 let x = centerX + r * Math.cos(lon);
@@ -174,7 +174,7 @@
         for (let i = 0; i < lons; i++) {
             let lonOffset = (i / lons) * Math.PI * 2 + angle;
             ctx.beginPath();
-            let points = 40;
+            let points = 50;
             for (let j = 0; j <= points; j++) {
                 let lat = Math.PI * (-0.5 + j / points);
                 let x = centerX + globeRadius * Math.cos(lat) * Math.cos(lonOffset);
