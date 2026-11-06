@@ -7,16 +7,24 @@
         * { margin:0; padding:0; box-sizing:border-box; }
         body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.55; transform-origin: top left; position: relative; min-height: 100vh; overflow-x: hidden; }
         
-        /* Canvas für den rotierenden Agenten-Globus im Hintergrund */
-        #bg-globe {
+        /* Perfekt zentrierter, rotierender Agenten-Globus im Hintergrund */
+        #bg-globe-container {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 100vw;
             height: 100vh;
-            z-index: -1; /* Liegt hinter dem gesamten Inhalt */
-            opacity: 0.55; /* Etwas heller/sichtbarer gemacht */
+            z-index: -1;
+            opacity: 0.55;
             pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #bg-globe {
+            width: 100%;
+            height: 100%;
         }
 
         .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; position: relative; z-index: 1; }
@@ -42,8 +50,10 @@
 </head>
 <body>
 
-<!-- Hintergrund-Globus Canvas -->
-<canvas id="bg-globe"></canvas>
+<!-- Hintergrund-Globus Container -->
+<div id="bg-globe-container">
+    <canvas id="bg-globe"></canvas>
+</div>
 
 <div class="header-container">
     <div class="header">Stock Overview</div>
@@ -114,14 +124,14 @@
             <div class="widget-title">Thesen</div>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">UiPath</a>
             <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">Honest Company</a>
-            <a class="white-btn-style" href="https://docs.google.com/document/d/1Xf5zrdtqt9IMGYJsonWfp16olbjPgvdTCd6uznVuBAFy4/edit?usp=sharing" target="_blank">AMZN</a>
+            <a class="white-btn-style" href="https://docs.google.com/document/d/1Xf5zrdtqt9IMGYJoWfp16olbjPgvdTCd6uznVuBAFy4/edit?usp=sharing" target="_blank">AMZN</a>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">Nautilus Biotech</a>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit" target="_blank">Celsius Holding</a>
         </div>
     </div>
 </div>
 
-<!-- JavaScript für den animierten, zentrierten Globus -->
+<!-- JavaScript für den perfekten zentrierten Globus -->
 <script>
     const canvas = document.getElementById('bg-globe');
     const ctx = canvas.getContext('2d');
@@ -134,7 +144,6 @@
     window.addEventListener('resize', resize);
     resize();
 
-    // Globus-Grösse vergrössert
     const globeRadius = 600; 
     const lats = 14;
     const lons = 28;
@@ -143,15 +152,12 @@
     function drawGlobe() {
         ctx.clearRect(0, 0, width, height);
         
-        // Exakt in der Mitte des Bildschirms platziert
         const centerX = width * 0.5;
         const centerY = height * 0.5;
 
-        // Helleres Weiß und dickere Linien
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
         ctx.lineWidth = 1.8;
 
-        // Rotation anpassen
         angle += 0.002;
 
         // Breitengrade (Parallelen)
