@@ -6,18 +6,6 @@
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
         body { background:#0D0D0D; font-family:Arial, Helvetica, sans-serif; color:white; padding: 40px 20px; zoom: 0.55; transform-origin: top left; position: relative; min-height: 100vh; overflow-x: hidden; }
-        
-        /* Absolut zentrierter Hintergrund-Globus */
-        #bg-globe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.6;
-            pointer-events: none;
-        }
 
         .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; position: relative; z-index: 1; }
         .header { font-size: 50px; font-weight: 600; }
@@ -30,7 +18,25 @@
         .widget-transparent { background: rgba(13, 13, 13, 0.75); backdrop-filter: blur(4px); border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
         
         .w-wide { width: 950px; }
-        .widget-wrapper { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; }
+        .widget-wrapper { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; position: relative; }
+        
+        /* Spezial-Wrapper für das Daily News Widget mit absolut positioniertem Globus dahinter */
+        .widget-wrapper-globe { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; position: relative; }
+        #bg-globe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 420px;
+            height: 420px;
+            z-index: 0;
+            opacity: 0.75;
+            pointer-events: none;
+        }
+        .widget-wrapper-globe > * {
+            position: relative;
+            z-index: 1;
+        }
         
         .widget-title { text-align:center; font-size: 24px; font-weight:600; margin-bottom:18px; }
         .ticker-item { background: #1A1A1A; border-radius: 10.5px; margin-bottom: 9px; height: 54px; display: flex; align-items: center; overflow: hidden; }
@@ -41,9 +47,6 @@
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
 </head>
 <body>
-
-<!-- Hintergrund-Globus Canvas -->
-<canvas id="bg-globe"></canvas>
 
 <div class="header-container">
     <div class="header">Stock Overview</div>
@@ -69,13 +72,17 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>{ "dataSource": "SPX500", "blockSize": "market_cap_basic", "blockColor": "change", "grouping": "sector", "locale": "en", "colorTheme": "dark", "width": "100%", "height": "100%" }</script>
             </div>
         </div>
-        <div class="widget-wrapper" style="grid-column: 3;">
+        
+        <!-- Daily News Widget mit dem Globus direkt dahinter platziert -->
+        <div class="widget-wrapper-globe" style="grid-column: 3;">
+            <canvas id="bg-globe"></canvas>
             <div class="widget-title">Daily News</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
               <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
               <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>{ "displayMode": "regular", "feedMode": "all_symbols", "colorTheme": "dark", "isTransparent": true, "locale": "en", "width": "100%", "height": "100%" }</script>
             </div>
         </div>
+
         <div class="widget" style="grid-column: 4;">
             <div class="widget-title">Economic Calendar</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
@@ -121,46 +128,39 @@
     </div>
 </div>
 
-<!-- JavaScript für den perfekt zentrierten Globus -->
+<!-- JavaScript für den rotierenden Globus im Daily-News-Widget -->
 <script>
     const canvas = document.getElementById('bg-globe');
     const ctx = canvas.getContext('2d');
 
-    let width, height;
-    function resize() {
-        // Wir berücksichtigen den Zoom-Faktor (0.55), damit das Canvas die echte Bildschirmmitte trifft
-        const zoom = 0.55;
-        width = canvas.width = window.innerWidth / zoom;
-        height = canvas.height = window.innerHeight / zoom;
-    }
-    window.addEventListener('resize', resize);
-    resize();
+    // Feste Größe passend zum Widget
+    canvas.width = 400;
+    canvas.height = 350;
 
-    const globeRadius = 650; 
-    const lats = 14;
-    const lons = 28;
+    const globeRadius = 150; 
+    const lats = 10;
+    const lons = 20;
     let angle = 0;
 
     function drawGlobe() {
-        ctx.clearRect(0, 0, width, height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Exakte Mitte basierend auf der skalierten Canvas-Größe
-        const centerX = width * 0.5;
-        const centerY = height * 0.5;
+        const centerX = canvas.width * 0.5;
+        const centerY = canvas.height * 0.5;
 
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
         ctx.lineWidth = 2;
 
-        angle += 0.002;
+        angle += 0.02;
 
-        // Breitengrade (Parallelen)
+        // Breitengrade
         for (let i = 1; i < lats; i++) {
             let lat = Math.PI * (-0.5 + i / lats);
             let r = globeRadius * Math.cos(lat);
             let y = centerY + globeRadius * Math.sin(lat);
 
             ctx.beginPath();
-            let points = 60;
+            let points = 40;
             for (let j = 0; j <= points; j++) {
                 let lon = (j / points) * Math.PI * 2 + angle;
                 let x = centerX + r * Math.cos(lon);
@@ -170,11 +170,11 @@
             ctx.stroke();
         }
 
-        // Längengrade (Meridiane)
+        // Längengrade
         for (let i = 0; i < lons; i++) {
             let lonOffset = (i / lons) * Math.PI * 2 + angle;
             ctx.beginPath();
-            let points = 60;
+            let points = 40;
             for (let j = 0; j <= points; j++) {
                 let lat = Math.PI * (-0.5 + j / points);
                 let x = centerX + globeRadius * Math.cos(lat) * Math.cos(lonOffset);
