@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
     <title>Stock Overview</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -20,7 +21,7 @@
             pointer-events: none;
         }
 
-        /* Intro-Titel: doppelt so gross, liegt am Anfang genau mittig über dem Globus */
+        /* Intro-Titel: doppelt so gross, liegt nach dem Login 1s mittig über dem Globus, dann 0.5s ausblenden */
         #intro-title {
             position: absolute;
             top: 50%;
@@ -32,8 +33,7 @@
             text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
             z-index: 5;
             pointer-events: none;
-            opacity: 1;
-            animation: fadeOutIntro 0.5s ease-out 1s forwards; /* nach 1s in 0.5s ausblenden */
+            opacity: 0;
         }
 
         .header-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; position: relative; z-index: 1; }
@@ -55,14 +55,15 @@
         .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 10.5px; cursor: pointer; text-decoration: none; margin-bottom: 9px; border: none; width: 100%; font-size: 21px; }
         .white-btn-style:hover { background: #e0e0e0 !important; }
 
-        /* Intro: erst nur Globus + grosser Titel (1 s), dann blendet alles in 0.5 s ein, der Intro-Titel aus */
+        /* ---------- Intro-Animation (startet erst nach dem Login) ---------- */
         @keyframes fadeInAll {
             from { opacity: 0; }
             to   { opacity: 1; }
         }
-        @keyframes fadeOutIntro {
-            from { opacity: 1; }
-            to   { opacity: 0; }
+        /* 0-1s sichtbar, dann in 0.5s ausblenden (1.5s total, 0.5/1.5 = 33%) */
+        @keyframes introTitle {
+            0%, 66.66% { opacity: 1; }
+            100%       { opacity: 0; }
         }
 
         .header-container,
@@ -70,12 +71,91 @@
         .widget-transparent,
         .widget-wrapper {
             opacity: 0;
+        }
+
+        body.unlocked .header-container,
+        body.unlocked .widget,
+        body.unlocked .widget-transparent,
+        body.unlocked .widget-wrapper {
             animation: fadeInAll 0.5s ease-out 1s forwards; /* Dauer 0.5s, Start nach 1s */
+        }
+
+        body.unlocked #intro-title {
+            animation: introTitle 1.5s linear forwards;
+        }
+
+        /* ---------- Login-Bildschirm ---------- */
+        #login-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(13, 13, 13, 0.55);
+            backdrop-filter: blur(3px);
+            transition: opacity 0.4s ease;
+        }
+        #login-overlay.hide { opacity: 0; pointer-events: none; }
+
+        /* body hat zoom 0.55, daher hier wieder hochskalieren (1 / 0.55 ≈ 1.82) */
+        .login-box {
+            zoom: 1.82;
+            background: #3B3A3A;
+            border-radius: 18px;
+            padding: 28px 28px 24px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        .login-box h1 { font-size: 20px; font-weight: 600; margin-bottom: 18px; }
+        .login-box input {
+            width: 100%;
+            height: 42px;
+            margin-bottom: 10px;
+            padding: 0 12px;
+            border-radius: 9px;
+            border: 1px solid #555;
+            background: #1A1A1A;
+            color: white;
+            font-size: 16px;   /* mind. 16px, sonst zoomt iOS beim Tippen rein */
+            outline: none;
+        }
+        .login-box input:focus { border-color: #fff; }
+        .login-box button {
+            width: 100%;
+            height: 42px;
+            border: none;
+            border-radius: 9px;
+            background: #FFFFFF;
+            color: #000000;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-box button:hover { background: #e0e0e0; }
+        #login-error { height: 18px; margin-top: 10px; font-size: 13px; color: #ff6b6b; }
+        .shake { animation: shake 0.35s; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
         }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
 </head>
 <body>
+
+<!-- Login: echtes Formular mit username + current-password, damit Apple (Safari / iCloud-Schlüsselbund) Autofill anbietet -->
+<div id="login-overlay">
+    <form id="login-form" class="login-box" method="post" action="#" autocomplete="on">
+        <h1>Stock Overview</h1>
+        <input type="text" id="username" name="username" autocomplete="username" placeholder="Benutzername" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+        <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Passwort" required>
+        <button type="submit">Entsperren</button>
+        <div id="login-error"></div>
+    </form>
+</div>
 
 <div class="header-container">
     <div class="header">Stock Overview</div>
@@ -159,6 +239,51 @@
         </div>
     </div>
 </div>
+
+<!-- Login-Logik -->
+<script>
+    // SHA-256-Hash deines Passworts (aktuell: "DavidSt").
+    // Eigenen Hash erzeugen: in der Browser-Konsole ausführen (MEIN_PASSWORT ersetzen):
+    // crypto.subtle.digest('SHA-256', new TextEncoder().encode('MEIN_PASSWORT')).then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('')))
+    const PASSWORD_HASH = '2f207ea71ea0b7a9ee3c104b465bc05fa1b895965cf86786e5d17e64918e5956';
+
+    async function sha256(text) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const form = document.getElementById('login-form');
+    const errorBox = document.getElementById('login-error');
+    const overlay = document.getElementById('login-overlay');
+
+    function unlock() {
+        document.body.classList.add('unlocked');   // startet Intro-Animation
+        overlay.classList.add('hide');
+        setTimeout(() => overlay.remove(), 450);   // Formular entfernen -> Safari bietet "Passwort sichern" an
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorBox.textContent = '';
+
+        if (!window.crypto || !window.crypto.subtle) {
+            errorBox.textContent = 'Bitte die Seite über https öffnen.';
+            return;
+        }
+
+        const pw = document.getElementById('password').value;
+        if ((await sha256(pw)) === PASSWORD_HASH) {
+            unlock();
+        } else {
+            errorBox.textContent = 'Falsches Passwort';
+            form.classList.remove('shake');
+            void form.offsetWidth;                 // Animation neu starten
+            form.classList.add('shake');
+            document.getElementById('password').value = '';
+            document.getElementById('password').focus();
+        }
+    });
+</script>
 
 <!-- JavaScript für den großen Hintergrund-Globus -->
 <script>
