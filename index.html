@@ -150,9 +150,9 @@
 <div id="login-overlay">
     <form id="login-form" class="login-box" method="post" action="#" autocomplete="on">
         <h1>Stock Overview</h1>
-        <input type="text" id="username" name="username" autocomplete="username" placeholder="Benutzername" autocapitalize="none" autocorrect="off" spellcheck="false" required>
-        <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Passwort" required>
-        <button type="submit">Entsperren</button>
+        <input type="text" id="username" name="username" autocomplete="username" placeholder="Username" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+        <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Password" required>
+        <button type="submit">Unlock</button>
         <div id="login-error"></div>
     </form>
 </div>
@@ -267,7 +267,7 @@
         errorBox.textContent = '';
 
         if (!window.crypto || !window.crypto.subtle) {
-            errorBox.textContent = 'Bitte die Seite über https öffnen.';
+            errorBox.textContent = 'Please open this page via https.';
             return;
         }
 
@@ -275,7 +275,7 @@
         if ((await sha256(pw)) === PASSWORD_HASH) {
             unlock();
         } else {
-            errorBox.textContent = 'Falsches Passwort';
+            errorBox.textContent = 'Wrong password';
             form.classList.remove('shake');
             void form.offsetWidth;                 // Animation neu starten
             form.classList.add('shake');
