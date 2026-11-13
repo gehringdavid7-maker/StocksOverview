@@ -38,6 +38,20 @@
         
         .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 10.5px; cursor: pointer; text-decoration: none; margin-bottom: 9px; border: none; width: 100%; font-size: 21px; }
         .white-btn-style:hover { background: #e0e0e0 !important; }
+
+        /* Intro: erst nur der Globus (1 s), dann blendet alles in 0.5 s ein */
+        @keyframes fadeInAll {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        .header-container,
+        .widget,
+        .widget-transparent,
+        .widget-wrapper {
+            opacity: 0;
+            animation: fadeInAll 0.5s ease-out 1s forwards; /* Dauer 0.5s, Start nach 1s */
+        }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
 </head>
