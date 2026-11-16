@@ -43,7 +43,7 @@
         .main-container { display: flex; flex-direction: column; align-items: center; gap: 38px; position: relative; z-index: 1; }
         .dashboard { display: grid; grid-template-columns: repeat(5, 456px); gap: 38px; margin-bottom: 38px; }
         
-        .widget { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
+        .widget { background:#3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; position: relative; }
         .widget-transparent { background: rgba(13, 13, 13, 0.75); backdrop-filter: blur(4px); border-radius: 22px; padding: 24px; overflow: hidden; height: 420px; width: 456px; }
         
         .w-wide { width: 950px; }
@@ -54,6 +54,52 @@
         
         .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 10.5px; cursor: pointer; text-decoration: none; margin-bottom: 9px; border: none; width: 100%; font-size: 21px; }
         .white-btn-style:hover { background: #e0e0e0 !important; }
+
+        /* ---------- Fokus-Modus: Lupe oben rechts, Klick = Widget 2x gross in der Mitte, Kreuz = zurück ---------- */
+        .zoom-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border: none;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;               /* über den TradingView-iframes */
+        }
+        .zoom-btn:hover { background: rgba(255, 255, 255, 0.28); }
+        .zoom-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+        .zoom-btn .ico-close { display: none; }
+        .focused .zoom-btn .ico-search { display: none; }
+        .focused .zoom-btn .ico-close { display: block; }
+
+        #focus-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        #focus-backdrop.show { opacity: 1; pointer-events: auto; }
+
+        .focused {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            margin: 0 !important;
+            z-index: 100 !important;
+            transform: translate(-50%, -50%) scale(var(--focus-scale, 2)) !important;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7);
+        }
 
         /* ---------- Intro-Animation (startet erst nach dem Login) ---------- */
         @keyframes fadeInAll {
@@ -88,7 +134,7 @@
         #login-overlay {
             position: fixed;
             inset: 0;
-            z-index: 100;
+            z-index: 200;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -165,16 +211,19 @@
 </div>
 
 <div class="main-container">
+    <!-- Abdunkelung für den Fokus-Modus -->
+    <div id="focus-backdrop"></div>
+
     <div class="dashboard">
         <div class="widget"><div class="widget-title">Index</div><div class="ticker-item"><tv-single-ticker symbol="SIX:WORLD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="AMEX:VOO"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="AMEX:COPX"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:QQQ"></tv-single-ticker></div></div>
         <div class="widget"><div class="widget-title">Stocks</div><div class="ticker-item"><tv-single-ticker symbol="NYSE:PATH"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:AMZN"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:HNST"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:CELH"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:NAUT"></tv-single-ticker></div></div>
         <div class="widget"><div class="widget-title">Currencies & Crypto</div><div class="ticker-item"><tv-single-ticker symbol="OANDA:EURUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="FX:USDJPY"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="OANDA:USDCHF"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="OANDA:GBPUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="BITSTAMP:BTCUSD"></tv-single-ticker></div></div>
         <div class="widget"><div class="widget-title">Precious Metals</div><div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="TVC:SILVER"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER"></tv-single-ticker></div></div>
-        <div class="widget-transparent"><div class="widget-title">General</div><button class="white-btn-style" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button><button class="white-btn-style" onclick="window.open('https://claude.ai/chat/ed263f36-88a2-4d35-a4a5-15a5c3465e8c', '_blank')">AI Assistent</button><button class="white-btn-style" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button><div class="white-btn-style" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')">Silber 1kg (CHF)</div></div>
+        <div class="widget-transparent"><div class="widget-title">General</div><button class="white-btn-style" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button><button class="white-btn-style" onclick="window.open('https://chatgpt.com/c/6984b214-0610-832b-a7fe-b1f39f180ce6', '_blank')">AI Assistent</button><button class="white-btn-style" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button><div class="white-btn-style" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')">Silber 1kg (CHF)</div></div>
     </div>
 
     <div class="dashboard">
-        <div class="widget-wrapper w-wide" style="grid-column: span 2;">
+        <div class="widget-wrapper w-wide" data-zoomable style="grid-column: span 2;">
             <div class="widget-title">Market Heatmap</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
                 <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px); width:100%;"></div>
@@ -186,7 +235,7 @@
         <div style="grid-column: 3; position: relative;">
             <canvas id="bg-globe"></canvas>
             <div id="intro-title">Stock Overview</div>
-            <div class="widget-wrapper">
+            <div class="widget-wrapper" data-zoomable style="width: 456px;">
                 <div class="widget-title">Daily News</div>
                 <div class="tradingview-widget-container" style="height:100%; width:100%;">
                   <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
@@ -195,7 +244,7 @@
             </div>
         </div>
 
-        <div class="widget" style="grid-column: 4;">
+        <div class="widget" data-zoomable style="grid-column: 4;">
             <div class="widget-title">Economic Calendar</div>
             <div class="tradingview-widget-container" style="height:100%; width:100%;">
                 <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
@@ -213,19 +262,19 @@
     </div>
     
     <div class="dashboard">
-        <div class="widget">
+        <div class="widget" data-zoomable>
             <div class="widget-title">PATH Financials</div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NYSE:PATH", "colorTheme": "dark", "width": 400, "height": 340 }</script>
         </div>
-        <div class="widget">
+        <div class="widget" data-zoomable>
             <div class="widget-title">HNST Financials</div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:HNST", "colorTheme": "dark", "width": 400, "height": 340 }</script>
         </div>
-        <div class="widget">
+        <div class="widget" data-zoomable>
             <div class="widget-title">AMZN Financials</div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:AMZN", "colorTheme": "dark", "width": 400, "height": 340 }</script>
         </div>
-        <div class="widget">
+        <div class="widget" data-zoomable>
             <div class="widget-title">NAUT Financials</div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:NAUT", "colorTheme": "dark", "width": 400, "height": 340 }</script>
         </div>
@@ -283,6 +332,81 @@
             document.getElementById('password').focus();
         }
     });
+</script>
+
+<!-- Fokus-Modus (Lupe / Kreuz) -->
+<script>
+    (function () {
+        const PAGE_ZOOM = 0.55;   // gleicher Wert wie body { zoom: 0.55 }
+        const MAX_SCALE = 2;      // doppelt so gross
+        const backdrop = document.getElementById('focus-backdrop');
+        let current = null;
+        let spacer = null;
+
+        const ICONS =
+            '<svg class="ico-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>' +
+            '<svg class="ico-close" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';
+
+        function openFocus(el) {
+            if (current) closeFocus();
+
+            // Grösse des Widgets (CSS-Pixel) -> passt den Zoom-Faktor an kleine Bildschirme an
+            const w = el.classList.contains('w-wide') ? 950 : 456;
+            const h = 420;
+            const scale = Math.min(
+                MAX_SCALE,
+                (window.innerWidth  * 0.94) / (w * PAGE_ZOOM),
+                (window.innerHeight * 0.94) / (h * PAGE_ZOOM)
+            );
+
+            // Platzhalter, damit das Layout an seinem Platz bleibt
+            spacer = document.createElement('div');
+            spacer.style.width = w + 'px';
+            spacer.style.height = h + 'px';
+            spacer.style.gridColumn = el.style.gridColumn;
+            el.parentNode.insertBefore(spacer, el);
+
+            el.style.setProperty('--focus-scale', scale);
+            el.classList.add('focused');
+            backdrop.classList.add('show');
+            current = el;
+            setLabel(el, true);
+        }
+
+        function closeFocus() {
+            if (!current) return;
+            current.classList.remove('focused');
+            if (spacer) { spacer.remove(); spacer = null; }
+            backdrop.classList.remove('show');
+            setLabel(current, false);
+            current = null;
+        }
+
+        function setLabel(el, open) {
+            const btn = el.querySelector(':scope > .zoom-btn');
+            if (!btn) return;
+            btn.title = open ? 'Close' : 'Enlarge';
+            btn.setAttribute('aria-label', btn.title);
+        }
+
+        document.querySelectorAll('[data-zoomable]').forEach((el) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'zoom-btn';
+            btn.title = 'Enlarge';
+            btn.setAttribute('aria-label', 'Enlarge');
+            btn.innerHTML = ICONS;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (el.classList.contains('focused')) closeFocus();
+                else openFocus(el);
+            });
+            el.prepend(btn);
+        });
+
+        backdrop.addEventListener('click', closeFocus);                 // Klick neben das Widget schliesst auch
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFocus(); });
+    })();
 </script>
 
 <!-- JavaScript für den großen Hintergrund-Globus -->
