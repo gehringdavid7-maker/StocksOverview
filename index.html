@@ -236,7 +236,7 @@
 
 <!-- Login: echtes Formular mit username + current-password, damit Apple (Safari / iCloud-Schlüsselbund) Autofill anbietet -->
 <div id="login-overlay">
-    <form id="login-form" class="login-box" method="post" action="#" autocomplete="on">
+    <form id="login-form" class="login-box" method="post" action="javascript:void(0)" autocomplete="on">
         <h1>Stock Overview</h1>
         <input type="text" id="username" name="username" autocomplete="username" placeholder="Username" autocapitalize="none" autocorrect="off" spellcheck="false" required>
         <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Password" required>
@@ -402,3 +402,185 @@
         overlay.classList.add('hide');
         setTimeout(() => overlay.remove(), 450);   // Formular entfernen -> Safari bietet "Passwort sichern" an
     }
+
+    async function attemptLogin() {
+        errorBox.textContent = '';
+
+        if (!window.crypto || !window.crypto.subtle) {
+            errorBox.textContent = 'Please open this page via https.';
+            return;
+        }
+
+        const pw = document.getElementById('password').value;
+        if ((await sha256(pw)) === PASSWORD_HASH) {
+            unlock();
+        } else {
+            errorBox.textContent = 'Wrong password';
+            form.classList.remove('shake');
+            void form.offsetWidth;                 // Animation neu starten
+            form.classList.add('shake');
+            document.getElementById('password').value = '';
+            document.getElementById('password').focus();
+        }
+    }
+
+    form.addEventListener('submit', (e) => { e.preventDefault(); attemptLogin(); });
+
+    // Passwort-Manager / AutoFill (z.B. Apple Passwörter, 1Password) rufen teils form.submit() direkt auf.
+    // Das löst kein "submit"-Event aus -> die Seite würde per POST neu geladen = Fehler 405. Hier abfangen:
+    form.submit = () => attemptLogin();
+</script>
+
+<!-- Fokus-Modus (Lupe / Kreuz) -->
+<script>
+    (function () {
+        const PAGE_ZOOM = 0.55;   // gleicher Wert wie body { zoom: 0.55 }
+        const MAX_SCALE = 2;      // doppelt so gross
+        const backdrop = document.getElementById('focus-backdrop');
+        let current = null;
+        let spacer = null;
+
+        const ICONS =
+            '<svg class="ico-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>' +
+            '<svg class="ico-close" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';
+
+        function openFocus(el) {
+            if (current) closeFocus();
+
+            // Grösse des Widgets (CSS-Pixel) -> passt den Zoom-Faktor an kleine Bildschirme an
+            const w = parseFloat(el.dataset.focusW) || (el.classList.contains('w-wide') ? 950 : 456);
+            const h = parseFloat(el.dataset.focusH) || 420;
+            const scale = Math.min(
+                MAX_SCALE,
+                (window.innerWidth  * 0.94) / (w * PAGE_ZOOM),
+                (window.innerHeight * 0.94) / (h * PAGE_ZOOM)
+            );
+
+            // Platzhalter, damit das Layout an seinem Platz bleibt (nicht nötig für Popups wie BTC Seasonal)
+            if (!el.hasAttribute('data-popup')) {
+                spacer = document.createElement('div');
+                spacer.style.width = w + 'px';
+                spacer.style.height = h + 'px';
+                spacer.style.gridColumn = el.style.gridColumn;
+                el.parentNode.insertBefore(spacer, el);
+            }
+
+            el.style.setProperty('--focus-scale', scale);
+            el.classList.add('focused');
+            backdrop.classList.add('show');
+            current = el;
+            setLabel(el, true);
+        }
+
+        function closeFocus() {
+            if (!current) return;
+            current.classList.remove('focused');
+            if (spacer) { spacer.remove(); spacer = null; }
+            backdrop.classList.remove('show');
+            setLabel(current, false);
+            current = null;
+        }
+
+        function setLabel(el, open) {
+            const btn = el.querySelector(':scope > .zoom-btn');
+            if (!btn) return;
+            btn.title = open ? 'Close' : 'Enlarge';
+            btn.setAttribute('aria-label', btn.title);
+        }
+
+        document.querySelectorAll('[data-zoomable]').forEach((el) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'zoom-btn';
+            btn.title = 'Enlarge';
+            btn.setAttribute('aria-label', 'Enlarge');
+            btn.innerHTML = ICONS;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (el.classList.contains('focused')) closeFocus();
+                else openFocus(el);
+            });
+            el.prepend(btn);
+        });
+
+        // Knopf "BTC Seasonal" bei General öffnet das Popup
+        const btcBtn = document.getElementById('btn-btc-seasonal');
+        const btcCard = document.getElementById('btc-card');
+        if (btcBtn && btcCard) btcBtn.addEventListener('click', () => openFocus(btcCard));
+
+        // Glühbirne im Stocks-Widget öffnet CELH / SOFI Details
+        const stocksBtn = document.getElementById('btn-stocks-detail');
+        const stocksPanel = document.getElementById('stocks-panel');
+        if (stocksBtn && stocksPanel) stocksBtn.addEventListener('click', (e) => { e.stopPropagation(); openFocus(stocksPanel); });
+
+        backdrop.addEventListener('click', closeFocus);                 // Klick neben das Widget schliesst auch
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFocus(); });
+    })();
+</script>
+
+<!-- JavaScript für den großen Hintergrund-Globus -->
+<script>
+    const canvas = document.getElementById('bg-globe');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = 1020;   // 850 × 1.2
+    canvas.height = 1020;
+
+    const globeRadius = 456; // 380 × 1.2
+    const lats = 14;
+    const lons = 28;
+    let angle = 0;
+
+    function drawGlobe() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const centerX = canvas.width * 0.5;
+        const centerY = canvas.height * 0.5;
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.lineWidth = 2;
+
+        angle += 0.002;
+
+        // Breitengrade
+        for (let i = 1; i < lats; i++) {
+            let lat = Math.PI * (-0.5 + i / lats);
+            let r = globeRadius * Math.cos(lat);
+            let y = centerY + globeRadius * Math.sin(lat);
+
+            ctx.beginPath();
+            let points = 50;
+            for (let j = 0; j <= points; j++) {
+                let lon = (j / points) * Math.PI * 2 + angle;
+                let x = centerX + r * Math.cos(lon);
+                if (j === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        // Längengrade
+        for (let i = 0; i < lons; i++) {
+            let lonOffset = (i / lons) * Math.PI * 2 + angle;
+            ctx.beginPath();
+            let points = 50;
+            for (let j = 0; j <= points; j++) {
+                let lat = Math.PI * (-0.5 + j / points);
+                let x = centerX + globeRadius * Math.cos(lat) * Math.cos(lonOffset);
+                let z = globeRadius * Math.sin(lat);
+                let y = centerY + z;
+                
+                if (j === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        requestAnimationFrame(drawGlobe);
+    }
+
+    drawGlobe();
+</script>
+
+</body>
+</html>
