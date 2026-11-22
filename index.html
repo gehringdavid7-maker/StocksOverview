@@ -234,16 +234,67 @@
 </head>
 <body>
 
-<!-- Login: echtes Formular mit username + current-password, damit Apple (Safari / iCloud-Schlüsselbund) Autofill anbietet -->
+<!-- Login: echtes Formular mit username + current-password, damit Apple (Safari / iCloud-Schlüsselbund) Autofill anbietet.
+     method="get" + action + onsubmit sorgen dafür, dass das Formular NIE per POST an den Server geschickt wird (Fehler 405). -->
 <div id="login-overlay">
-    <form id="login-form" class="login-box" method="post" action="javascript:void(0)" autocomplete="on">
+    <form id="login-form" class="login-box" method="get" action="javascript:void(0)" onsubmit="return false;" autocomplete="on">
         <h1>Stock Overview</h1>
-        <input type="text" id="username" name="username" autocomplete="username" placeholder="Username" autocapitalize="none" autocorrect="off" spellcheck="false" required>
-        <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Password" required>
+        <input type="text" id="username" autocomplete="username" placeholder="Username" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+        <input type="password" id="password" autocomplete="current-password" placeholder="Password" required>
         <button type="submit">Unlock</button>
         <div id="login-error"></div>
     </form>
 </div>
+
+<!-- Login-Logik (steht direkt hinter dem Formular, damit der Login sofort aktiv ist, auch wenn der Rest der Seite noch lädt) -->
+<script>
+    // SHA-256-Hash deines Passworts (aktuell: "DavidSt").
+    // Eigenen Hash erzeugen: in der Browser-Konsole ausführen (MEIN_PASSWORT ersetzen):
+    // crypto.subtle.digest('SHA-256', new TextEncoder().encode('MEIN_PASSWORT')).then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('')))
+    const PASSWORD_HASH = '2f207ea71ea0b7a9ee3c104b465bc05fa1b895965cf86786e5d17e64918e5956';
+
+    async function sha256(text) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    const form = document.getElementById('login-form');
+    const errorBox = document.getElementById('login-error');
+    const overlay = document.getElementById('login-overlay');
+
+    function unlock() {
+        document.body.classList.add('unlocked');   // startet Intro-Animation
+        overlay.classList.add('hide');
+        setTimeout(() => overlay.remove(), 450);   // Formular entfernen -> Safari bietet "Passwort sichern" an
+    }
+
+    async function attemptLogin() {
+        errorBox.textContent = '';
+
+        if (!window.crypto || !window.crypto.subtle) {
+            errorBox.textContent = 'Please open this page via https.';
+            return;
+        }
+
+        const pw = document.getElementById('password').value;
+        if ((await sha256(pw)) === PASSWORD_HASH) {
+            unlock();
+        } else {
+            errorBox.textContent = 'Wrong password';
+            form.classList.remove('shake');
+            void form.offsetWidth;                 // Animation neu starten
+            form.classList.add('shake');
+            document.getElementById('password').value = '';
+            document.getElementById('password').focus();
+        }
+    }
+
+    form.addEventListener('submit', (e) => { e.preventDefault(); attemptLogin(); });
+
+    // Passwort-Manager / AutoFill (z.B. Apple Passwörter, 1Password) rufen teils form.submit() direkt auf.
+    // Das löst kein "submit"-Event aus -> hier abfangen, damit die Seite nicht neu geladen wird.
+    form.submit = () => attemptLogin();
+</script>
 
 <div class="header-container">
     <div class="header">Stock Overview</div>
@@ -380,56 +431,6 @@
         <div class="stock-col"></div>
     </div>
 </div>
-
-<!-- Login-Logik -->
-<script>
-    // SHA-256-Hash deines Passworts (aktuell: "DavidSt").
-    // Eigenen Hash erzeugen: in der Browser-Konsole ausführen (MEIN_PASSWORT ersetzen):
-    // crypto.subtle.digest('SHA-256', new TextEncoder().encode('MEIN_PASSWORT')).then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('')))
-    const PASSWORD_HASH = '2f207ea71ea0b7a9ee3c104b465bc05fa1b895965cf86786e5d17e64918e5956';
-
-    async function sha256(text) {
-        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    const form = document.getElementById('login-form');
-    const errorBox = document.getElementById('login-error');
-    const overlay = document.getElementById('login-overlay');
-
-    function unlock() {
-        document.body.classList.add('unlocked');   // startet Intro-Animation
-        overlay.classList.add('hide');
-        setTimeout(() => overlay.remove(), 450);   // Formular entfernen -> Safari bietet "Passwort sichern" an
-    }
-
-    async function attemptLogin() {
-        errorBox.textContent = '';
-
-        if (!window.crypto || !window.crypto.subtle) {
-            errorBox.textContent = 'Please open this page via https.';
-            return;
-        }
-
-        const pw = document.getElementById('password').value;
-        if ((await sha256(pw)) === PASSWORD_HASH) {
-            unlock();
-        } else {
-            errorBox.textContent = 'Wrong password';
-            form.classList.remove('shake');
-            void form.offsetWidth;                 // Animation neu starten
-            form.classList.add('shake');
-            document.getElementById('password').value = '';
-            document.getElementById('password').focus();
-        }
-    }
-
-    form.addEventListener('submit', (e) => { e.preventDefault(); attemptLogin(); });
-
-    // Passwort-Manager / AutoFill (z.B. Apple Passwörter, 1Password) rufen teils form.submit() direkt auf.
-    // Das löst kein "submit"-Event aus -> die Seite würde per POST neu geladen = Fehler 405. Hier abfangen:
-    form.submit = () => attemptLogin();
-</script>
 
 <!-- Fokus-Modus (Lupe / Kreuz) -->
 <script>
