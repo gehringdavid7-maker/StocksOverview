@@ -55,7 +55,7 @@
         .white-btn-style { background: #FFFFFF !important; color: #000000 !important; font-weight: bold; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 10.5px; cursor: pointer; text-decoration: none; margin-bottom: 9px; border: none; width: 100%; font-size: 21px; }
         .white-btn-style:hover { background: #e0e0e0 !important; }
 
-        /* ---------- Scrollbare Widgets (Stocks, Stock News) ---------- */
+        /* ---------- Scrollbare Widgets ---------- */
         .scrollable {
             overflow-y: auto !important;
             overflow-x: hidden !important;
@@ -76,6 +76,24 @@
         }
         .popup-chart { height: calc(100% - 46px); width: 100%; }
         .popup-chart tv-seasonal-chart { display: block; width: 100%; height: 100%; }
+
+        /* ---------- Stocks-Widget: Titel + Glühbirne bleiben stehen, nur die Ticker scrollen ---------- */
+        .stocks-widget { display: flex; flex-direction: column; }
+        .stocks-widget .scroll-area { flex: 1; min-height: 0; }
+
+        /* ---------- Stocks-Detail (Glühbirne): 4 hohe Widgets (je 1 breit, 3 hoch), werden gross eingeblendet ---------- */
+        .stocks-panel {
+            display: grid;
+            grid-template-columns: repeat(4, 456px);
+            grid-template-rows: 1fr;
+            gap: 38px;
+            width: 1938px;     /* 4 x 456 + 3 x 38 */
+            height: 1336px;    /* 3 x 420 + 2 x 38 */
+        }
+        .stocks-panel.focused { box-shadow: none; }
+        .stock-col { background: #3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; display: flex; flex-direction: column; }
+        .stock-title { font-size: 32px; font-weight: 700; text-align: left; margin-bottom: 18px; }
+        .stock-col .fin-box { margin-top: 9px; width: 100%; }
 
         /* ---------- Fokus-Modus: Lupe oben rechts, Klick = Widget 2x gross in der Mitte, Kreuz = zurück ---------- */
         .zoom-btn {
@@ -239,7 +257,16 @@
 
     <div class="dashboard">
         <div class="widget"><div class="widget-title">Index</div><div class="ticker-item"><tv-single-ticker symbol="SIX:WORLD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="AMEX:VOO"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="AMEX:COPX"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:QQQ"></tv-single-ticker></div></div>
-        <div class="widget scrollable"><div class="widget-title">Stocks</div><div class="ticker-item"><tv-single-ticker symbol="NYSE:PATH"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:AMZN"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:HNST"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:CELH"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:NAUT"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="NASDAQ:SOFI"></tv-single-ticker></div></div>
+        <div class="widget stocks-widget">
+            <button class="zoom-btn" id="btn-stocks-detail" type="button" title="Stock details" aria-label="Stock details"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></button>
+            <div class="widget-title">Stocks</div>
+            <div class="scroll-area scrollable">
+                <div class="ticker-item"><tv-single-ticker symbol="NYSE:PATH"></tv-single-ticker></div>
+                <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:AMZN"></tv-single-ticker></div>
+                <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:HNST"></tv-single-ticker></div>
+                <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:NAUT"></tv-single-ticker></div>
+            </div>
+        </div>
         <div class="widget"><div class="widget-title">Currencies & Crypto</div><div class="ticker-item"><tv-single-ticker symbol="OANDA:EURUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="FX:USDJPY"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="OANDA:USDCHF"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="OANDA:GBPUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="BITSTAMP:BTCUSD"></tv-single-ticker></div></div>
         <div class="widget"><div class="widget-title">Precious Metals</div><div class="ticker-item"><tv-single-ticker symbol="OANDA:XAUUSD"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="TVC:SILVER"></tv-single-ticker></div><div class="ticker-item"><tv-single-ticker symbol="TVC:GOLDSILVER"></tv-single-ticker></div></div>
         <div class="widget-transparent"><div class="widget-title">General</div><button class="white-btn-style" onclick="window.open('https://x.com/i/lists/2071504003737801125', '_blank')">X-Liste (News)</button><button class="white-btn-style" onclick="window.open('https://claude.ai/chat/ed263f36-88a2-4d35-a4a5-15a5c3465e8c', '_blank')">AI Assistent</button><button class="white-btn-style" onclick="window.open('https://app.parqet.com/p/690a8388380ec9374c3cd3a8', '_blank')">Portfolio</button><div class="white-btn-style" onclick="window.open('https://www.cash.ch/rohstoffe-edelmetalle/silber-1-kg-999-274706/ubs/chf', '_blank')">Silber 1kg (CHF)</div><button class="white-btn-style" id="btn-btc-seasonal" type="button">BTC Seasonal</button></div>
@@ -280,8 +307,6 @@
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">Honest Company</button>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24amzn&src=typed_query&f=top', '_blank')">AMZN</button>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">Nautilus Biotech</button>
-            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
-            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24sofi&src=recent_search_click', '_blank')">SoFi</button>
         </div>
     </div>
     
@@ -312,20 +337,34 @@
         </div>
     </div>
 
-    <!-- Neue Zeile: SOFI Financials direkt unter PATH Financials -->
-    <div class="dashboard">
-        <div class="widget" data-zoomable>
-            <div class="widget-title">SOFI Financials</div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:SOFI", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": 400, "height": 340 }</script>
-        </div>
-    </div>
-
     <!-- BTC Seasonal: unsichtbar, öffnet sich als Popup (wie die Lupe) über den Knopf bei "General" -->
-    <div class="widget w-wide popup-card" data-zoomable data-popup>
+    <div class="widget w-wide popup-card" id="btc-card" data-zoomable data-popup>
         <div class="widget-title">BTC Seasonal</div>
         <div class="popup-chart">
             <tv-seasonal-chart symbol="BINANCE:BTCUSDT"></tv-seasonal-chart>
         </div>
+    </div>
+
+    <!-- Stocks-Detail: öffnet sich über die Glühbirne im Stocks-Widget (4 hohe Widgets, die 2 rechten sind noch leer) -->
+    <div class="stocks-panel popup-card" id="stocks-panel" data-zoomable data-popup data-focus-w="1938" data-focus-h="1336">
+        <div class="stock-col">
+            <div class="stock-title">CELH</div>
+            <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:CELH"></tv-single-ticker></div>
+            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">Celsius</button>
+            <div class="fin-box">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:CELH", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": 400, "height": 550 }</script>
+            </div>
+        </div>
+        <div class="stock-col">
+            <div class="stock-title">SOFI</div>
+            <div class="ticker-item"><tv-single-ticker symbol="NASDAQ:SOFI"></tv-single-ticker></div>
+            <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24sofi&src=recent_search_click', '_blank')">SoFi</button>
+            <div class="fin-box">
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:SOFI", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": 400, "height": 550 }</script>
+            </div>
+        </div>
+        <div class="stock-col"></div>
+        <div class="stock-col"></div>
     </div>
 </div>
 
@@ -391,8 +430,8 @@
             if (current) closeFocus();
 
             // Grösse des Widgets (CSS-Pixel) -> passt den Zoom-Faktor an kleine Bildschirme an
-            const w = el.classList.contains('w-wide') ? 950 : 456;
-            const h = 420;
+            const w = parseFloat(el.dataset.focusW) || (el.classList.contains('w-wide') ? 950 : 456);
+            const h = parseFloat(el.dataset.focusH) || 420;
             const scale = Math.min(
                 MAX_SCALE,
                 (window.innerWidth  * 0.94) / (w * PAGE_ZOOM),
@@ -448,8 +487,13 @@
 
         // Knopf "BTC Seasonal" bei General öffnet das Popup
         const btcBtn = document.getElementById('btn-btc-seasonal');
-        const btcCard = document.querySelector('.popup-card');
+        const btcCard = document.getElementById('btc-card');
         if (btcBtn && btcCard) btcBtn.addEventListener('click', () => openFocus(btcCard));
+
+        // Glühbirne im Stocks-Widget öffnet CELH / SOFI Details
+        const stocksBtn = document.getElementById('btn-stocks-detail');
+        const stocksPanel = document.getElementById('stocks-panel');
+        if (stocksBtn && stocksPanel) stocksBtn.addEventListener('click', (e) => { e.stopPropagation(); openFocus(stocksPanel); });
 
         backdrop.addEventListener('click', closeFocus);                 // Klick neben das Widget schliesst auch
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFocus(); });
