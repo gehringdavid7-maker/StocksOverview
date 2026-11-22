@@ -81,20 +81,23 @@
         .stocks-widget { display: flex; flex-direction: column; }
         .stocks-widget .scroll-area { flex: 1; min-height: 0; }
 
-        /* ---------- Stocks-Detail (Glühbirne): 4 hohe Widgets (je 1 breit, 3 hoch), werden gross eingeblendet ---------- */
+        /* ---------- Stocks-Detail (Glühbirne): 4 hohe Widgets (je 1 breit), werden gross eingeblendet ---------- */
         .stocks-panel {
             display: grid;
             grid-template-columns: repeat(4, 456px);
             grid-template-rows: 1fr;
             gap: 38px;
             width: 1938px;     /* 4 x 456 + 3 x 38 */
-            height: 1336px;    /* 3 x 420 + 2 x 38 */
+            height: 1560px;    /* höher, damit die Technical-Analysis-Widgets (464px) unten Platz haben */
         }
         .stocks-panel.focused { box-shadow: none; }
-        .stock-col { background: #3B3A3A; border-radius: 22px; padding: 24px; overflow: hidden; display: flex; flex-direction: column; }
+        .stock-col { background: #3B3A3A; border-radius: 22px; padding: 24px 22px; overflow: hidden; display: flex; flex-direction: column; }
         .stock-title { font-size: 32px; font-weight: 700; text-align: left; margin-bottom: 18px; }
         .stock-col .fin-box { margin-top: 9px; width: 100%; }
         .stock-col .sym-box { width: 100%; margin-bottom: 9px; }
+        /* Technical Analysis: 411 x 464 */
+        .stock-col .ta-box { width: 411px; height: 464px; margin-top: 9px; flex: none; }
+        .stock-col .ta-box tv-technical-analysis { display: block; width: 411px; height: 464px; }
 
         /* ---------- Fokus-Modus: Lupe oben rechts, Klick = Widget 2x gross in der Mitte, Kreuz = zurück ---------- */
         .zoom-btn {
@@ -231,6 +234,7 @@
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-seasonal-chart.js"></script>
+    <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-technical-analysis.js"></script>
 </head>
 <body>
 
@@ -398,7 +402,7 @@
     </div>
 
     <!-- Stocks-Detail: öffnet sich über die Glühbirne im Stocks-Widget (4 hohe Widgets, die 2 rechten sind noch leer) -->
-    <div class="stocks-panel popup-card" id="stocks-panel" data-zoomable data-popup data-focus-w="1938" data-focus-h="1336">
+    <div class="stocks-panel popup-card" id="stocks-panel" data-zoomable data-popup data-focus-w="1938" data-focus-h="1560">
         <div class="stock-col">
             <div class="stock-title">CELH</div>
             <div class="sym-box">
@@ -412,6 +416,7 @@
             <div class="fin-box">
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:CELH", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": 400, "height": 550 }</script>
             </div>
+            <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:CELH" interval="1M" ratings-display-mode="gauge-and-breakdown"></tv-technical-analysis></div>
         </div>
         <div class="stock-col">
             <div class="stock-title">SOFI</div>
@@ -426,6 +431,7 @@
             <div class="fin-box">
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:SOFI", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": 400, "height": 550 }</script>
             </div>
+            <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:SOFI" interval="1M" ratings-display-mode="gauge-and-breakdown"></tv-technical-analysis></div>
         </div>
         <div class="stock-col"></div>
         <div class="stock-col"></div>
