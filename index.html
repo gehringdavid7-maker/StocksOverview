@@ -88,18 +88,41 @@
             grid-template-rows: 1fr;
             gap: 38px;
             width: 1938px;     /* 4 x 456 + 3 x 38 */
-            height: 1560px;    /* höher, damit die Technical-Analysis-Widgets (464px) Platz haben */
+            height: 1490px;
         }
         .stocks-panel.focused { box-shadow: none; }
         .stock-col { background: #3B3A3A; border-radius: 22px; padding: 24px 22px; overflow: hidden; display: flex; flex-direction: column; }
         .stock-title { font-size: 32px; font-weight: 700; text-align: left; margin-bottom: 18px; }
         .stock-col .sym-box { width: 100%; margin-bottom: 9px; }
         /* Technical Analysis: volle Spaltenbreite (wie der News-Knopf), 464px hoch */
-        .stock-col .ta-box { width: 100%; height: 464px; margin-bottom: 9px; flex: none; }
-        .stock-col .ta-box tv-technical-analysis { display: block; width: 100%; height: 464px; }
+        .stock-col .ta-box { width: 100%; height: 330px; margin-bottom: 9px; flex: none; }
+        .stock-col .ta-box tv-technical-analysis { display: block; width: 100%; height: 330px; }
         .stock-col .fin-box { width: 100%; margin-bottom: 9px; position: relative; }
         .fin-zoom { top: 6px; right: 6px; }
         .stock-col .fin-box > * { max-width: 100%; }
+
+
+        /* ---------- Balance sheet (Popup mit Diagrammen) ---------- */
+        .widget.bs-card { width: 1060px; height: 880px; padding: 24px 28px; display: flex; flex-direction: column; }
+        .bs-head { text-align: center; font-size: 28px; font-weight: 600; }
+        .bs-sub { text-align: center; font-size: 14px; color: #9a9a9a; margin-top: 2px; }
+        .bs-tabs { display: flex; justify-content: center; gap: 6px; margin: 14px 0; }
+        .bs-tab { height: 36px; padding: 0 24px; border: none; border-radius: 10px; background: rgba(255, 255, 255, 0.12); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .bs-tab:hover { background: rgba(255, 255, 255, 0.24); }
+        .bs-tab.on { background: #fff; color: #000; }
+        .bs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .bs-tile { background: #1A1A1A; border-radius: 14px; padding: 12px 14px 6px; }
+        .bs-tile h4 { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #d8d8d8; margin-bottom: 4px; }
+        .bs-tile h4 span { color: #8f8f8f; font-weight: 400; }
+        .bs-tile svg { width: 100%; height: auto; display: block; }
+        .bs-legend { display: inline-flex; gap: 10px; }
+        .bs-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; }
+        .bs-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; }
+        .bs-table th, .bs-table td { padding: 6px 8px; text-align: right; border-bottom: 1px solid rgba(255, 255, 255, 0.08); white-space: nowrap; }
+        .bs-table th { color: #9a9a9a; font-weight: 600; }
+        .bs-table th:first-child, .bs-table td:first-child { text-align: left; color: #d8d8d8; }
+        .bs-empty { margin: auto; text-align: center; color: #9a9a9a; font-size: 18px; line-height: 1.6; }
+        .bs-src { margin-top: auto; padding-top: 10px; font-size: 11.5px; line-height: 1.4; color: #8f8f8f; }
 
         /* ---------- Fokus-Modus: Lupe oben rechts, Klick = Widget 2x gross in der Mitte, Kreuz = zurück ---------- */
         .zoom-btn {
@@ -383,7 +406,7 @@
     </div>
 
     <!-- Stocks-Detail: öffnet sich über die Glühbirne im Stocks-Widget (4 hohe Widgets, die 2 rechten sind noch leer) -->
-    <div class="stocks-panel popup-card" id="stocks-panel" data-zoomable data-popup data-focus-w="1938" data-focus-h="1560">
+    <div class="stocks-panel popup-card" id="stocks-panel" data-zoomable data-popup data-focus-w="1938" data-focus-h="1490">
         <div class="stock-col">
             <div class="stock-title">CELH</div>
             <div class="sym-box">
@@ -397,6 +420,7 @@
             </div>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">CELH News</button>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit?usp=sharing" target="_blank">CELH These</a>
+            <button class="white-btn-style" type="button" data-bs="CELH">Balance sheet</button>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:CELH" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
         </div>
         <div class="stock-col">
@@ -412,6 +436,7 @@
             </div>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24sofi&src=recent_search_click', '_blank')">SOFI News</button>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1LzEyjhSjwh2Rhki6vTS5lFEpgwtgBeOhgYcARmOd6Ek/edit?usp=sharing" target="_blank">SOFI These</a>
+            <button class="white-btn-style" type="button" data-bs="SOFI">Balance sheet</button>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:SOFI" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
         </div>
         <div class="stock-col"></div>
@@ -419,7 +444,7 @@
     </div>
 
     <!-- Stocks-Mappe: öffnet sich über das Mappen-Symbol oben links im Stocks-Widget (gleiches Layout wie die Glühbirne, mit den 4 Aktien aus dem Stocks-Widget) -->
-    <div class="stocks-panel popup-card" id="folder-panel" data-zoomable data-popup data-focus-w="1938" data-focus-h="1560">
+    <div class="stocks-panel popup-card" id="folder-panel" data-zoomable data-popup data-focus-w="1938" data-focus-h="1490">
         <div class="stock-col">
             <div class="stock-title">PATH</div>
             <div class="sym-box">
@@ -433,6 +458,7 @@
             </div>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24path', '_blank')">PATH News</button>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">PATH These</a>
+            <button class="white-btn-style" type="button" data-bs="PATH">Balance sheet</button>
             <div class="ta-box"><tv-technical-analysis symbol="NYSE:PATH" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
         </div>
         <div class="stock-col">
@@ -448,6 +474,7 @@
             </div>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24amzn&src=typed_query&f=top', '_blank')">AMZN News</button>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1Xf5zrdtqt9IMGYJoWfp16olbjPgvdTCd6uznVuBAFy4/edit?usp=sharing" target="_blank">AMZN These</a>
+            <button class="white-btn-style" type="button" data-bs="AMZN">Balance sheet</button>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:AMZN" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
         </div>
         <div class="stock-col">
@@ -463,6 +490,7 @@
             </div>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">HNST News</button>
             <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">HNST These</a>
+            <button class="white-btn-style" type="button" data-bs="HNST">Balance sheet</button>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:HNST" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
         </div>
         <div class="stock-col">
@@ -478,10 +506,109 @@
             </div>
             <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">NAUT News</button>
             <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">NAUT These</a>
+            <button class="white-btn-style" type="button" data-bs="NAUT">Balance sheet</button>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:NAUT" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
         </div>
     </div>
 </div>
+
+
+<!-- Balance-sheet-Daten: hier von Hand eintragen. Beträge in Mio. USD.
+     Pro Zeile eine Periode. Felder (alle optional): p = Beschriftung, revenue, yoy (Umsatzwachstum in %), grossProfit oder grossMargin (in %),
+     netIncome, cash, debt, equity. Neue Quartale einfach unten an "quarterly" bzw. "yearly" anhängen. unitDiv: 1000 = Anzeige in Mrd. -->
+<script>
+const BALANCE_DATA = {
+    CELH: {
+        name: 'Celsius Holdings', unit: 'Mio USD', unitDiv: 1,
+        source: 'Source: your Celsius thesis document (company filings, 10-Q Q3 2026). Equity excl. PepsiCo preferred shares; Q1 2026 equity not comparable and left out.',
+        quarterly: [
+            { p: 'Q1 26', revenue: 782.6, yoy: 137.7, grossMargin: 50.4, netIncome: 110, cash: 549, debt: 669 },
+            { p: 'Q2 26', revenue: 817.9, yoy: 10.6, grossMargin: 48.1, netIncome: 55, cash: 631, debt: 668, equity: 1200 },
+            { p: 'Q3 26', revenue: 847.2, yoy: 17, grossMargin: 46.8, netIncome: 127, cash: 701, debt: 668, equity: 1280 }
+        ],
+        yearly: [
+            { p: '2023', revenue: 1318, yoy: 101.7, cash: 756, debt: 2, equity: 1090 },
+            { p: '2024', revenue: 1356, yoy: 2.9, cash: 890, debt: 0, equity: 1220 },
+            { p: '2025', revenue: 2515, yoy: 85.5 }
+        ]
+    },
+    SOFI: {
+        name: 'SoFi Technologies', unit: 'Mio USD', unitDiv: 1,
+        source: 'Source: annual figures from StockAnalysis.com (based on SEC filings). Quarterly, cash, debt and equity not entered yet.',
+        quarterly: [],
+        yearly: [
+            { p: '2021', revenue: 977.3, yoy: 72.8, netIncome: -524.4 },
+            { p: '2022', revenue: 1519, yoy: 55.5, netIncome: -360.8 },
+            { p: '2023', revenue: 2068, yoy: 36.1, netIncome: -341.2 },
+            { p: '2024', revenue: 2643, yoy: 27.8, netIncome: 479.1 },
+            { p: '2025', revenue: 3583, yoy: 35.6, netIncome: 481.3 }
+        ]
+    },
+    PATH: {
+        name: 'UiPath', unit: 'Mio USD', unitDiv: 1,
+        source: 'Source: StockAnalysis.com (based on SEC filings). Fiscal year ends 31 January (FY26 = Feb 2025 – Jan 2026). Quarterly and equity not entered yet.',
+        quarterly: [],
+        yearly: [
+            { p: 'FY22', revenue: 892.25, yoy: 46.8, grossProfit: 723.38, netIncome: -525.59, cash: 1885, debt: 51.4 },
+            { p: 'FY23', revenue: 1059, yoy: 18.6, grossProfit: 879.42, netIncome: -328.35, cash: 1760, debt: 63.44 },
+            { p: 'FY24', revenue: 1308, yoy: 23.6, grossProfit: 1112, netIncome: -89.88, cash: 1880, debt: 67.07 },
+            { p: 'FY25', revenue: 1430, yoy: 9.3, grossProfit: 1186, netIncome: -73.69, cash: 1724, debt: 77.82 },
+            { p: 'FY26', revenue: 1611, yoy: 12.7, grossProfit: 1341, netIncome: 282.33, cash: 1689, debt: 81.25 }
+        ]
+    },
+    AMZN: {
+        name: 'Amazon', unit: 'Mrd USD', unitDiv: 1000,
+        source: 'Source: StockAnalysis.com (based on SEC filings). Cash = cash & investments. Equity not entered yet.',
+        quarterly: [
+            { p: 'Q4 24', revenue: 187792, yoy: 10.5, grossProfit: 88899, netIncome: 20004 },
+            { p: 'Q1 25', revenue: 155667, yoy: 8.6, grossProfit: 78691, netIncome: 17127 },
+            { p: 'Q2 25', revenue: 167702, yoy: 13.3, grossProfit: 86893, netIncome: 18164 },
+            { p: 'Q3 25', revenue: 180169, yoy: 13.4, grossProfit: 91499, netIncome: 21187 },
+            { p: 'Q4 25', revenue: 213386, yoy: 13.6, grossProfit: 103427, netIncome: 21192 },
+            { p: 'Q1 26', revenue: 181519, yoy: 16.6, grossProfit: 94056, netIncome: 30255 },
+            { p: 'Q2 26', revenue: 200606, yoy: 19.6, grossProfit: 104828, netIncome: 62647 },
+            { p: 'Q3 26', revenue: 201944, yoy: 12.1, grossProfit: 107371, netIncome: 20685 }
+        ],
+        yearly: [
+            { p: '2021', revenue: 469822, yoy: 21.7, grossProfit: 197478, netIncome: 33364, cash: 96049, debt: 139757 },
+            { p: '2022', revenue: 513983, yoy: 9.4, grossProfit: 225152, netIncome: -2722, cash: 70026, debt: 169938 },
+            { p: '2023', revenue: 574785, yoy: 11.8, grossProfit: 270046, netIncome: 30425, cash: 86780, debt: 161574 },
+            { p: '2024', revenue: 637959, yoy: 11.0, grossProfit: 311671, netIncome: 59248, cash: 101202, debt: 155401 },
+            { p: '2025', revenue: 716924, yoy: 12.4, grossProfit: 360510, netIncome: 77670, cash: 123029, debt: 178547 }
+        ]
+    },
+    HNST: {
+        name: 'The Honest Company', unit: 'Mio USD', unitDiv: 1,
+        source: 'Source: annual figures StockAnalysis.com, quarterly figures Weiss Ratings (both based on SEC filings). Q3 2026 net income (91.3) looks unusually high, please check it against the 10-Q. Equity not entered yet.',
+        quarterly: [
+            { p: 'Q3 25', revenue: 92.57, grossProfit: 34.49, netIncome: 0.76 },
+            { p: 'Q4 25', revenue: 88.04, grossProfit: 33.68, netIncome: -23.57 },
+            { p: 'Q1 26', revenue: 78.10, grossProfit: 33.96, netIncome: -0.04 },
+            { p: 'Q2 26', revenue: 83.30, grossProfit: 35.15, netIncome: 10.69 },
+            { p: 'Q3 26', revenue: 84.61, yoy: -8.6, grossProfit: 38.79, netIncome: 91.32 }
+        ],
+        yearly: [
+            { p: '2021', revenue: 318.64, yoy: 6.0, grossProfit: 109.17, netIncome: -30.32, cash: 93.18, debt: 37.53 },
+            { p: '2022', revenue: 313.65, yoy: -1.6, grossProfit: 92.32, netIncome: -49.02, cash: 15.17, debt: 37.6 },
+            { p: '2023', revenue: 344.37, yoy: 9.8, grossProfit: 100.53, netIncome: -39.24, cash: 32.83, debt: 29.87 },
+            { p: '2024', revenue: 378.34, yoy: 9.9, grossProfit: 144.66, netIncome: -6.12, cash: 75.44, debt: 21.74 },
+            { p: '2025', revenue: 371.32, yoy: -1.9, grossProfit: 143.59, netIncome: -15.69, cash: 89.58, debt: 13.96 }
+        ]
+    },
+    NAUT: {
+        name: 'Nautilus Biotechnology', unit: 'Mio USD', unitDiv: 1,
+        source: 'Source: StockAnalysis.com (based on SEC filings). No revenue yet (pre-revenue). Debt is mostly lease liabilities. Net income values were not clearly labelled on the source page, please verify. Quarterly and equity not entered yet.',
+        quarterly: [],
+        yearly: [
+            { p: '2021', netIncome: -50.32, cash: 345.73, debt: 30.03 },
+            { p: '2022', netIncome: -57.92, cash: 184.47, debt: 30.33 },
+            { p: '2023', netIncome: -63.68, cash: 173.42, debt: 34.63 },
+            { p: '2024', netIncome: -70.78, cash: 129.89, debt: 30.48 },
+            { p: '2025', netIncome: -59.0, cash: 103.41, debt: 30.02 }
+        ]
+    }
+};
+</script>
 
 <!-- Fokus-Modus (Lupe / Kreuz) -->
 <script>
@@ -542,6 +669,160 @@
                 returnTo = null;
                 if (back && reopen) openFocus(back);
             }
+        }
+
+
+        // ---------- Balance sheet: Diagramme + Tabelle (Daten aus BALANCE_DATA) ----------
+        const BS_W = 326, BS_H = 186;
+
+        function bsRows(d, mode) {
+            const lag = mode === 'yearly' ? 1 : 4;
+            return (d[mode] || []).map((r, i, a) => {
+                const o = Object.assign({}, r);
+                if (o.grossMargin == null && o.grossProfit != null && o.revenue) o.grossMargin = o.grossProfit / o.revenue * 100;
+                if (o.yoy == null && i >= lag && a[i - lag].revenue && o.revenue) o.yoy = (o.revenue / a[i - lag].revenue - 1) * 100;
+                return o;
+            }).slice(-8);
+        }
+        function bsMoney(v, div, dec) {
+            if (v == null) return '–';
+            return (v / div).toLocaleString('de-CH', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+        }
+        function bsPct(v, sign) {
+            if (v == null) return '–';
+            return (sign && v > 0 ? '+' : '') + v.toFixed(1) + '%';
+        }
+        function bsBars(rows, series, fmt, labels) {
+            const vals = [];
+            rows.forEach((r) => series.forEach((s) => { const v = s.get(r); if (v != null) vals.push(v); }));
+            if (!vals.length) return null;
+            const top = 20, bot = 24, left = 6, right = 6;
+            let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
+            if (hi === lo) hi = lo + 1;
+            const y = (v) => top + (hi - v) / (hi - lo) * (BS_H - top - bot);
+            const n = rows.length, slot = (BS_W - left - right) / n;
+            const gw = Math.min(slot * 0.72, 40 * series.length), bw = gw / series.length;
+            let g = '<line x1="' + left + '" x2="' + (BS_W - right) + '" y1="' + y(0) + '" y2="' + y(0) + '" stroke="#444"/>';
+            rows.forEach((r, i) => {
+                const cx = left + slot * i + slot / 2;
+                series.forEach((s, k) => {
+                    const v = s.get(r);
+                    if (v == null) return;
+                    const x = cx - gw / 2 + bw * k, y0 = y(0), yy = y(v);
+                    const h = Math.max(1, Math.abs(yy - y0)), yTop = Math.min(yy, y0);
+                    g += '<rect x="' + x + '" y="' + yTop + '" width="' + (bw - 1.5) + '" height="' + h + '" rx="2" fill="' + (v < 0 ? '#ff6b6b' : s.color) + '"/>';
+                    if (labels) g += '<text x="' + (x + (bw - 1.5) / 2) + '" y="' + (v >= 0 ? yTop - 4 : yTop + h + 11) + '" text-anchor="middle" font-size="' + (n > 6 ? 9 : 10.5) + '" fill="#d0d0d0">' + fmt(v) + '</text>';
+                });
+                g += '<text x="' + cx + '" y="' + (BS_H - 7) + '" text-anchor="middle" font-size="10.5" fill="#8f8f8f">' + r.p + '</text>';
+            });
+            return '<svg viewBox="0 0 ' + BS_W + ' ' + BS_H + '">' + g + '</svg>';
+        }
+        function bsLine(rows, get, fmt) {
+            const vals = rows.map(get).filter((v) => v != null);
+            if (!vals.length) return null;
+            const top = 24, bot = 24, left = 14, right = 14;
+            let lo = Math.min(...vals) - 3, hi = Math.max(...vals) + 3;
+            if (hi === lo) hi = lo + 1;
+            const n = rows.length, slot = (BS_W - left - right) / n;
+            const y = (v) => top + (hi - v) / (hi - lo) * (BS_H - top - bot);
+            let path = '', dots = '', g = '', prevNull = true;
+            rows.forEach((r, i) => {
+                const cx = left + slot * i + slot / 2, v = get(r);
+                if (v != null) {
+                    path += (prevNull ? 'M' : 'L') + cx + ' ' + y(v) + ' ';
+                    dots += '<circle cx="' + cx + '" cy="' + y(v) + '" r="3.5" fill="#fff"/><text x="' + cx + '" y="' + (y(v) - 8) + '" text-anchor="middle" font-size="' + (n > 6 ? 9 : 10.5) + '" fill="#d0d0d0">' + fmt(v) + '</text>';
+                }
+                prevNull = v == null;
+                g += '<text x="' + cx + '" y="' + (BS_H - 7) + '" text-anchor="middle" font-size="10.5" fill="#8f8f8f">' + r.p + '</text>';
+            });
+            return '<svg viewBox="0 0 ' + BS_W + ' ' + BS_H + '"><path d="' + path + '" fill="none" stroke="#9a9a9a" stroke-width="2"/>' + dots + g + '</svg>';
+        }
+
+        function bsRender(d, mode, body) {
+            const rows = bsRows(d, mode);
+            const div = d.unitDiv || 1;
+            // gleiche Nachkommastellen pro Kennzahl (richtet sich nach dem grössten Wert)
+            const money = (keys) => {
+                let m = 0;
+                rows.forEach((r) => keys.forEach((k) => { if (r[k] != null) m = Math.max(m, Math.abs(r[k]) / div); }));
+                const dec = m >= 100 ? 0 : (m >= 10 ? 1 : (div > 1 ? 2 : 1));
+                return (v) => bsMoney(v, div, dec);
+            };
+            const has = (key) => rows.some((r) => r[key] != null);
+            if (!rows.length) {
+                body.innerHTML = '<div class="bs-empty">No ' + (mode === 'yearly' ? 'yearly' : 'quarterly') + ' figures entered yet.</div>';
+                return;
+            }
+            const tiles = [
+                ['Revenue', d.unit, bsBars(rows, [{ get: (r) => r.revenue, color: '#f2f2f2' }], money(['revenue']), true)],
+                ['Revenue growth (YoY)', '%', bsBars(rows, [{ get: (r) => r.yoy, color: '#f2f2f2' }], (v) => bsPct(v, true), true)],
+                ['Net income', d.unit, bsBars(rows, [{ get: (r) => r.netIncome, color: '#f2f2f2' }], money(['netIncome']), true)],
+                ['Gross margin', '%', bsLine(rows, (r) => r.grossMargin, (v) => v.toFixed(1))],
+                ['Cash vs. debt', '<span class="bs-legend"><span><i style="background:#f2f2f2"></i>Cash</span><span><i style="background:#7a7a7a"></i>Debt</span></span>',
+                    bsBars(rows, [{ get: (r) => r.cash, color: '#f2f2f2' }, { get: (r) => r.debt, color: '#7a7a7a' }], money(['cash', 'debt']), rows.length <= 4)],
+                ['Equity', d.unit, bsBars(rows, [{ get: (r) => r.equity, color: '#f2f2f2' }], money(['equity']), true)]
+            ].filter((t) => t[2]);
+
+            const metrics = [
+                ['Revenue', 'revenue', money(['revenue'])], ['Growth YoY', 'yoy', (v) => bsPct(v, true)], ['Gross margin', 'grossMargin', (v) => bsPct(v, false)],
+                ['Net income', 'netIncome', money(['netIncome'])], ['Cash', 'cash', money(['cash', 'debt'])], ['Debt', 'debt', money(['cash', 'debt'])], ['Equity', 'equity', money(['equity'])]
+            ].filter((m) => has(m[1]));
+
+            let html = '<div class="bs-grid">' + tiles.map((t) => '<div class="bs-tile"><h4>' + t[0] + '<span>' + t[1] + '</span></h4>' + t[2] + '</div>').join('') + '</div>';
+            html += '<table class="bs-table"><thead><tr><th>' + d.unit + '</th>' + rows.map((r) => '<th>' + r.p + '</th>').join('') + '</tr></thead><tbody>';
+            metrics.forEach((m) => { html += '<tr><td>' + m[0] + '</td>' + rows.map((r) => '<td>' + m[2](r[m[1]]) + '</td>').join('') + '</tr>'; });
+            html += '</tbody></table>';
+            body.innerHTML = html;
+        }
+
+        function openBalance(sym, panel) {
+            const d = BALANCE_DATA[sym];
+            if (finCard) { finCard.remove(); finCard = null; }
+            const card = document.createElement('div');
+            card.className = 'widget popup-card bs-card';
+            card.setAttribute('data-popup', '');
+            card.dataset.focusW = '1060';
+            card.dataset.focusH = '880';
+            const x = document.createElement('button');
+            x.type = 'button';
+            x.className = 'zoom-btn';
+            x.title = 'Close';
+            x.setAttribute('aria-label', 'Close');
+            x.innerHTML = ICONS;
+            x.addEventListener('click', (e) => { e.stopPropagation(); closeFocus(); });
+            card.appendChild(x);
+            card.insertAdjacentHTML('beforeend', '<div class="bs-head">' + sym + ' Balance sheet</div><div class="bs-sub">' + (d ? d.name : sym) + '</div>');
+            if (!d) {
+                card.insertAdjacentHTML('beforeend', '<div class="bs-empty">No figures entered yet for ' + sym + '.</div>');
+            } else {
+                let mode = (d.quarterly && d.quarterly.length) ? 'quarterly' : 'yearly';
+                const tabs = document.createElement('div');
+                tabs.className = 'bs-tabs';
+                const body = document.createElement('div');
+                const mk = (key, label) => {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'bs-tab';
+                    b.textContent = label;
+                    b.addEventListener('click', (e) => { e.stopPropagation(); mode = key; draw(); });
+                    tabs.appendChild(b);
+                    return b;
+                };
+                const bq = mk('quarterly', 'Quarterly'), by = mk('yearly', 'Yearly');
+                const draw = () => {
+                    bq.classList.toggle('on', mode === 'quarterly');
+                    by.classList.toggle('on', mode === 'yearly');
+                    bsRender(d, mode, body);
+                };
+                card.appendChild(tabs);
+                card.appendChild(body);
+                draw();
+                card.insertAdjacentHTML('beforeend', '<div class="bs-src">' + (d.source || '') + '</div>');
+            }
+            document.querySelector('.main-container').appendChild(card);
+            finCard = card;
+            returnTo = panel || null;
+            openFocus(card, true);
         }
 
         function openFinancials(symbol, panel) {
@@ -610,6 +891,14 @@
         const folderBtn = document.getElementById('btn-stocks-folder');
         const folderPanel = document.getElementById('folder-panel');
         if (folderBtn && folderPanel) folderBtn.addEventListener('click', (e) => { e.stopPropagation(); openFocus(folderPanel); });
+
+        // Knopf "Balance sheet" in den Panels
+        document.querySelectorAll('[data-bs]').forEach((b) => {
+            b.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openBalance(b.dataset.bs, b.closest('.stocks-panel'));
+            });
+        });
 
         // Lupe auf den Financials in den Panels (Glühbirne / Mappe)
         document.querySelectorAll('.fin-zoom').forEach((b) => {
