@@ -102,27 +102,79 @@
         .stock-col .fin-box > * { max-width: 100%; }
 
 
-        /* ---------- Balance sheet (Popup mit Diagrammen) ---------- */
-        .widget.bs-card { width: 1060px; height: 880px; padding: 24px 28px; display: flex; flex-direction: column; }
-        .bs-head { text-align: center; font-size: 28px; font-weight: 600; }
-        .bs-sub { text-align: center; font-size: 14px; color: #9a9a9a; margin-top: 2px; }
-        .bs-tabs { display: flex; justify-content: center; gap: 6px; margin: 14px 0; }
-        .bs-tab { height: 36px; padding: 0 24px; border: none; border-radius: 10px; background: rgba(255, 255, 255, 0.12); color: #fff; font-size: 15px; font-weight: 600; cursor: pointer; }
-        .bs-tab:hover { background: rgba(255, 255, 255, 0.24); }
-        .bs-tab.on { background: #fff; color: #000; }
-        .bs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-        .bs-tile { background: #1A1A1A; border-radius: 14px; padding: 12px 14px 6px; }
-        .bs-tile h4 { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #d8d8d8; margin-bottom: 4px; }
-        .bs-tile h4 span { color: #8f8f8f; font-weight: 400; }
-        .bs-tile svg { width: 100%; height: auto; display: block; }
-        .bs-legend { display: inline-flex; gap: 10px; }
-        .bs-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; }
-        .bs-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; }
-        .bs-table th, .bs-table td { padding: 6px 8px; text-align: right; border-bottom: 1px solid rgba(255, 255, 255, 0.08); white-space: nowrap; }
-        .bs-table th { color: #9a9a9a; font-weight: 600; }
-        .bs-table th:first-child, .bs-table td:first-child { text-align: left; color: #d8d8d8; }
-        .bs-empty { margin: auto; text-align: center; color: #9a9a9a; font-size: 18px; line-height: 1.6; }
-        .bs-src { margin-top: auto; padding-top: 10px; font-size: 11.5px; line-height: 1.4; color: #8f8f8f; }
+        /* ---------- Balance sheet (interaktives Overlay) ---------- */
+        .widget.bs-card { width: 1500px; height: 1000px; padding: 22px 28px 18px; display: flex; flex-direction: column; }
+        .bs-top { display: flex; align-items: baseline; gap: 16px; padding-right: 74px; flex: none; }
+        .bs-title { font-size: 32px; font-weight: 700; letter-spacing: 0.5px; }
+        .bs-name { font-size: 18px; color: #b8b8b8; }
+        .bs-asof { margin-left: auto; font-size: 14px; color: #a8a8a8; }
+        .bs-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; margin-top: 12px; padding-right: 10px; }
+        .bs-scroll::-webkit-scrollbar { width: 8px; }
+        .bs-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.25); border-radius: 4px; }
+        .bs-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-bottom: 14px; }
+        .bs-seg { display: inline-flex; background: #1A1A1A; border-radius: 12px; padding: 3px; gap: 2px; }
+        .bs-seg button { height: 34px; padding: 0 18px; border: none; border-radius: 9px; background: transparent; color: #cfcfcf; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .bs-seg button:hover { background: rgba(255, 255, 255, 0.12); }
+        .bs-seg button.on { background: #fff; color: #000; }
+        .bs-lbl { font-size: 12.5px; color: #a8a8a8; margin-right: 8px; text-transform: uppercase; letter-spacing: 0.8px; }
+        .bs-kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 14px; }
+        .bs-kpi { background: #1A1A1A; border-radius: 14px; padding: 12px 14px 8px; cursor: pointer; border: 1.5px solid transparent; transition: border-color .15s, transform .15s; text-align: left; color: #fff; font-family: inherit; }
+        .bs-kpi:hover { border-color: rgba(255, 255, 255, 0.35); transform: translateY(-1px); }
+        .bs-kpi.on { border-color: #fff; }
+        .bs-kpi .k-l { font-size: 12.5px; color: #a8a8a8; text-transform: uppercase; letter-spacing: 0.6px; }
+        .bs-kpi .k-v { font-size: 27px; font-weight: 700; margin: 2px 0 0; white-space: nowrap; }
+        .bs-kpi .k-v small { font-size: 14px; font-weight: 500; color: #a8a8a8; margin-left: 4px; }
+        .bs-kpi .k-d { font-size: 13px; font-weight: 600; height: 18px; }
+        .bs-kpi svg { width: 100%; height: 30px; display: block; margin-top: 4px; }
+        .up { color: #5ed39a; } .down { color: #ff7b7b; } .flat { color: #a8a8a8; }
+        .bs-main { display: grid; grid-template-columns: 1.85fr 1fr; gap: 14px; margin-bottom: 14px; }
+        .bs-panel { background: #1A1A1A; border-radius: 16px; padding: 14px 16px; }
+        .bs-chips { display: flex; flex-wrap: wrap; gap: 6px 6px; align-items: center; margin-bottom: 8px; }
+        .bs-chips .g { font-size: 11.5px; color: #8f8f8f; text-transform: uppercase; letter-spacing: 0.8px; margin: 0 2px 0 10px; }
+        .bs-chips .g:first-child { margin-left: 0; }
+        .bs-chip { height: 30px; padding: 0 12px; border: none; border-radius: 15px; background: rgba(255, 255, 255, 0.10); color: #e6e6e6; font-size: 13.5px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .bs-chip:hover { background: rgba(255, 255, 255, 0.22); }
+        .bs-chip.on { background: #fff; color: #000; }
+        .bs-ovr { display: flex; align-items: center; gap: 6px; margin: 2px 0 6px; flex-wrap: wrap; }
+        .bs-ovr .bs-chip { height: 26px; font-size: 12.5px; }
+        .bs-ovr .bs-chip.on { background: #6cc4ff; color: #00121f; }
+        .bs-chart { position: relative; }
+        .bs-chart svg { width: 100%; height: auto; display: block; user-select: none; }
+        .bs-slot .bs-hit { fill: transparent; cursor: pointer; }
+        .bs-slot .bs-bar { opacity: 0.62; transition: opacity .12s; }
+        .bs-slot:hover .bs-bar, .bs-slot.sel .bs-bar { opacity: 1; }
+        .bs-slot.sel .bs-band, .bs-slot:hover .bs-band { opacity: 1; }
+        .bs-band { fill: rgba(255, 255, 255, 0.06); opacity: 0; transition: opacity .12s; }
+        .bs-bar { transform-box: fill-box; transform-origin: bottom; animation: bsgrow .45s ease-out both; }
+        @keyframes bsgrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        .bs-tip { position: absolute; pointer-events: none; background: rgba(10, 10, 10, 0.96); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 12px; padding: 10px 13px; font-size: 14px; min-width: 190px; z-index: 5; display: none; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); }
+        .bs-tip b { display: block; font-size: 16px; margin-bottom: 4px; }
+        .bs-tip div { display: flex; justify-content: space-between; gap: 18px; color: #cfcfcf; line-height: 1.55; }
+        .bs-tip div span:last-child { color: #fff; font-weight: 600; }
+        .bs-tip em { display: block; font-style: normal; color: #ffd27a; font-size: 12.5px; margin-top: 5px; max-width: 280px; line-height: 1.35; }
+        .bs-h { font-size: 13px; font-weight: 700; color: #a8a8a8; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+        .bs-det { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .bs-det td { padding: 5px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+        .bs-det td:nth-child(2) { text-align: right; font-weight: 600; }
+        .bs-det td:nth-child(3) { text-align: right; width: 92px; font-size: 13px; font-weight: 600; }
+        .bs-det td:first-child { color: #cfcfcf; }
+        .bs-note { margin-top: 10px; padding: 9px 11px; background: rgba(255, 210, 122, 0.10); border-left: 3px solid #ffd27a; border-radius: 6px; font-size: 13px; line-height: 1.45; color: #f0e2bf; }
+        .bs-ins { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 22px; }
+        .bs-ins div { font-size: 14px; line-height: 1.5; color: #d6d6d6; }
+        .bs-ins b { display: block; font-size: 12px; color: #a8a8a8; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 1px; }
+        .bs-tblwrap { overflow-x: auto; }
+        .bs-table { border-collapse: collapse; font-size: 14px; min-width: 100%; }
+        .bs-table th, .bs-table td { padding: 7px 11px; text-align: right; border-bottom: 1px solid rgba(255, 255, 255, 0.08); white-space: nowrap; }
+        .bs-table th { color: #a8a8a8; font-weight: 600; cursor: pointer; position: sticky; top: 0; background: #1A1A1A; }
+        .bs-table th:hover { color: #fff; }
+        .bs-table th:first-child, .bs-table td:first-child { text-align: left; color: #e0e0e0; position: sticky; left: 0; background: #1A1A1A; z-index: 1; }
+        .bs-table .selc { background: rgba(255, 255, 255, 0.10); }
+        .bs-table th.selc { color: #fff; }
+        .bs-table td.sep, .bs-table td.grp { background: #141414; color: #8f8f8f; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.8px; padding: 5px 11px; }
+        .bs-copy { float: right; height: 28px; padding: 0 14px; border: none; border-radius: 8px; background: rgba(255, 255, 255, 0.12); color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+        .bs-copy:hover { background: rgba(255, 255, 255, 0.24); }
+        .bs-empty { margin: auto; text-align: center; color: #a8a8a8; font-size: 20px; line-height: 1.6; padding: 80px 0; }
+        .bs-src { font-size: 12px; line-height: 1.5; color: #8f8f8f; margin-top: 12px; }
 
         /* ---------- Fokus-Modus: Lupe oben rechts, Klick = Widget 2x gross in der Mitte, Kreuz = zurück ---------- */
         .zoom-btn {
@@ -513,100 +565,211 @@
 </div>
 
 
-<!-- Balance-sheet-Daten: hier von Hand eintragen. Beträge in Mio. USD.
-     Pro Zeile eine Periode. Felder (alle optional): p = Beschriftung, revenue, yoy (Umsatzwachstum in %), grossProfit oder grossMargin (in %),
-     netIncome, cash, debt, equity. Neue Quartale einfach unten an "quarterly" bzw. "yearly" anhängen. unitDiv: 1000 = Anzeige in Mrd. -->
+<!-- Balance-sheet-Daten (Beträge in Mio. USD, aus den Earnings Releases). Pro Zeile eine Periode.
+     Felder (alle optional): p = Beschriftung, rev = Umsatz, gp = Bruttogewinn, ni = Nettogewinn, cash, debt, eq = Eigenkapital,
+     ta/tl = Bilanzsumme/Verbindlichkeiten, dep = Einlagen, pref = Vorzugsaktien, members/products (Mio), pyRev = Vorjahresumsatz (für die erste Wachstumsrate).
+     notes = Fussnoten pro Periode (gelbes "!"), labels = eigene Bezeichnungen. Neues Quartal: einfach unten an "quarterly" anhängen
+     (das Jahr "yearly" ergänzen, sobald alle 4 Quartale da sind). -->
 <script>
 const BALANCE_DATA = {
     CELH: {
-        name: 'Celsius Holdings', unit: 'Mio USD', unitDiv: 1,
-        source: 'Source: your Celsius thesis document (company filings, 10-Q Q3 2026). Equity excl. PepsiCo preferred shares; Q1 2026 equity not comparable and left out.',
+        name: "Celsius Holdings",
+        labels: {"cash": "Cash", "debt": "Long-term debt", "eq": "Stockholders' equity", "pref": "Series A preferred (mezzanine)"},
+        source: "Source: Celsius Holdings earnings releases Q1 2022 \u2013 Q3 2026 (GAAP, USD). Net income = consolidated net income (before preferred dividends). Equity excludes the Series A convertible preferred (mezzanine equity), shown separately. The Q1 2022 release has no balance sheet; Q1 2025 gross profit = H1 minus Q2. Yearly = sum of four quarters.",
+        notes: {"Q1 22": "This release contains no balance sheet.", "Q3 22": "Net loss of $181.9M includes one-off distributor termination expense around the PepsiCo agreement.", "Q3 24": "Revenue \u221231% YoY: PepsiCo distributor inventory optimisation plus retailer promotional allowances.", "Q2 25": "Alani Nu acquisition consolidated from this quarter; long-term debt taken on.", "Q3 25": "Net loss after acquisition-related costs (Alani Nu)."},
         quarterly: [
-            { p: 'Q1 26', revenue: 782.6, yoy: 137.7, grossMargin: 50.4, netIncome: 110, cash: 549, debt: 669 },
-            { p: 'Q2 26', revenue: 817.9, yoy: 10.6, grossMargin: 48.1, netIncome: 55, cash: 631, debt: 668, equity: 1200 },
-            { p: 'Q3 26', revenue: 847.2, yoy: 17, grossMargin: 46.8, netIncome: 127, cash: 701, debt: 668, equity: 1280 }
+            {"p": "Q1 22", "rev": 133.388, "gp": 53.894, "ni": 6.679, "pyRev": 50.035},
+            {"p": "Q2 22", "rev": 154.02, "gp": 59.319, "ni": 9.158, "cash": 60.031, "eq": 239.873, "ta": 349.638, "tl": 109.765, "pyRev": 65.073},
+            {"p": "Q3 22", "rev": 188.233, "gp": 78.65, "ni": -181.896, "cash": 592.134, "eq": 59.449, "ta": 1327.649, "tl": 443.712, "pref": 824.488, "pyRev": 94.909},
+            {"p": "Q4 22", "rev": 177.964, "gp": 79.007, "ni": -21.223, "cash": 614.159, "eq": 40.091, "ta": 1222.069, "tl": 357.49, "pref": 824.488, "pyRev": 104.254},
+            {"p": "Q1 23", "rev": 259.939, "gp": 113.818, "ni": 41.227, "cash": 595.476, "eq": 81.035, "ta": 1292.271, "tl": 386.748, "pref": 824.488},
+            {"p": "Q2 23", "rev": 325.883, "gp": 158.994, "ni": 51.509, "cash": 681.054, "eq": 131.062, "ta": 1399.249, "tl": 443.699, "pref": 824.488},
+            {"p": "Q3 23", "rev": 384.757, "gp": 194.082, "ni": 83.949, "cash": 760.022, "eq": 213.347, "ta": 1545.618, "tl": 507.783, "pref": 824.488},
+            {"p": "Q4 23", "rev": 347.435, "gp": 166.245, "ni": 50.116, "cash": 755.981, "eq": 264.04, "ta": 1536.396, "tl": 447.868, "pref": 824.488},
+            {"p": "Q1 24", "rev": 355.708, "gp": 182.207, "ni": 77.811, "cash": 879.498, "eq": 338.191, "ta": 1646.14, "tl": 483.461, "pref": 824.488},
+            {"p": "Q2 24", "rev": 401.977, "gp": 209.098, "ni": 79.783, "cash": 903.21, "eq": 415.754, "ta": 1718.888, "tl": 478.646, "pref": 824.488},
+            {"p": "Q3 24", "rev": 265.748, "gp": 122.229, "ni": 6.356, "cash": 903.748, "eq": 423.626, "ta": 1704.323, "tl": 456.209, "pref": 824.488},
+            {"p": "Q4 24", "rev": 332.197, "gp": 166.673, "ni": -18.876, "cash": 890.19, "eq": 399.929, "ta": 1766.881, "tl": 542.464, "pref": 824.488},
+            {"p": "Q1 25", "rev": 329.276, "gp": 172.373, "ni": 44.419, "cash": 977.285, "eq": 443.114, "ta": 1859.518, "tl": 591.916, "pref": 824.488},
+            {"p": "Q2 25", "rev": 739.259, "gp": 380.851, "ni": 99.855, "cash": 615.233, "eq": 1266.826, "ta": 3795.143, "tl": 1703.829, "debt": 862.917, "pref": 824.488},
+            {"p": "Q3 25", "rev": 725.106, "gp": 372.279, "ni": -61.014, "cash": 805.955, "eq": 1203.11, "ta": 5265.708, "tl": 2302.323, "debt": 861.472, "pref": 852.355},
+            {"p": "Q4 25", "rev": 721.628, "gp": 341.83, "ni": 24.739, "cash": 398.866, "eq": 1181.467, "ta": 5119.621, "tl": 2178.179, "debt": 669.926, "pref": 852.355},
+            {"p": "Q1 26", "rev": 782.615, "gp": 378.067, "ni": 110.099, "cash": 549.201, "eq": 1250.762, "ta": 5157.593, "tl": 2146.856, "debt": 668.881, "pref": 852.355},
+            {"p": "Q2 26", "rev": 817.925, "gp": 393.688, "ni": 55.293, "cash": 631.234, "eq": 1199.584, "ta": 5168.151, "tl": 2208.592, "debt": 667.85, "pref": 852.355},
+            {"p": "Q3 26", "rev": 847.228, "gp": 396.253, "ni": 126.956, "cash": 700.617, "eq": 1275.368, "ta": 5152.385, "tl": 2117.042, "debt": 667.755, "pref": 852.355},
         ],
         yearly: [
-            { p: '2023', revenue: 1318, yoy: 101.7, cash: 756, debt: 2, equity: 1090 },
-            { p: '2024', revenue: 1356, yoy: 2.9, cash: 890, debt: 0, equity: 1220 },
-            { p: '2025', revenue: 2515, yoy: 85.5 }
-        ]
+            {"p": "2022", "rev": 653.605, "gp": 270.87, "ni": -187.282, "cash": 614.159, "eq": 40.091, "ta": 1222.069, "tl": 357.49, "pref": 824.488, "pyRev": 314.272},
+            {"p": "2023", "rev": 1318.014, "gp": 633.139, "ni": 226.801, "cash": 755.981, "eq": 264.04, "ta": 1536.396, "tl": 447.868, "pref": 824.488},
+            {"p": "2024", "rev": 1355.63, "gp": 680.207, "ni": 145.074, "cash": 890.19, "eq": 399.929, "ta": 1766.881, "tl": 542.464, "pref": 824.488},
+            {"p": "2025", "rev": 2515.269, "gp": 1267.333, "ni": 107.999, "cash": 398.866, "debt": 669.926, "eq": 1181.467, "ta": 5119.621, "tl": 2178.179, "pref": 852.355},
+        ],
     },
     SOFI: {
-        name: 'SoFi Technologies', unit: 'Mio USD', unitDiv: 1,
-        source: 'Source: annual figures from StockAnalysis.com (based on SEC filings). Quarterly, cash, debt and equity not entered yet.',
-        quarterly: [],
+        name: "SoFi Technologies",
+        labels: {"cash": "Cash & equivalents", "debt": "Debt", "eq": "Total equity", "dep": "Total deposits"},
+        source: "Source: SoFi Technologies earnings releases Q1 2022 \u2013 Q3 2026 (GAAP, USD). Revenue = total net revenue; no gross profit reported (bank-like model). Cash excludes restricted cash. Equity = total assets \u2212 total liabilities (incl. temporary equity in 2022). Members/products from the company-metrics table. Yearly = sum of four quarters.",
+        notes: {"Q3 23": "Net loss includes a goodwill impairment; excluding it the loss was about $19.5M.", "Q4 24": "Net income includes a one-off income tax benefit of about $272.5M."},
+        quarterly: [
+            {"p": "Q1 22", "rev": 330.344, "ni": -110.357, "cash": 1325.135, "debt": 4916.175, "eq": 5530.673, "ta": 12246.576, "tl": 6715.903, "dep": 1155.922, "members": 3.868, "products": 5.862, "pyRev": 195.984},
+            {"p": "Q2 22", "rev": 362.527, "ni": -95.835, "cash": 707.302, "debt": 3723.561, "eq": 5506.554, "ta": 12670.886, "tl": 7164.332, "dep": 2712.264, "members": 4.319, "products": 6.564, "pyRev": 231.274},
+            {"p": "Q3 22", "rev": 423.985, "ni": -74.209, "cash": 935.159, "debt": 4568.523, "eq": 5501.377, "ta": 15834.903, "tl": 10333.526, "dep": 5031.63, "members": 4.743, "products": 7.199, "pyRev": 272.006},
+            {"p": "Q4 22", "rev": 456.679, "ni": -40.006, "cash": 1421.907, "debt": 5485.882, "eq": 5528.476, "ta": 19007.675, "tl": 13479.199, "dep": 7342.296, "members": 5.223, "products": 7.895, "pyRev": 285.608},
+            {"p": "Q1 23", "rev": 472.158, "ni": -34.422, "cash": 2487.778, "debt": 6125.501, "eq": 5554.446, "ta": 22452.961, "tl": 16898.515, "dep": 10088.441, "members": 5.656, "products": 8.554},
+            {"p": "Q2 23", "rev": 498.018, "ni": -47.549, "cash": 3015.652, "debt": 6484.326, "eq": 5578.035, "ta": 25561.449, "tl": 19983.414, "dep": 12740.073, "members": 6.24, "products": 9.401},
+            {"p": "Q3 23", "rev": 537.209, "ni": -266.684, "cash": 2813.876, "debt": 6241.386, "eq": 5373.762, "ta": 27977.153, "tl": 22603.391, "dep": 15671.973, "members": 6.957, "products": 10.448},
+            {"p": "Q4 23", "rev": 615.404, "ni": 47.913, "cash": 3085.02, "debt": 5233.416, "eq": 5554.986, "ta": 30074.858, "tl": 24519.872, "dep": 18620.663, "members": 7.542, "products": 11.142},
+            {"p": "Q1 24", "rev": 644.995, "ni": 88.043, "cash": 3693.39, "debt": 2891.317, "eq": 6145.979, "ta": 31305.76, "tl": 25159.781, "dep": 21604.594, "members": 8.132, "products": 11.83},
+            {"p": "Q2 24", "rev": 598.618, "ni": 17.404, "cash": 2334.589, "debt": 3106.629, "eq": 5901.494, "ta": 32641.979, "tl": 26740.485, "dep": 22996.963, "members": 8.774, "products": 12.776},
+            {"p": "Q3 24", "rev": 697.121, "ni": 60.745, "cash": 2354.965, "debt": 3180.205, "eq": 6121.481, "ta": 34380.176, "tl": 28258.695, "dep": 24407.786, "members": 9.373, "products": 13.651},
+            {"p": "Q4 24", "rev": 734.125, "ni": 332.473, "cash": 2538.293, "debt": 3092.692, "eq": 6525.134, "ta": 36250.951, "tl": 29725.817, "dep": 25978.204, "members": 10.127, "products": 14.745},
+            {"p": "Q1 25", "rev": 771.759, "ni": 71.116, "cash": 2085.697, "debt": 3046.145, "eq": 6678.514, "ta": 37749.286, "tl": 31070.772, "dep": 27256.528, "members": 10.916, "products": 15.915},
+            {"p": "Q2 25", "rev": 854.944, "ni": 97.263, "cash": 2122.502, "debt": 3942.636, "eq": 6860.58, "ta": 41112.171, "tl": 34251.591, "dep": 29540.674, "members": 11.746, "products": 17.142},
+            {"p": "Q3 25", "rev": 961.6, "ni": 139.392, "cash": 3246.351, "debt": 2713.942, "eq": 8779.963, "ta": 45293.45, "tl": 36513.487, "dep": 32946.399, "members": 12.642, "products": 18.553},
+            {"p": "Q4 25", "rev": 1025.051, "ni": 173.549, "cash": 4929.452, "debt": 1815.162, "eq": 10489.495, "ta": 50660.478, "tl": 40170.983, "dep": 37505.395, "members": 13.651, "products": 20.168},
+            {"p": "Q1 26", "rev": 1100.368, "ni": 166.731, "cash": 3401.02, "debt": 1813.481, "eq": 10811.591, "ta": 53698.258, "tl": 42886.667, "dep": 40242.697, "members": 14.706, "products": 22.159},
+            {"p": "Q2 26", "rev": 1218.676, "ni": 156.592, "cash": 3126.237, "debt": 3300.544, "eq": 11076.227, "ta": 60947.548, "tl": 49871.321, "dep": 45543.16, "members": 15.814, "products": 24.381},
+            {"p": "Q3 26", "rev": 1385.099, "ni": 240.989, "cash": 2809.582, "debt": 3862.925, "eq": 11295.137, "ta": 67766.776, "tl": 56471.639, "dep": 51325.022, "members": 17.074, "products": 26.672},
+        ],
         yearly: [
-            { p: '2021', revenue: 977.3, yoy: 72.8, netIncome: -524.4 },
-            { p: '2022', revenue: 1519, yoy: 55.5, netIncome: -360.8 },
-            { p: '2023', revenue: 2068, yoy: 36.1, netIncome: -341.2 },
-            { p: '2024', revenue: 2643, yoy: 27.8, netIncome: 479.1 },
-            { p: '2025', revenue: 3583, yoy: 35.6, netIncome: 481.3 }
-        ]
+            {"p": "2022", "rev": 1573.535, "ni": -320.407, "cash": 1421.907, "debt": 5485.882, "eq": 5528.476, "ta": 19007.675, "tl": 13479.199, "dep": 7342.296, "members": 5.223, "products": 7.895, "pyRev": 984.872},
+            {"p": "2023", "rev": 2122.789, "ni": -300.742, "cash": 3085.02, "debt": 5233.416, "eq": 5554.986, "ta": 30074.858, "tl": 24519.872, "dep": 18620.663, "members": 7.542, "products": 11.142},
+            {"p": "2024", "rev": 2674.859, "ni": 498.665, "cash": 2538.293, "debt": 3092.692, "eq": 6525.134, "ta": 36250.951, "tl": 29725.817, "dep": 25978.204, "members": 10.127, "products": 14.745},
+            {"p": "2025", "rev": 3613.354, "ni": 481.32, "cash": 4929.452, "debt": 1815.162, "eq": 10489.495, "ta": 50660.478, "tl": 40170.983, "dep": 37505.395, "members": 13.651, "products": 20.168},
+        ],
     },
     PATH: {
-        name: 'UiPath', unit: 'Mio USD', unitDiv: 1,
-        source: 'Source: StockAnalysis.com (based on SEC filings). Fiscal year ends 31 January (FY26 = Feb 2025 – Jan 2026). Quarterly and equity not entered yet.',
-        quarterly: [],
+        name: "UiPath",
+        labels: {"cash": "Cash & investments", "eq": "Stockholders' equity"},
+        source: "Source: UiPath earnings releases Q1 FY23 \u2013 Q2 FY27 (GAAP, USD). Fiscal year ends Jan 31 (Q1 FY23 = quarter to Apr 30, 2022). No financial debt (lease liabilities not counted). Yearly = sum of four quarters.",
+        notes: {"Q3 FY26": "Net income includes a $184.5M release of the valuation allowance on deferred tax assets (one-off)."},
+        quarterly: [
+            {"p": "Q1 FY23", "rev": 245.066, "gp": 200.05, "ni": -122.561, "cash": 1801.33, "eq": 1880.194},
+            {"p": "Q2 FY23", "rev": 242.222, "gp": 197.646, "ni": -120.378, "cash": 1723.94, "eq": 1849.549},
+            {"p": "Q3 FY23", "rev": 262.744, "gp": 219.976, "ni": -57.724, "cash": 1679.677, "eq": 1859.824},
+            {"p": "Q4 FY23", "rev": 308.549, "gp": 260.858, "ni": -27.689, "cash": 1759.835, "eq": 1920.158},
+            {"p": "Q1 FY24", "rev": 289.588, "gp": 245.921, "ni": -31.901, "cash": 1786.357, "eq": 1955.537},
+            {"p": "Q2 FY24", "rev": 287.31, "gp": 238.323, "ni": -60.361, "cash": 1829.568, "eq": 1983.366},
+            {"p": "Q3 FY24", "rev": 325.921, "gp": 276.001, "ni": -31.537, "cash": 1817.177, "eq": 1961.213},
+            {"p": "Q4 FY24", "rev": 405.253, "gp": 351.903, "ni": 33.916, "cash": 1879.823, "eq": 2016.114},
+            {"p": "Q1 FY25", "rev": 335.112, "gp": 279.787, "ni": -28.736, "cash": 1936.5, "eq": 2027.004},
+            {"p": "Q2 FY25", "rev": 316.253, "gp": 252.933, "ni": -86.097, "cash": 1743.374, "eq": 1833.581},
+            {"p": "Q3 FY25", "rev": 354.653, "gp": 290.89, "ni": -10.655, "cash": 1603.438, "eq": 1731.845},
+            {"p": "Q4 FY25", "rev": 423.646, "gp": 359.112, "ni": 51.794, "cash": 1723.631, "eq": 1845.762},
+            {"p": "Q1 FY26", "rev": 356.624, "gp": 292.767, "ni": -22.555, "cash": 1591.5, "eq": 1698.461},
+            {"p": "Q2 FY26", "rev": 361.728, "gp": 297.348, "ni": 1.584, "cash": 1522.638, "eq": 1665.703},
+            {"p": "Q3 FY26", "rev": 411.113, "gp": 342.301, "ni": 198.839, "cash": 1519.795, "eq": 1924.617},
+            {"p": "Q4 FY26", "rev": 481.107, "gp": 407.172, "ni": 104.462, "cash": 1689.476, "eq": 2082.587},
+            {"p": "Q1 FY27", "rev": 418.382, "gp": 341.454, "ni": 22.525, "cash": 1415.746, "eq": 1902.965},
+            {"p": "Q2 FY27", "rev": 410.256, "gp": 329.669, "ni": 36.089, "cash": 1405.025, "eq": 1948.551},
+        ],
         yearly: [
-            { p: 'FY22', revenue: 892.25, yoy: 46.8, grossProfit: 723.38, netIncome: -525.59, cash: 1885, debt: 51.4 },
-            { p: 'FY23', revenue: 1059, yoy: 18.6, grossProfit: 879.42, netIncome: -328.35, cash: 1760, debt: 63.44 },
-            { p: 'FY24', revenue: 1308, yoy: 23.6, grossProfit: 1112, netIncome: -89.88, cash: 1880, debt: 67.07 },
-            { p: 'FY25', revenue: 1430, yoy: 9.3, grossProfit: 1186, netIncome: -73.69, cash: 1724, debt: 77.82 },
-            { p: 'FY26', revenue: 1611, yoy: 12.7, grossProfit: 1341, netIncome: 282.33, cash: 1689, debt: 81.25 }
-        ]
+            {"p": "FY23", "rev": 1058.581, "gp": 878.53, "ni": -328.352, "cash": 1759.835, "eq": 1920.158, "pyRev": 892.25},
+            {"p": "FY24", "rev": 1308.072, "gp": 1112.148, "ni": -89.883, "cash": 1879.823, "eq": 2016.114},
+            {"p": "FY25", "rev": 1429.664, "gp": 1182.722, "ni": -73.694, "cash": 1723.631, "eq": 1845.762},
+            {"p": "FY26", "rev": 1610.572, "gp": 1339.588, "ni": 282.33, "cash": 1689.476, "eq": 2082.587},
+        ],
     },
     AMZN: {
-        name: 'Amazon', unit: 'Mrd USD', unitDiv: 1000,
-        source: 'Source: StockAnalysis.com (based on SEC filings). Cash = cash & investments. Equity not entered yet.',
+        name: "Amazon.com",
+        labels: {"cash": "Cash & securities", "debt": "Long-term debt", "eq": "Stockholders' equity"},
+        source: "Source: Amazon.com earnings releases Q1 2022 \u2013 Q3 2026 (GAAP, USD). Cash = cash, cash equivalents and marketable securities; debt = long-term debt excl. leases. Yearly = sum of the four quarters, balance sheet = year-end.",
+        notes: {"Q1 22": "Net loss includes a $7.6B pre-tax valuation loss on the Rivian investment.", "Q2 22": "Net loss includes a $3.9B pre-tax valuation loss on the Rivian investment."},
         quarterly: [
-            { p: 'Q4 24', revenue: 187792, yoy: 10.5, grossProfit: 88899, netIncome: 20004 },
-            { p: 'Q1 25', revenue: 155667, yoy: 8.6, grossProfit: 78691, netIncome: 17127 },
-            { p: 'Q2 25', revenue: 167702, yoy: 13.3, grossProfit: 86893, netIncome: 18164 },
-            { p: 'Q3 25', revenue: 180169, yoy: 13.4, grossProfit: 91499, netIncome: 21187 },
-            { p: 'Q4 25', revenue: 213386, yoy: 13.6, grossProfit: 103427, netIncome: 21192 },
-            { p: 'Q1 26', revenue: 181519, yoy: 16.6, grossProfit: 94056, netIncome: 30255 },
-            { p: 'Q2 26', revenue: 200606, yoy: 19.6, grossProfit: 104828, netIncome: 62647 },
-            { p: 'Q3 26', revenue: 201944, yoy: 12.1, grossProfit: 107371, netIncome: 20685 }
+            {"p": "Q1 22", "rev": 116444.0, "gp": 49945.0, "ni": -3844.0, "cash": 66385.0, "debt": 47556.0, "eq": 134001.0, "pyRev": 108518},
+            {"p": "Q2 22", "rev": 121234.0, "gp": 54810.0, "ni": -2028.0, "cash": 60710.0, "debt": 58053.0, "eq": 131402.0, "pyRev": 113080},
+            {"p": "Q3 22", "rev": 127101.0, "gp": 56833.0, "ni": 2872.0, "cash": 58662.0, "debt": 58919.0, "eq": 137489.0, "pyRev": 110812},
+            {"p": "Q4 22", "rev": 149204.0, "gp": 63564.0, "ni": 278.0, "cash": 70026.0, "debt": 67150.0, "eq": 146043.0, "pyRev": 137412},
+            {"p": "Q1 23", "rev": 127358.0, "gp": 59567.0, "ni": 3172.0, "cash": 64405.0, "debt": 67084.0, "eq": 154526.0},
+            {"p": "Q2 23", "rev": 134383.0, "gp": 65010.0, "ni": 6750.0, "cash": 63970.0, "debt": 63092.0, "eq": 168602.0},
+            {"p": "Q3 23", "rev": 143083.0, "gp": 68061.0, "ni": 9879.0, "cash": 64169.0, "debt": 61098.0, "eq": 182973.0},
+            {"p": "Q4 23", "rev": 169961.0, "gp": 77408.0, "ni": 10624.0, "cash": 86780.0, "debt": 58314.0, "eq": 201875.0},
+            {"p": "Q1 24", "rev": 143313.0, "gp": 70680.0, "ni": 10431.0, "cash": 85074.0, "debt": 57634.0, "eq": 216661.0},
+            {"p": "Q2 24", "rev": 147977.0, "gp": 74192.0, "ni": 13485.0, "cash": 89092.0, "debt": 54889.0, "eq": 236447.0},
+            {"p": "Q3 24", "rev": 158877.0, "gp": 77900.0, "ni": 15328.0, "cash": 88051.0, "debt": 54890.0, "eq": 259151.0},
+            {"p": "Q4 24", "rev": 187792.0, "gp": 88899.0, "ni": 20004.0, "cash": 101202.0, "debt": 52623.0, "eq": 285970.0},
+            {"p": "Q1 25", "rev": 155667.0, "gp": 78691.0, "ni": 17127.0, "cash": 94565.0, "debt": 53374.0, "eq": 305867.0},
+            {"p": "Q2 25", "rev": 167702.0, "gp": 86893.0, "ni": 18164.0, "cash": 93180.0, "debt": 50718.0, "eq": 333775.0},
+            {"p": "Q3 25", "rev": 180169.0, "gp": 91499.0, "ni": 21187.0, "cash": 94197.0, "debt": 50742.0, "eq": 369631.0},
+            {"p": "Q4 25", "rev": 213386.0, "gp": 103427.0, "ni": 21192.0, "cash": 123029.0, "debt": 65648.0, "eq": 411065.0},
+            {"p": "Q1 26", "rev": 181519.0, "gp": 94056.0, "ni": 30255.0, "cash": 143089.0, "debt": 119074.0, "eq": 441914.0},
+            {"p": "Q2 26", "rev": 200606.0, "gp": 104828.0, "ni": 62647.0, "cash": 122988.0, "debt": 128894.0, "eq": 551620.0},
+            {"p": "Q3 26", "rev": 201944.0, "gp": 107371.0, "ni": 20685.0, "cash": 114226.0, "debt": 173125.0, "eq": 613601.0},
         ],
         yearly: [
-            { p: '2021', revenue: 469822, yoy: 21.7, grossProfit: 197478, netIncome: 33364, cash: 96049, debt: 139757 },
-            { p: '2022', revenue: 513983, yoy: 9.4, grossProfit: 225152, netIncome: -2722, cash: 70026, debt: 169938 },
-            { p: '2023', revenue: 574785, yoy: 11.8, grossProfit: 270046, netIncome: 30425, cash: 86780, debt: 161574 },
-            { p: '2024', revenue: 637959, yoy: 11.0, grossProfit: 311671, netIncome: 59248, cash: 101202, debt: 155401 },
-            { p: '2025', revenue: 716924, yoy: 12.4, grossProfit: 360510, netIncome: 77670, cash: 123029, debt: 178547 }
-        ]
+            {"p": "2022", "rev": 513983.0, "gp": 225152.0, "ni": -2722.0, "cash": 70026.0, "debt": 67150.0, "eq": 146043.0, "pyRev": 469822},
+            {"p": "2023", "rev": 574785.0, "gp": 270046.0, "ni": 30425.0, "cash": 86780.0, "debt": 58314.0, "eq": 201875.0},
+            {"p": "2024", "rev": 637959.0, "gp": 311671.0, "ni": 59248.0, "cash": 101202.0, "debt": 52623.0, "eq": 285970.0},
+            {"p": "2025", "rev": 716924.0, "gp": 360510.0, "ni": 77670.0, "cash": 123029.0, "debt": 65648.0, "eq": 411065.0},
+        ],
     },
     HNST: {
-        name: 'The Honest Company', unit: 'Mio USD', unitDiv: 1,
-        source: 'Source: annual figures StockAnalysis.com, quarterly figures Weiss Ratings (both based on SEC filings). Q3 2026 net income (91.3) looks unusually high, please check it against the 10-Q. Equity not entered yet.',
+        name: "The Honest Company",
+        labels: {"cash": "Cash", "eq": "Stockholders' equity"},
+        source: "Source: The Honest Company earnings releases Q1 2022 \u2013 Q3 2026 (GAAP, USD). No financial debt. Yearly = sum of four quarters.",
+        notes: {"Q4 25": "Gross profit depressed by impairments from the strategic exits (Powering Honest Growth) and higher tariff costs; restructuring costs in opex.", "Q3 26": "Net income includes a one-off income tax benefit of $89.4M (release of the valuation allowance on deferred tax assets)."},
         quarterly: [
-            { p: 'Q3 25', revenue: 92.57, grossProfit: 34.49, netIncome: 0.76 },
-            { p: 'Q4 25', revenue: 88.04, grossProfit: 33.68, netIncome: -23.57 },
-            { p: 'Q1 26', revenue: 78.10, grossProfit: 33.96, netIncome: -0.04 },
-            { p: 'Q2 26', revenue: 83.30, grossProfit: 35.15, netIncome: 10.69 },
-            { p: 'Q3 26', revenue: 84.61, yoy: -8.6, grossProfit: 38.79, netIncome: 91.32 }
+            {"p": "Q1 22", "rev": 68.719, "gp": 20.627, "ni": -14.626, "cash": 44.743, "eq": 168.889},
+            {"p": "Q2 22", "rev": 78.493, "gp": 23.564, "ni": -10.012, "cash": 40.348, "eq": 162.936},
+            {"p": "Q3 22", "rev": 84.58, "gp": 25.617, "ni": -11.788, "cash": 24.087, "eq": 155.085},
+            {"p": "Q4 22", "rev": 81.859, "gp": 22.507, "ni": -12.591, "cash": 9.517, "eq": 146.36},
+            {"p": "Q1 23", "rev": 83.388, "gp": 20.202, "ni": -18.867, "cash": 9.221, "eq": 131.284},
+            {"p": "Q2 23", "rev": 84.544, "gp": 22.898, "ni": -13.416, "cash": 17.845, "eq": 124.4},
+            {"p": "Q3 23", "rev": 86.169, "gp": 27.205, "ni": -8.098, "cash": 23.103, "eq": 120.009},
+            {"p": "Q4 23", "rev": 90.264, "gp": 30.229, "ni": 1.144, "cash": 32.827, "eq": 123.139},
+            {"p": "Q1 24", "rev": 86.217, "gp": 31.882, "ni": -1.403, "cash": 33.585, "eq": 124.767},
+            {"p": "Q2 24", "rev": 93.049, "gp": 35.612, "ni": -4.077, "cash": 36.593, "eq": 129.681},
+            {"p": "Q3 24", "rev": 99.237, "gp": 38.396, "ni": 0.165, "cash": 53.441, "eq": 133.868},
+            {"p": "Q4 24", "rev": 99.836, "gp": 38.766, "ni": -0.811, "cash": 75.435, "eq": 174.307},
+            {"p": "Q1 25", "rev": 97.25, "gp": 37.67, "ni": 3.254, "cash": 72.818, "eq": 180.357},
+            {"p": "Q2 25", "rev": 93.459, "gp": 37.752, "ni": 3.87, "cash": 72.077, "eq": 187.028},
+            {"p": "Q3 25", "rev": 92.571, "gp": 34.489, "ni": 0.758, "cash": 71.453, "eq": 190.185},
+            {"p": "Q4 25", "rev": 88.037, "gp": 13.844, "ni": -23.57, "cash": 89.581, "eq": 169.669},
+            {"p": "Q1 26", "rev": 78.099, "gp": 33.271, "ni": -0.042, "cash": 90.367, "eq": 169.092},
+            {"p": "Q2 26", "rev": 83.303, "gp": 40.36, "ni": 10.687, "cash": 105.899, "eq": 167.02},
+            {"p": "Q3 26", "rev": 84.613, "gp": 38.07, "ni": 91.319, "cash": 102.954, "eq": 263.016},
         ],
         yearly: [
-            { p: '2021', revenue: 318.64, yoy: 6.0, grossProfit: 109.17, netIncome: -30.32, cash: 93.18, debt: 37.53 },
-            { p: '2022', revenue: 313.65, yoy: -1.6, grossProfit: 92.32, netIncome: -49.02, cash: 15.17, debt: 37.6 },
-            { p: '2023', revenue: 344.37, yoy: 9.8, grossProfit: 100.53, netIncome: -39.24, cash: 32.83, debt: 29.87 },
-            { p: '2024', revenue: 378.34, yoy: 9.9, grossProfit: 144.66, netIncome: -6.12, cash: 75.44, debt: 21.74 },
-            { p: '2025', revenue: 371.32, yoy: -1.9, grossProfit: 143.59, netIncome: -15.69, cash: 89.58, debt: 13.96 }
-        ]
+            {"p": "2022", "rev": 313.651, "gp": 92.315, "ni": -49.017, "cash": 9.517, "eq": 146.36, "pyRev": 318.64},
+            {"p": "2023", "rev": 344.365, "gp": 100.534, "ni": -39.237, "cash": 32.827, "eq": 123.139},
+            {"p": "2024", "rev": 378.339, "gp": 144.656, "ni": -6.126, "cash": 75.435, "eq": 174.307},
+            {"p": "2025", "rev": 371.317, "gp": 123.755, "ni": -15.688, "cash": 89.581, "eq": 169.669},
+        ],
     },
     NAUT: {
-        name: 'Nautilus Biotechnology', unit: 'Mio USD', unitDiv: 1,
-        source: 'Source: StockAnalysis.com (based on SEC filings). No revenue yet (pre-revenue). Debt is mostly lease liabilities. Net income values were not clearly labelled on the source page, please verify. Quarterly and equity not entered yet.',
-        quarterly: [],
+        name: "Nautilus Biotechnology",
+        labels: {"cash": "Cash & investments", "eq": "Stockholders' equity"},
+        source: "Source: Nautilus Biotechnology earnings releases Q1/Q2/Q3 2022 \u2013 2026 (GAAP, USD). Pre-revenue (first revenue Q2 2026), no financial debt. The Q4 releases were not available: Q4 net loss = annual net loss (StockAnalysis, from SEC filings) minus the first nine months, so it is approximate; year-end balances come from the Q1 comparatives.",
+        notes: {"Q4 22": "Derived: annual net loss minus Q1\u2013Q3 (approximate).", "Q4 23": "Derived: annual net loss minus Q1\u2013Q3 (approximate).", "Q4 24": "Derived: annual net loss minus Q1\u2013Q3 (approximate).", "Q4 25": "Derived: annual net loss minus Q1\u2013Q3 (approximate)."},
+        quarterly: [
+            {"p": "Q1 22", "ni": -15.763, "cash": 349.035, "eq": 349.709, "ta": 384.673, "tl": 34.964},
+            {"p": "Q2 22", "ni": -14.689, "cash": 334.896, "eq": 337.558, "ta": 371.707, "tl": 34.149},
+            {"p": "Q3 22", "ni": -14.063, "cash": 323.646, "eq": 325.338, "ta": 359.307, "tl": 33.969},
+            {"p": "Q4 22", "ni": -13.405, "cash": 313.64, "eq": 314.924},
+            {"p": "Q1 23", "ni": -14.965, "cash": 301.989, "eq": 303.715, "ta": 345.884, "tl": 42.169},
+            {"p": "Q2 23", "ni": -15.808, "cash": 286.728, "eq": 289.673, "ta": 330.767, "tl": 41.094},
+            {"p": "Q3 23", "ni": -15.878, "cash": 275.728, "eq": 277.273, "ta": 318.336, "tl": 41.063},
+            {"p": "Q4 23", "ni": -17.029, "cash": 264.065, "eq": 265.353},
+            {"p": "Q1 24", "ni": -18.73, "cash": 247.658, "eq": 249.492, "ta": 288.65, "tl": 39.158},
+            {"p": "Q2 24", "ni": -18.01, "cash": 232.909, "eq": 235.279, "ta": 272.747, "tl": 37.468},
+            {"p": "Q3 24", "ni": -16.446, "cash": 221.227, "eq": 223.434, "ta": 259.704, "tl": 36.27},
+            {"p": "Q4 24", "ni": -17.594, "cash": 206.298, "eq": 208.73},
+            {"p": "Q1 25", "ni": -16.613, "cash": 192.833, "eq": 194.435, "ta": 227.69, "tl": 33.255},
+            {"p": "Q2 25", "ni": -15.033, "cash": 179.509, "eq": 181.094, "ta": 213.189, "tl": 32.095},
+            {"p": "Q3 25", "ni": -13.574, "cash": 168.486, "eq": 169.139, "ta": 200.915, "tl": 31.776},
+            {"p": "Q4 25", "ni": -13.78, "cash": 156.145, "eq": 156.973},
+            {"p": "Q1 26", "ni": -14.697, "cash": 143.374, "eq": 144.415, "ta": 177.779, "tl": 33.364},
+            {"p": "Q2 26", "rev": 0.19, "ni": -14.469, "cash": 129.186, "eq": 131.112, "ta": 163.576, "tl": 32.464},
+            {"p": "Q3 26", "rev": 0.234, "ni": -15.636, "cash": 114.343, "eq": 116.559, "ta": 148.924, "tl": 32.365},
+        ],
         yearly: [
-            { p: '2021', netIncome: -50.32, cash: 345.73, debt: 30.03 },
-            { p: '2022', netIncome: -57.92, cash: 184.47, debt: 30.33 },
-            { p: '2023', netIncome: -63.68, cash: 173.42, debt: 34.63 },
-            { p: '2024', netIncome: -70.78, cash: 129.89, debt: 30.48 },
-            { p: '2025', netIncome: -59.0, cash: 103.41, debt: 30.02 }
-        ]
-    }
+            {"p": "2021", "cash": 362.1, "eq": 363.576},
+            {"p": "2022", "cash": 313.64, "eq": 314.924, "ni": -57.92},
+            {"p": "2023", "cash": 264.065, "eq": 265.353, "ni": -63.68},
+            {"p": "2024", "cash": 206.298, "eq": 208.73, "ni": -70.78},
+            {"p": "2025", "cash": 156.145, "eq": 156.973, "ni": -59.0},
+        ],
+    },
 };
 </script>
 
@@ -672,108 +835,316 @@ const BALANCE_DATA = {
         }
 
 
-        // ---------- Balance sheet: Diagramme + Tabelle (Daten aus BALANCE_DATA) ----------
-        const BS_W = 326, BS_H = 186;
+        // ---------- Balance sheet: interaktives Overlay (Daten aus BALANCE_DATA) ----------
+        const BS_METRICS = [
+            { k: 'rev', label: 'Revenue', kind: 'money', good: 1, grp: 'Income' },
+            { k: 'gp', label: 'Gross profit', kind: 'money', good: 1, grp: 'Income' },
+            { k: 'ni', label: 'Net income', kind: 'money', good: 1, grp: 'Income' },
+            { k: 'cash', label: 'Cash', kind: 'money', good: 1, grp: 'Balance' },
+            { k: 'debt', label: 'Debt', kind: 'money', good: -1, grp: 'Balance' },
+            { k: 'netcash', label: 'Net cash', kind: 'money', good: 1, grp: 'Balance' },
+            { k: 'eq', label: 'Equity', kind: 'money', good: 1, grp: 'Balance' },
+            { k: 'ta', label: 'Total assets', kind: 'money', good: 0, grp: 'Balance' },
+            { k: 'tl', label: 'Total liabilities', kind: 'money', good: 0, grp: 'Balance' },
+            { k: 'dep', label: 'Deposits', kind: 'money', good: 1, grp: 'Balance' },
+            { k: 'pref', label: 'Preferred stock', kind: 'money', good: 0, grp: 'Balance' },
+            { k: 'yoy', label: 'Growth YoY', kind: 'pct', good: 1, grp: 'Ratios' },
+            { k: 'qoq', label: 'Growth QoQ', kind: 'pct', good: 1, grp: 'Ratios', only: 'quarterly' },
+            { k: 'gm', label: 'Gross margin', kind: 'pct', good: 1, grp: 'Ratios' },
+            { k: 'nm', label: 'Net margin', kind: 'pct', good: 1, grp: 'Ratios' },
+            { k: 'de', label: 'Debt / equity', kind: 'ratio', good: -1, grp: 'Ratios' },
+            { k: 'members', label: 'Members', kind: 'count', unit: 'Mio', good: 1, grp: 'KPIs' },
+            { k: 'products', label: 'Products', kind: 'count', unit: 'Mio', good: 1, grp: 'KPIs' },
+            { k: 'rpm', label: 'Revenue / member', kind: 'usd', good: 1, grp: 'KPIs' }
+        ];
+        const BS_FLOW = ['rev', 'gp', 'ni'];
+        const BS = { sym: null, d: null, mode: 'quarterly', range: 8, metric: 'rev', overlay: 'yoy', sel: null, rows: [], vis: [], card: null };
 
-        function bsRows(d, mode) {
-            const lag = mode === 'yearly' ? 1 : 4;
-            return (d[mode] || []).map((r, i, a) => {
-                const o = Object.assign({}, r);
-                if (o.grossMargin == null && o.grossProfit != null && o.revenue) o.grossMargin = o.grossProfit / o.revenue * 100;
-                if (o.yoy == null && i >= lag && a[i - lag].revenue && o.revenue) o.yoy = (o.revenue / a[i - lag].revenue - 1) * 100;
-                return o;
-            }).slice(-8);
-        }
-        function bsMoney(v, div, dec) {
-            if (v == null) return '–';
-            return (v / div).toLocaleString('de-CH', { minimumFractionDigits: dec, maximumFractionDigits: dec });
-        }
-        function bsPct(v, sign) {
-            if (v == null) return '–';
-            return (sign && v > 0 ? '+' : '') + v.toFixed(1) + '%';
-        }
-        function bsBars(rows, series, fmt, labels) {
-            const vals = [];
-            rows.forEach((r) => series.forEach((s) => { const v = s.get(r); if (v != null) vals.push(v); }));
-            if (!vals.length) return null;
-            const top = 20, bot = 24, left = 6, right = 6;
-            let lo = Math.min(0, ...vals), hi = Math.max(0, ...vals);
-            if (hi === lo) hi = lo + 1;
-            const y = (v) => top + (hi - v) / (hi - lo) * (BS_H - top - bot);
-            const n = rows.length, slot = (BS_W - left - right) / n;
-            const gw = Math.min(slot * 0.72, 40 * series.length), bw = gw / series.length;
-            let g = '<line x1="' + left + '" x2="' + (BS_W - right) + '" y1="' + y(0) + '" y2="' + y(0) + '" stroke="#444"/>';
-            rows.forEach((r, i) => {
-                const cx = left + slot * i + slot / 2;
-                series.forEach((s, k) => {
-                    const v = s.get(r);
-                    if (v == null) return;
-                    const x = cx - gw / 2 + bw * k, y0 = y(0), yy = y(v);
-                    const h = Math.max(1, Math.abs(yy - y0)), yTop = Math.min(yy, y0);
-                    g += '<rect x="' + x + '" y="' + yTop + '" width="' + (bw - 1.5) + '" height="' + h + '" rx="2" fill="' + (v < 0 ? '#ff6b6b' : s.color) + '"/>';
-                    if (labels) g += '<text x="' + (x + (bw - 1.5) / 2) + '" y="' + (v >= 0 ? yTop - 4 : yTop + h + 11) + '" text-anchor="middle" font-size="' + (n > 6 ? 9 : 10.5) + '" fill="#d0d0d0">' + fmt(v) + '</text>';
+        function bsBuild(d, mode) {
+            const q = d.quarterly || [], y = d.yearly || [];
+            let base;
+            if (mode === 'ttm') {
+                base = [];
+                q.forEach((r, i) => {
+                    if (i < 3) return;
+                    const o = Object.assign({}, r);
+                    delete o.pyRev;
+                    BS_FLOW.forEach((k) => {
+                        const v = [0, 1, 2, 3].map((j) => q[i - j][k]);
+                        o[k] = v.every((x) => x != null) ? v.reduce((a, b) => a + b, 0) : null;
+                    });
+                    base.push(o);
                 });
-                g += '<text x="' + cx + '" y="' + (BS_H - 7) + '" text-anchor="middle" font-size="10.5" fill="#8f8f8f">' + r.p + '</text>';
-            });
-            return '<svg viewBox="0 0 ' + BS_W + ' ' + BS_H + '">' + g + '</svg>';
-        }
-        function bsLine(rows, get, fmt) {
-            const vals = rows.map(get).filter((v) => v != null);
-            if (!vals.length) return null;
-            const top = 24, bot = 24, left = 14, right = 14;
-            let lo = Math.min(...vals) - 3, hi = Math.max(...vals) + 3;
-            if (hi === lo) hi = lo + 1;
-            const n = rows.length, slot = (BS_W - left - right) / n;
-            const y = (v) => top + (hi - v) / (hi - lo) * (BS_H - top - bot);
-            let path = '', dots = '', g = '', prevNull = true;
-            rows.forEach((r, i) => {
-                const cx = left + slot * i + slot / 2, v = get(r);
-                if (v != null) {
-                    path += (prevNull ? 'M' : 'L') + cx + ' ' + y(v) + ' ';
-                    dots += '<circle cx="' + cx + '" cy="' + y(v) + '" r="3.5" fill="#fff"/><text x="' + cx + '" y="' + (y(v) - 8) + '" text-anchor="middle" font-size="' + (n > 6 ? 9 : 10.5) + '" fill="#d0d0d0">' + fmt(v) + '</text>';
+            } else base = (mode === 'yearly' ? y : q).map((r) => Object.assign({}, r));
+            const lag = mode === 'yearly' ? 1 : 4;
+            base.forEach((o, i) => {
+                const prev = i >= lag ? base[i - lag] : null;
+                if (o.rev != null) {
+                    if (prev && prev.rev) o.yoy = (o.rev / prev.rev - 1) * 100;
+                    else if (o.pyRev) o.yoy = (o.rev / o.pyRev - 1) * 100;
                 }
-                prevNull = v == null;
-                g += '<text x="' + cx + '" y="' + (BS_H - 7) + '" text-anchor="middle" font-size="10.5" fill="#8f8f8f">' + r.p + '</text>';
+                if (mode === 'quarterly' && i > 0 && base[i - 1].rev && o.rev != null) o.qoq = (o.rev / base[i - 1].rev - 1) * 100;
+                if (o.gp != null && o.rev) o.gm = o.gp / o.rev * 100;
+                if (o.ni != null && o.rev >= 1 && Math.abs(o.ni / o.rev) < 10) o.nm = o.ni / o.rev * 100;
+                if (o.cash != null) o.netcash = o.cash - (o.debt || 0);
+                if (o.debt != null && o.eq) o.de = o.debt / o.eq;
+                if (o.members && o.rev != null) o.rpm = o.rev / o.members * (mode === 'quarterly' ? 4 : 1);
             });
-            return '<svg viewBox="0 0 ' + BS_W + ' ' + BS_H + '"><path d="' + path + '" fill="none" stroke="#9a9a9a" stroke-width="2"/>' + dots + g + '</svg>';
+            return base;
         }
-
-        function bsRender(d, mode, body) {
-            const rows = bsRows(d, mode);
-            const div = d.unitDiv || 1;
-            // gleiche Nachkommastellen pro Kennzahl (richtet sich nach dem grössten Wert)
-            const money = (keys) => {
-                let m = 0;
-                rows.forEach((r) => keys.forEach((k) => { if (r[k] != null) m = Math.max(m, Math.abs(r[k]) / div); }));
-                const dec = m >= 100 ? 0 : (m >= 10 ? 1 : (div > 1 ? 2 : 1));
-                return (v) => bsMoney(v, div, dec);
-            };
-            const has = (key) => rows.some((r) => r[key] != null);
-            if (!rows.length) {
-                body.innerHTML = '<div class="bs-empty">No ' + (mode === 'yearly' ? 'yearly' : 'quarterly') + ' figures entered yet.</div>';
-                return;
+        function bsAvail(rows) {
+            const only = (m) => !m.only || m.only === BS.mode;
+            return BS_METRICS.filter((m) => only(m) && rows.some((r) => r[m.k] != null));
+        }
+        function bsLab(m) { return (BS.d.labels && BS.d.labels[m.k]) || m.label; }
+        // Formatierer mit automatischer Einheit (Mio / Mrd) je Kennzahl
+        function bsFmt(m, vals) {
+            const nf = (v, dec) => v.toLocaleString('de-CH', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+            const mx = Math.max(0, ...vals.filter((v) => v != null).map(Math.abs));
+            if (m.kind === 'money') {
+                const big = mx >= 5000;
+                const dec = big ? (mx >= 100000 ? 1 : 2) : (mx >= 1000 ? 0 : (mx >= 10 ? 1 : 2));
+                const unit = big ? 'Mrd' : 'Mio';
+                const f = (v) => v == null ? '–' : nf(big ? v / 1000 : v, dec);
+                return { f, unit, full: (v) => v == null ? '–' : f(v) + ' ' + unit };
             }
-            const tiles = [
-                ['Revenue', d.unit, bsBars(rows, [{ get: (r) => r.revenue, color: '#f2f2f2' }], money(['revenue']), true)],
-                ['Revenue growth (YoY)', '%', bsBars(rows, [{ get: (r) => r.yoy, color: '#f2f2f2' }], (v) => bsPct(v, true), true)],
-                ['Net income', d.unit, bsBars(rows, [{ get: (r) => r.netIncome, color: '#f2f2f2' }], money(['netIncome']), true)],
-                ['Gross margin', '%', bsLine(rows, (r) => r.grossMargin, (v) => v.toFixed(1))],
-                ['Cash vs. debt', '<span class="bs-legend"><span><i style="background:#f2f2f2"></i>Cash</span><span><i style="background:#7a7a7a"></i>Debt</span></span>',
-                    bsBars(rows, [{ get: (r) => r.cash, color: '#f2f2f2' }, { get: (r) => r.debt, color: '#7a7a7a' }], money(['cash', 'debt']), rows.length <= 4)],
-                ['Equity', d.unit, bsBars(rows, [{ get: (r) => r.equity, color: '#f2f2f2' }], money(['equity']), true)]
-            ].filter((t) => t[2]);
-
-            const metrics = [
-                ['Revenue', 'revenue', money(['revenue'])], ['Growth YoY', 'yoy', (v) => bsPct(v, true)], ['Gross margin', 'grossMargin', (v) => bsPct(v, false)],
-                ['Net income', 'netIncome', money(['netIncome'])], ['Cash', 'cash', money(['cash', 'debt'])], ['Debt', 'debt', money(['cash', 'debt'])], ['Equity', 'equity', money(['equity'])]
-            ].filter((m) => has(m[1]));
-
-            let html = '<div class="bs-grid">' + tiles.map((t) => '<div class="bs-tile"><h4>' + t[0] + '<span>' + t[1] + '</span></h4>' + t[2] + '</div>').join('') + '</div>';
-            html += '<table class="bs-table"><thead><tr><th>' + d.unit + '</th>' + rows.map((r) => '<th>' + r.p + '</th>').join('') + '</tr></thead><tbody>';
-            metrics.forEach((m) => { html += '<tr><td>' + m[0] + '</td>' + rows.map((r) => '<td>' + m[2](r[m[1]]) + '</td>').join('') + '</tr>'; });
-            html += '</tbody></table>';
-            body.innerHTML = html;
+            if (m.kind === 'count') { const f = (v) => v == null ? '–' : nf(v, 2); return { f, unit: m.unit, full: (v) => f(v) + ' ' + m.unit }; }
+            if (m.kind === 'pct') { const f = (v) => v == null ? '–' : (v > 0 && m.k !== 'gm' && m.k !== 'nm' ? '+' : '') + nf(v, 1) + '%'; return { f, unit: '%', full: f }; }
+            if (m.kind === 'ratio') { const f = (v) => v == null ? '–' : nf(v, 2) + '×'; return { f, unit: '×', full: f }; }
+            const f = (v) => v == null ? '–' : '$' + nf(v, 0);
+            return { f, unit: 'USD', full: f };
         }
+        function bsDelta(rows, i, m) {
+            const lag = BS.mode === 'yearly' ? 1 : 4;
+            const r = rows[i], p = i >= lag ? rows[i - lag] : null;
+            let a = r[m.k], b = p ? p[m.k] : null, txt = '', dir = 0;
+            if (a == null || b == null) {
+                if (m.k === 'rev' && r.yoy != null) { txt = (r.yoy > 0 ? '+' : '') + r.yoy.toFixed(1) + '%'; dir = Math.sign(r.yoy); }
+                else return { txt: '', cls: 'flat' };
+            } else if (m.kind === 'pct') { const dd = a - b; txt = (dd > 0 ? '+' : '') + dd.toFixed(1) + ' pp'; dir = Math.sign(dd); }
+            else if (m.kind === 'ratio') { const dd = a - b; txt = (dd > 0 ? '+' : '') + dd.toFixed(2) + '×'; dir = Math.sign(dd); }
+            else if (b > 0 && a >= 0) { const pc = (a / b - 1) * 100; txt = (pc > 0 ? '+' : '') + (Math.abs(pc) >= 1000 ? pc.toFixed(0) : pc.toFixed(1)) + '%'; dir = Math.sign(pc); }
+            else { const dd = a - b; const f = bsFmt(m, [a, b]); txt = (dd > 0 ? '+' : '') + f.f(dd) + ' ' + f.unit; dir = Math.sign(dd); }
+            const g = m.good || 0;
+            return { txt, cls: dir === 0 || g === 0 ? 'flat' : (dir * g > 0 ? 'up' : 'down') };
+        }
+        function bsNiceStep(raw) {
+            const p = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / p;
+            return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p;
+        }
+        function bsScale(vals, bar) {
+            let lo = Math.min(...vals), hi = Math.max(...vals);
+            if (bar) { lo = Math.min(0, lo); hi = Math.max(0, hi); }
+            else { const pad = (hi - lo) * 0.18 || Math.abs(hi) * 0.1 || 1; lo -= pad; hi += pad; }
+            if (hi === lo) hi = lo + 1;
+            const step = bsNiceStep((hi - lo) / 4);
+            lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+            const ticks = [];
+            for (let v = lo; v <= hi + step / 2; v += step) ticks.push(+v.toFixed(10));
+            return { lo, hi, ticks };
+        }
+        function bsSpark(vals, color) {
+            const v = vals.map((x) => x == null ? null : x), nn = v.filter((x) => x != null);
+            if (nn.length < 2) return '';
+            const lo = Math.min(...nn), hi = Math.max(...nn), W = 200, H = 30;
+            const pts = [];
+            v.forEach((x, i) => { if (x != null) pts.push((i / (v.length - 1) * (W - 6) + 3).toFixed(1) + ',' + (H - 4 - (hi === lo ? 0.5 : (x - lo) / (hi - lo)) * (H - 8)).toFixed(1)); });
+            return '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none"><polyline points="' + pts.join(' ') + '" fill="none" stroke="' + color + '" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>';
+        }
+        function bsEsc(s) { return String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+
+        function bsChart() {
+            const m = BS_METRICS.find((x) => x.k === BS.metric), vis = BS.vis;
+            const vals = vis.map((r) => r[m.k]).filter((v) => v != null);
+            if (!vals.length) return '<div class="bs-empty">No figures for this metric in the selected range.</div>';
+            const bar = m.kind === 'money' || m.kind === 'count';
+            const ov = (BS.overlay !== 'none' && BS.overlay !== m.k && bar) ? BS_METRICS.find((x) => x.k === BS.overlay) : null;
+            const ovVals = ov ? vis.map((r) => r[ov.k]).filter((v) => v != null) : [];
+            const useOv = ov && ovVals.length > 1;
+            const W = 900, H = 410, L = 74, R = useOv ? 66 : 22, T = 30, B = 44;
+            const n = vis.length, slot = (W - L - R) / n;
+            const sc = bsScale(vals, bar), F = bsFmt(m, vals);
+            const y = (v) => T + (sc.hi - v) / (sc.hi - sc.lo) * (H - T - B);
+            const cx = (i) => L + slot * i + slot / 2;
+            let s = '';
+            sc.ticks.forEach((t) => {
+                s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(t) + '" y2="' + y(t) + '" stroke="' + (t === 0 ? '#777' : '#2e2e2e') + '"/>' +
+                    '<text x="' + (L - 10) + '" y="' + (y(t) + 4) + '" text-anchor="end" font-size="13" fill="#9a9a9a">' + F.f(t) + '</text>';
+            });
+            s += '<text x="' + (L - 10) + '" y="14" text-anchor="end" font-size="12" fill="#6f6f6f">' + F.unit + '</text>';
+            let sc2 = null, F2 = null;
+            if (useOv) {
+                sc2 = bsScale(ovVals, false); F2 = bsFmt(ov, ovVals);
+                const y2 = (v) => T + (sc2.hi - v) / (sc2.hi - sc2.lo) * (H - T - B);
+                sc2.ticks.forEach((t) => { s += '<text x="' + (W - R + 10) + '" y="' + (y2(t) + 4) + '" font-size="13" fill="#6cc4ff">' + F2.f(t) + '</text>'; });
+                sc2.y = y2;
+            }
+            const lbl = n <= 12;
+            vis.forEach((r, i) => {
+                const v = r[m.k], sel = r.p === BS.sel;
+                s += '<g class="bs-slot' + (sel ? ' sel' : '') + '" data-i="' + i + '"><rect class="bs-band" x="' + (L + slot * i) + '" y="' + T + '" width="' + slot + '" height="' + (H - T - B) + '" rx="6"/>';
+                if (v != null && bar) {
+                    const bw = Math.min(slot * 0.62, 70), y0 = y(0), yy = y(v), h = Math.max(1.5, Math.abs(yy - y0)), yt = Math.min(yy, y0);
+                    s += '<rect class="bs-bar" x="' + (cx(i) - bw / 2) + '" y="' + yt + '" width="' + bw + '" height="' + h + '" rx="4" fill="' + (v < 0 ? '#ff6b6b' : '#fff') + '" style="animation-delay:' + (i * 25) + 'ms"/>';
+                    if (lbl || sel) s += '<text x="' + cx(i) + '" y="' + (v >= 0 ? yt - 7 : yt + h + 15) + '" text-anchor="middle" font-size="' + (n > 8 ? 12 : 13.5) + '" font-weight="600" fill="' + (sel ? '#fff' : '#cfcfcf') + '">' + F.f(v) + '</text>';
+                }
+                s += '<text x="' + cx(i) + '" y="' + (H - 16) + '" text-anchor="middle" font-size="' + (n > 12 ? 11.5 : 13) + '" fill="' + (sel ? '#fff' : '#9a9a9a') + '" font-weight="' + (sel ? 700 : 400) + '">' + r.p + '</text>';
+                if (BS.d.notes && BS.d.notes[r.p]) s += '<circle cx="' + cx(i) + '" cy="' + (T - 12) + '" r="6" fill="#ffd27a"/><text x="' + cx(i) + '" y="' + (T - 8) + '" text-anchor="middle" font-size="10" font-weight="800" fill="#2a1d00">!</text>';
+                s += '<rect class="bs-hit" x="' + (L + slot * i) + '" y="0" width="' + slot + '" height="' + H + '"/></g>';
+            });
+            if (!bar) {
+                let d = '', dots = '', prev = false;
+                vis.forEach((r, i) => {
+                    const v = r[m.k];
+                    if (v == null) { prev = false; return; }
+                    d += (prev ? 'L' : 'M') + cx(i) + ' ' + y(v) + ' '; prev = true;
+                    const sel = r.p === BS.sel;
+                    dots += '<circle cx="' + cx(i) + '" cy="' + y(v) + '" r="' + (sel ? 7 : 4.5) + '" fill="' + (v < 0 ? '#ff6b6b' : '#fff') + '" pointer-events="none"/>';
+                    if (lbl || sel) dots += '<text x="' + cx(i) + '" y="' + (y(v) - 12) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + (sel ? '#fff' : '#cfcfcf') + '" pointer-events="none">' + F.f(v) + '</text>';
+                });
+                s += '<path d="' + d + '" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" pointer-events="none"/>' + dots;
+            }
+            if (useOv) {
+                let d = '', dots = '', prev = false;
+                if (sc2.lo < 0 && sc2.hi > 0) s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + sc2.y(0) + '" y2="' + sc2.y(0) + '" stroke="#6cc4ff" stroke-opacity=".35" stroke-dasharray="4 5"/>';
+                vis.forEach((r, i) => {
+                    const v = r[ov.k];
+                    if (v == null) { prev = false; return; }
+                    d += (prev ? 'L' : 'M') + cx(i) + ' ' + sc2.y(v) + ' '; prev = true;
+                    dots += '<circle cx="' + cx(i) + '" cy="' + sc2.y(v) + '" r="' + (r.p === BS.sel ? 6 : 4) + '" fill="#6cc4ff" stroke="#0b0b0b" stroke-width="1.5" pointer-events="none"/>';
+                });
+                s += '<path d="' + d + '" fill="none" stroke="#6cc4ff" stroke-width="2.5" stroke-linejoin="round" pointer-events="none"/>' + dots;
+            }
+            return '<svg viewBox="0 0 ' + W + ' ' + H + '">' + s + '</svg><div class="bs-tip" id="bs-tip"></div>';
+        }
+
+        function bsTipHtml(r) {
+            const m = BS_METRICS.find((x) => x.k === BS.metric);
+            const rowsHtml = [];
+            const add = (mm) => {
+                if (r[mm.k] == null) return;
+                const F = bsFmt(mm, BS.rows.map((x) => x[mm.k]));
+                rowsHtml.push('<div><span>' + bsLab(mm) + '</span><span>' + F.full(r[mm.k]) + '</span></div>');
+            };
+            add(m);
+            ['yoy', 'gm', 'nm', 'ni', 'cash'].forEach((k) => { if (k !== m.k) { const mm = BS_METRICS.find((x) => x.k === k); if (mm && (k === BS.overlay || ['yoy', 'ni'].includes(k))) add(mm); } });
+            const note = BS.d.notes && BS.d.notes[r.p];
+            return '<b>' + r.p + '</b>' + rowsHtml.join('') + (note ? '<em>' + bsEsc(note) + '</em>' : '');
+        }
+
+        function bsKpis() {
+            const avail = bsAvail(BS.rows).map((m) => m.k);
+            const pref = ['rev', 'gm', 'nm', 'ni', 'cash', 'debt', 'netcash', 'members', 'eq'];
+            const want = pref.filter((k) => avail.includes(k)).filter((k) => !(k === 'nm' && avail.includes('gm')) && !(k === 'netcash' && avail.includes('debt'))).slice(0, 6);
+            const idx = BS.rows.findIndex((r) => r.p === BS.sel);
+            let html = '';
+            want.forEach((k) => {
+                const m = BS_METRICS.find((x) => x.k === k);
+                const vals = BS.vis.map((r) => r[k]);
+                const F = bsFmt(m, vals), r = BS.rows[idx], dl = bsDelta(BS.rows, idx, m);
+                const col = dl.cls === 'down' ? '#ff7b7b' : '#cfcfcf';
+                html += '<button type="button" class="bs-kpi' + (BS.metric === k ? ' on' : '') + '" data-m="' + k + '"><div class="k-l">' + bsLab(m) + '</div><div class="k-v">' + F.f(r[k]) + '<small>' + F.unit + '</small></div><div class="k-d ' + dl.cls + '">' + (dl.txt ? dl.txt + ' <span style="color:#8f8f8f;font-weight:400">vs. ' + (BS.mode === 'yearly' ? 'prior year' : 'year ago') + '</span>' : '&nbsp;') + '</div>' + bsSpark(vals, col) + '</button>';
+            });
+            return html;
+        }
+
+        function bsDetail() {
+            const idx = BS.rows.findIndex((r) => r.p === BS.sel), r = BS.rows[idx];
+            let html = '<div class="bs-h">' + BS.sel + ' – all figures</div><table class="bs-det"><tbody>';
+            bsAvail(BS.rows).forEach((m) => {
+                if (r[m.k] == null) return;
+                const F = bsFmt(m, BS.rows.map((x) => x[m.k])), dl = bsDelta(BS.rows, idx, m);
+                html += '<tr><td>' + bsLab(m) + '</td><td>' + F.f(r[m.k]) + ' <span style="color:#8f8f8f;font-weight:400">' + F.unit + '</span></td><td class="' + dl.cls + '">' + dl.txt + '</td></tr>';
+            });
+            html += '</tbody></table>';
+            const note = BS.d.notes && BS.d.notes[BS.sel];
+            if (note) html += '<div class="bs-note"><b>Note:</b> ' + bsEsc(note) + '</div>';
+            html += '<div style="font-size:11.5px;color:#8f8f8f;margin-top:8px">Right column: change vs. ' + (BS.mode === 'yearly' ? 'prior year' : 'same period a year ago') + '.</div>';
+            return html;
+        }
+
+        function bsInsights() {
+            const d = BS.d, q = bsBuild(d, 'ttm'), yr = bsBuild(d, 'yearly'), qq = bsBuild(d, 'quarterly');
+            const out = [];
+            const money = (k, v) => { const F = bsFmt(BS_METRICS.find((m) => m.k === k), [v]); return (v < 0 ? '−' : '') + '$' + F.f(Math.abs(v)) + ' ' + F.unit; };
+            const L = q[q.length - 1], Q = qq[qq.length - 1];
+            if (L && L.rev != null) out.push(['Scale (trailing 12 months)', 'Revenue ' + money('rev', L.rev) + (L.yoy != null ? ' (' + (L.yoy > 0 ? '+' : '') + L.yoy.toFixed(0) + '% YoY)' : '') + (L.ni != null ? ', net income ' + money('ni', L.ni) + (L.nm != null ? ' (' + L.nm.toFixed(1) + '% margin)' : '') : '') + '.']);
+            else if (L && L.ni != null) out.push(['Trailing 12 months', 'Net income ' + money('ni', L.ni) + '. Revenue is still negligible or not reported.']);
+            const yv = yr.filter((r) => r.rev);
+            if (yv.length >= 3) { const a = yv[0], b = yv[yv.length - 1], n = yv.length - 1; out.push(['Long-term growth', 'Revenue ' + money('rev', a.rev) + ' (' + a.p + ') → ' + money('rev', b.rev) + ' (' + b.p + '): ' + ((Math.pow(b.rev / a.rev, 1 / n) - 1) * 100).toFixed(1) + '% per year.']); }
+            if (Q && Q.gm != null) { const p = qq[qq.length - 5]; out.push(['Gross margin', Q.gm.toFixed(1) + '% in ' + Q.p + (p && p.gm != null ? ' vs. ' + p.gm.toFixed(1) + '% a year earlier (' + (Q.gm - p.gm > 0 ? '+' : '') + (Q.gm - p.gm).toFixed(1) + ' pp)' : '') + '.']); }
+            const last8 = qq.slice(-8).filter((r) => r.ni != null);
+            if (last8.length >= 4) out.push(['Profitability', last8.filter((r) => r.ni > 0).length + ' of the last ' + last8.length + ' quarters were profitable. Best: ' + last8.reduce((a, b) => b.ni > a.ni ? b : a).p + ', worst: ' + last8.reduce((a, b) => b.ni < a.ni ? b : a).p + ' (net income).']);
+            if (Q && Q.cash != null) {
+                const debt = Q.debt;
+                out.push(['Balance sheet', 'Cash ' + money('cash', Q.cash) + (debt ? ' vs. debt ' + money('debt', debt) + ' → ' + (Q.netcash >= 0 ? 'net cash ' : 'net debt ') + money('netcash', Math.abs(Q.netcash)) : ' and no financial debt') + (Q.de != null ? '; debt/equity ' + Q.de.toFixed(2) + '×' : '') + '.']);
+            }
+            if (L && L.ni != null && L.ni < 0 && Q && Q.cash) out.push(['Cash runway (simplified)', 'At the trailing net loss of ' + money('ni', -L.ni) + ' per year, cash of ' + money('cash', Q.cash) + ' lasts about ' + (Q.cash / -L.ni).toFixed(1) + ' years, ignoring financing and interest income.']);
+            const g = qq.filter((r) => r.yoy != null).slice(-8);
+            if (g.length >= 4) { const hi = g.reduce((a, b) => b.yoy > a.yoy ? b : a), lo = g.reduce((a, b) => b.yoy < a.yoy ? b : a); out.push(['Growth momentum (last 8 quarters)', 'Fastest: ' + hi.p + ' (' + (hi.yoy > 0 ? '+' : '') + hi.yoy.toFixed(0) + '%), slowest: ' + lo.p + ' (' + (lo.yoy > 0 ? '+' : '') + lo.yoy.toFixed(0) + '%) YoY.']); }
+            if (Q && Q.members) { const p = qq[qq.length - 5]; out.push(['Members & monetisation', Q.members.toFixed(2) + ' Mio members' + (p && p.members ? ' (' + ((Q.members / p.members - 1) * 100).toFixed(0) + '% YoY)' : '') + ', ' + (Q.products ? Q.products.toFixed(1) + ' Mio products, ' : '') + 'revenue per member ≈ $' + Math.round(Q.rpm) + ' per year (annualised).']); }
+            if (Q && Q.dep) { const p = qq[qq.length - 5]; out.push(['Deposits', money('dep', Q.dep) + (p && p.dep ? ' (' + ((Q.dep / p.dep - 1) * 100).toFixed(0) + '% YoY)' : '') + ' – ' + (Q.ta ? (Q.dep / Q.ta * 100).toFixed(0) + '% of total assets' : '') + '.']); }
+            const nn = Object.keys(d.notes || {}).length;
+            if (nn) out.push(['Flagged periods', nn + ' period' + (nn > 1 ? 's' : '') + ' carry a footnote (yellow “!” on the chart) – one-offs that distort the headline numbers.']);
+            return out;
+        }
+
+        function bsTable() {
+            const rows = BS.vis;
+            let html = '<table class="bs-table"><thead><tr><th>' + 'Metric</th>' + rows.map((r) => '<th data-p="' + r.p + '" class="' + (r.p === BS.sel ? 'selc' : '') + '">' + r.p + '</th>').join('') + '</tr></thead><tbody>';
+            let grp = '';
+            bsAvail(BS.rows).forEach((m) => {
+                if (m.grp !== grp) { grp = m.grp; html += '<tr><td class="grp" colspan="' + (rows.length + 1) + '">' + grp + '</td></tr>'; }
+                const F = bsFmt(m, rows.map((r) => r[m.k]));
+                const mx = Math.max(1e-9, ...rows.map((r) => Math.abs(r[m.k] || 0)));
+                html += '<tr><td>' + bsLab(m) + ' <span style="color:#6f6f6f;font-size:12px">' + F.unit + '</span></td>' + rows.map((r) => {
+                    const v = r[m.k];
+                    let st = '';
+                    if (v != null && (m.kind === 'pct' || m.k === 'ni')) st = ' style="color:' + (v < 0 ? '#ff7b7b' : '#e8e8e8') + ';background:' + (v < 0 ? 'rgba(255,107,107,' : 'rgba(94,211,154,') + (0.05 + 0.2 * Math.min(1, Math.abs(v) / mx)).toFixed(2) + ')"';
+                    return '<td data-p="' + r.p + '" class="' + (r.p === BS.sel ? 'selc' : '') + '"' + st + '>' + F.f(v) + '</td>';
+                }).join('') + '</tr>';
+            });
+            return html + '</tbody></table>';
+        }
+        function bsCsv() {
+            const rows = BS.vis;
+            const lines = [['Metric'].concat(rows.map((r) => r.p)).join('\t')];
+            bsAvail(BS.rows).forEach((m) => {
+                const F = bsFmt(m, rows.map((r) => r[m.k]));
+                lines.push([bsLab(m) + ' (' + F.unit + ')'].concat(rows.map((r) => r[m.k] == null ? '' : F.f(r[m.k]))).join('\t'));
+            });
+            return lines.join('\n');
+        }
+
+        function bsDraw() {
+            const c = BS.card;
+            BS.rows = bsBuild(BS.d, BS.mode);
+            const total = BS.rows.length;
+            BS.vis = (BS.mode === 'yearly' || BS.range === 'all') ? BS.rows : BS.rows.slice(-BS.range);
+            if (!BS.rows.some((r) => r.p === BS.sel)) BS.sel = BS.rows.length ? BS.rows[BS.rows.length - 1].p : null;
+            if (!BS.vis.some((r) => r.p === BS.sel)) BS.sel = BS.vis[BS.vis.length - 1].p;
+            const av = bsAvail(BS.rows);
+            if (!av.some((m) => m.k === BS.metric)) BS.metric = av[0].k;
+            const seg = (id, items, cur) => '<div class="bs-seg" data-seg="' + id + '">' + items.map((it) => '<button type="button" data-v="' + it[0] + '" class="' + (String(cur) === String(it[0]) ? 'on' : '') + '">' + it[1] + '</button>').join('') + '</div>';
+            const modes = [['quarterly', 'Quarterly'], ['yearly', 'Yearly']];
+            if ((BS.d.quarterly || []).length >= 8) modes.splice(1, 0, ['ttm', 'TTM']);
+            let bar = '<span class="bs-lbl">View</span>' + seg('mode', modes, BS.mode);
+            if (BS.mode !== 'yearly') bar += '<span class="bs-lbl">Range</span>' + seg('range', [[8, 'Last 8'], [12, 'Last 12'], ['all', 'All (' + total + ')']], BS.range);
+            c.querySelector('.bs-bar').innerHTML = bar;
+            c.querySelector('.bs-kpis').innerHTML = bsKpis();
+            let chips = '', g = '';
+            av.forEach((m) => { if (m.grp !== g) { g = m.grp; chips += '<span class="g">' + g + '</span>'; } chips += '<button type="button" class="bs-chip' + (BS.metric === m.k ? ' on' : '') + '" data-m="' + m.k + '">' + bsLab(m) + '</button>'; });
+            c.querySelector('.bs-chips').innerHTML = chips;
+            const mm = BS_METRICS.find((x) => x.k === BS.metric);
+            const ovOpts = ['none', 'yoy', 'gm', 'nm'].filter((k) => k === 'none' || av.some((m) => m.k === k));
+            c.querySelector('.bs-ovr').innerHTML = (mm.kind === 'money' || mm.kind === 'count') && ovOpts.length > 1 ?
+                '<span class="bs-lbl" style="margin-right:2px">Overlay line</span>' + ovOpts.map((k) => '<button type="button" class="bs-chip' + (BS.overlay === k ? ' on' : '') + '" data-o="' + k + '">' + (k === 'none' ? 'off' : bsLab(BS_METRICS.find((x) => x.k === k))) + '</button>').join('') : '';
+            c.querySelector('.bs-chart').innerHTML = bsChart();
+            c.querySelector('.bs-detail').innerHTML = bsDetail();
+            c.querySelector('.bs-tblwrap').innerHTML = bsTable();
+        }
+
+        function bsSelect(p) { BS.sel = p; bsDraw(); }
 
         function openBalance(sym, panel) {
             const d = BALANCE_DATA[sym];
@@ -781,8 +1152,8 @@ const BALANCE_DATA = {
             const card = document.createElement('div');
             card.className = 'widget popup-card bs-card';
             card.setAttribute('data-popup', '');
-            card.dataset.focusW = '1060';
-            card.dataset.focusH = '880';
+            card.dataset.focusW = '1500';
+            card.dataset.focusH = '1000';
             const x = document.createElement('button');
             x.type = 'button';
             x.className = 'zoom-btn';
@@ -791,39 +1162,72 @@ const BALANCE_DATA = {
             x.innerHTML = ICONS;
             x.addEventListener('click', (e) => { e.stopPropagation(); closeFocus(); });
             card.appendChild(x);
-            card.insertAdjacentHTML('beforeend', '<div class="bs-head">' + sym + ' Balance sheet</div><div class="bs-sub">' + (d ? d.name : sym) + '</div>');
             if (!d) {
-                card.insertAdjacentHTML('beforeend', '<div class="bs-empty">No figures entered yet for ' + sym + '.</div>');
+                card.insertAdjacentHTML('beforeend', '<div class="bs-top"><span class="bs-title">' + sym + '</span></div><div class="bs-empty">No figures entered yet for ' + sym + '.</div>');
             } else {
-                let mode = (d.quarterly && d.quarterly.length) ? 'quarterly' : 'yearly';
-                const tabs = document.createElement('div');
-                tabs.className = 'bs-tabs';
-                const body = document.createElement('div');
-                const mk = (key, label) => {
-                    const b = document.createElement('button');
-                    b.type = 'button';
-                    b.className = 'bs-tab';
-                    b.textContent = label;
-                    b.addEventListener('click', (e) => { e.stopPropagation(); mode = key; draw(); });
-                    tabs.appendChild(b);
-                    return b;
-                };
-                const bq = mk('quarterly', 'Quarterly'), by = mk('yearly', 'Yearly');
-                const draw = () => {
-                    bq.classList.toggle('on', mode === 'quarterly');
-                    by.classList.toggle('on', mode === 'yearly');
-                    bsRender(d, mode, body);
-                };
-                card.appendChild(tabs);
-                card.appendChild(body);
-                draw();
-                card.insertAdjacentHTML('beforeend', '<div class="bs-src">' + (d.source || '') + '</div>');
+                const lastQ = (d.quarterly || []).slice(-1)[0] || (d.yearly || []).slice(-1)[0];
+                card.insertAdjacentHTML('beforeend',
+                    '<div class="bs-top"><span class="bs-title">' + sym + '</span><span class="bs-name">' + d.name + ' · Balance sheet &amp; financials</span><span class="bs-asof">Latest: ' + (lastQ ? lastQ.p : '') + ' · figures in USD</span></div>' +
+                    '<div class="bs-scroll">' +
+                    '<div class="bs-bar"></div>' +
+                    '<div class="bs-kpis"></div>' +
+                    '<div class="bs-main"><div class="bs-panel"><div class="bs-chips"></div><div class="bs-ovr"></div><div class="bs-chart"></div></div>' +
+                    '<div class="bs-panel"><div class="bs-detail"></div></div></div>' +
+                    '<div class="bs-panel" style="margin-bottom:14px"><div class="bs-h">Analysis <span style="text-transform:none;letter-spacing:0;font-weight:400;color:#8f8f8f">– calculated from the reported figures, not investment advice</span></div><div class="bs-ins"></div></div>' +
+                    '<div class="bs-panel"><button type="button" class="bs-copy">Copy table</button><div class="bs-h">Data table <span style="text-transform:none;letter-spacing:0;font-weight:400;color:#8f8f8f">– click a column to select the period</span></div><div class="bs-tblwrap"></div></div>' +
+                    '<div class="bs-src">' + (d.source || '') + '</div></div>');
+                Object.assign(BS, { sym, d, card, mode: 'quarterly', range: 8, metric: 'rev', overlay: 'yoy', sel: null });
+                if (!(d.quarterly || []).length) BS.mode = 'yearly';
+                if ((d.quarterly || []).filter((r) => r.rev != null).length < 6) BS.metric = 'ni';
+                const ins = card.querySelector('.bs-ins');
+                ins.innerHTML = bsInsights().map((i) => '<div><b>' + i[0] + '</b>' + i[1] + '</div>').join('');
+                bsDraw();
+                const tip = () => card.querySelector('#bs-tip');
+                card.addEventListener('click', (e) => {
+                    const t = e.target;
+                    const seg = t.closest('.bs-seg button');
+                    if (seg) { e.stopPropagation(); const id = seg.parentNode.dataset.seg, v = seg.dataset.v; if (id === 'mode') BS.mode = v; else BS.range = v === 'all' ? 'all' : +v; bsDraw(); return; }
+                    const chip = t.closest('.bs-chip[data-m], .bs-kpi');
+                    if (chip) { BS.metric = chip.dataset.m; bsDraw(); return; }
+                    const ov = t.closest('.bs-chip[data-o]');
+                    if (ov) { BS.overlay = ov.dataset.o; bsDraw(); return; }
+                    const slot = t.closest('.bs-slot');
+                    if (slot) { bsSelect(BS.vis[+slot.dataset.i].p); return; }
+                    const col = t.closest('[data-p]');
+                    if (col) { bsSelect(col.dataset.p); return; }
+                    if (t.closest('.bs-copy')) {
+                        const txt = bsCsv(), btn = t.closest('.bs-copy');
+                        const done = () => { btn.textContent = 'Copied ✓'; setTimeout(() => { btn.textContent = 'Copy table'; }, 1600); };
+                        try { navigator.clipboard.writeText(txt).then(done, done); } catch (er) { done(); }
+                    }
+                });
+                card.addEventListener('mousemove', (e) => {
+                    const slot = e.target.closest && e.target.closest('.bs-slot'), tp = tip();
+                    if (!tp) return;
+                    if (!slot) { tp.style.display = 'none'; return; }
+                    const r = BS.vis[+slot.dataset.i], box = tp.parentNode.getBoundingClientRect(), k = box.width / tp.parentNode.offsetWidth || 1;
+                    tp.innerHTML = bsTipHtml(r);
+                    tp.style.display = 'block';
+                    let lx = (e.clientX - box.left) / k + 16;
+                    if (lx + tp.offsetWidth > tp.parentNode.offsetWidth - 4) lx = (e.clientX - box.left) / k - tp.offsetWidth - 16;
+                    tp.style.left = Math.max(0, lx) + 'px';
+                    tp.style.top = Math.max(0, (e.clientY - box.top) / k - 20) + 'px';
+                });
+                card.addEventListener('mouseleave', () => { const tp = tip(); if (tp) tp.style.display = 'none'; });
             }
             document.querySelector('.main-container').appendChild(card);
             finCard = card;
             returnTo = panel || null;
             openFocus(card, true);
         }
+        // Pfeiltasten: vorherige / nächste Periode im Balance-sheet-Overlay
+        document.addEventListener('keydown', (e) => {
+            if (!finCard || !finCard.classList.contains('bs-card') || !finCard.classList.contains('focused') || BS.card !== finCard) return;
+            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+            const i = BS.vis.findIndex((r) => r.p === BS.sel), j = Math.max(0, Math.min(BS.vis.length - 1, i + (e.key === 'ArrowRight' ? 1 : -1)));
+            e.preventDefault();
+            bsSelect(BS.vis[j].p);
+        });
 
         function openFinancials(symbol, panel) {
             if (finCard) { finCard.remove(); finCard = null; }
