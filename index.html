@@ -335,7 +335,7 @@
         /* Lupe: Titel links mit feiner Trennlinie, Kante um die vergrösserte Karte */
         .focused { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.10), 0 30px 100px rgba(0, 0, 0, 0.8); }
         .stocks-panel.focused { box-shadow: none; }
-        .focused:not(.stocks-panel):not(.bs-card) > .widget-title { text-align: left; font-size: 24px; padding: 2px 70px 9px 2px; margin-bottom: 9px; }
+        .focused:not(.stocks-panel):not(.bs-card) > .widget-title { text-align: left; font-size: 24px; padding: 2px 70px 12px 2px; margin-bottom: 0; }
         #focus-backdrop { background: rgba(5, 5, 5, 0.78); }
 
         /* Mappe / Glühbirne: 4 gleiche Spalten */
@@ -368,6 +368,36 @@
         .widget.bs-card { font-variant-numeric: tabular-nums; }
         .bs-panel, .bs-kpi { border-radius: 16px; }
         .bs-kpi .k-l, .bs-lbl, .bs-chips .g, .bs-h, .bs-ins b { font-size: 13px; letter-spacing: 0; font-weight: 600; color: #a8a8a8; }
+
+        /* =====================================================================
+           Styling v4: Kopfzeile links, Titel links, Link-Listen statt Knopf-Stapel
+           ===================================================================== */
+        .header-container { flex-direction: row; justify-content: space-between; align-items: flex-end; width: 2432px; margin: 0 auto 34px; padding-bottom: 22px; border-bottom: 1px solid rgba(255, 255, 255, 0.09); }
+        .header-left { display: flex; flex-direction: column; gap: 8px; }
+        .header { font-size: 46px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+        .header-date { font-size: 20px; color: #a8a8a8; }
+        .clock-container { margin: 0 4px 0 0; transform-origin: right bottom; }
+
+        /* Titel links, Symbole rechts oben */
+        .widget-title { text-align: left; padding-bottom: 14px; margin-bottom: 0; }
+        .widget-title + * { margin-top: 6px; }
+        .stock-title { border-bottom: none; padding-bottom: 0; margin-bottom: 4px; }
+        .zoom-btn-left { left: auto; right: 73px; }
+
+        /* Rechte Spalten: eine ruhige Karte mit Link-Zeilen */
+        .widget-transparent { background: #3B3A3A; backdrop-filter: none; }
+        .widget-transparent .white-btn-style { background: transparent !important; color: #fff !important; justify-content: space-between; padding: 0 16px; height: 50px; margin-bottom: 4px; font-size: 19px; font-weight: 500; border-radius: 12px; }
+        .widget-transparent .white-btn-style::after { content: ""; width: 20px; height: 20px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center / contain no-repeat; opacity: 0.55; }
+        .widget-transparent .white-btn-style:hover { background: #fff !important; color: #000 !important; }
+        .widget-transparent .white-btn-style:hover::after { opacity: 1; }
+
+        /* Mappe / Glühbirne: Knopfreihe mit kleinen Symbolen */
+        .stock-actions { gap: 8px; }
+        .stock-actions .white-btn-style { border-radius: 14px; gap: 8px; font-size: 17px; font-weight: 700; }
+        .stock-actions .white-btn-style::before { content: ""; flex: none; width: 19px; height: 19px; background: currentColor; -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; }
+        .stock-actions > :nth-child(1) { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E"); }
+        .stock-actions > :nth-child(2) { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 3v5h5M9 13h6M9 17h6'/%3E%3C/svg%3E"); }
+        .stock-actions > :nth-child(3) { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 20V11M12 20V4M19 20v-6'/%3E%3C/svg%3E"); }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-seasonal-chart.js"></script>
@@ -438,12 +468,22 @@
 </script>
 
 <div class="header-container">
-    <div class="header">Stock Overview</div>
+    <div class="header-left">
+        <div class="header">Stock Overview</div>
+        <div class="header-date" id="header-date"></div>
+    </div>
     <div class="clock-container">
         <iframe src="https://free.timeanddate.com/clock/iahjfplq/n268/fcfff/tct/pct/ftb/tt0/tw0/tm1/td2/th2/tb4" frameborder="0" width="88" height="34" allowtransparency="true"></iframe>
     </div>
 </div>
 
+<script>
+    (function () {
+        const el = document.getElementById('header-date');
+        const upd = () => { el.textContent = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); };
+        upd(); setInterval(upd, 600000);
+    })();
+</script>
 <div class="main-container">
     <!-- Abdunkelung für den Fokus-Modus -->
     <div id="focus-backdrop"></div>
