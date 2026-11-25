@@ -106,11 +106,11 @@
             position: absolute;
             top: 14px;
             right: 14px;
-            width: 34px;
-            height: 34px;
+            width: 51px;               /* 1.5x (vorher 34px) */
+            height: 51px;
             padding: 0;
             border: none;
-            border-radius: 9px;
+            border-radius: 13px;
             background: rgba(255, 255, 255, 0.12);
             color: #fff;
             display: flex;
@@ -121,7 +121,7 @@
         }
         .zoom-btn-left { right: auto; left: 14px; }
         .zoom-btn:hover { background: rgba(255, 255, 255, 0.28); }
-        .zoom-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+        .zoom-btn svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
         .zoom-btn .ico-close { display: none; }
         .focused .zoom-btn .ico-search { display: none; }
         .focused .zoom-btn .ico-close { display: block; }
@@ -172,6 +172,9 @@
         body.unlocked .widget-wrapper {
             animation: fadeInAll 0.5s ease-out 1s forwards; /* Dauer 0.5s, Start nach 1s */
         }
+
+        /* Popups (BTC, Financials) sofort sichtbar, keine Einblend-Verzögerung beim Öffnen */
+        body.unlocked .widget.popup-card { animation: none; opacity: 1; }
 
         body.unlocked #intro-title {
             animation: introTitle 1.5s linear forwards;
@@ -546,6 +549,8 @@
             const card = document.createElement('div');
             card.className = 'widget popup-card';
             card.setAttribute('data-popup', '');
+            card.style.height = '714px';        // 1.7x so hoch wie die normalen Widgets (420px)
+            card.dataset.focusH = '714';
             const title = document.createElement('div');
             title.className = 'widget-title';
             title.textContent = symbol.split(':')[1] + ' Financials';
@@ -561,7 +566,7 @@
             const sc = document.createElement('script');
             sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-financials.js';
             sc.async = true;
-            sc.text = JSON.stringify({ symbol: symbol, colorTheme: 'dark', displayMode: 'regular', isTransparent: false, locale: 'en', width: '100%', height: 340 });
+            sc.text = JSON.stringify({ symbol: symbol, colorTheme: 'dark', displayMode: 'regular', isTransparent: false, locale: 'en', width: '100%', height: 578 });
             card.appendChild(sc);
             document.querySelector('.main-container').appendChild(card);
             finCard = card;
