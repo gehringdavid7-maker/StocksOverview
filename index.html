@@ -320,14 +320,14 @@
         .header { font-size: 48px; font-weight: 600; }
         .widget, .widget-wrapper, .stock-col { background: #3B3A3A; border-radius: 20px; }
         .widget-transparent { border-radius: 20px; }
-        .widget-title { font-size: 22px; font-weight: 600; margin-bottom: 18px; }
+        .widget-title { font-size: 22px; font-weight: 600; padding-bottom: 9px; margin-bottom: 9px; border-bottom: 1px solid rgba(255, 255, 255, 0.09); }
+        ::selection { background: #fff; color: #000; }
         .ticker-item { background: #1A1A1A; border-radius: 12px; }
 
         /* Knöpfe */
         .white-btn-style { border-radius: 12px; font-weight: 600; transition: background-color .15s ease; text-decoration: none; }
         .white-btn-style:hover { background: #e6e6e6 !important; }
-        .white-btn-style.ghost { background: #1A1A1A !important; color: #fff !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16); }
-        .white-btn-style.ghost:hover { background: #2a2a2a !important; }
+        .white-btn-style:active { background: #d4d4d4 !important; }
         .zoom-btn { border-radius: 12px; background: rgba(255, 255, 255, 0.10); transition: background-color .15s ease; }
         .zoom-btn:hover { background: rgba(255, 255, 255, 0.24); }
         .zoom-btn:focus-visible, .white-btn-style:focus-visible, .bs-chip:focus-visible, .bs-seg button:focus-visible, .bs-kpi:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
@@ -335,13 +335,14 @@
         /* Lupe: Titel links mit feiner Trennlinie, Kante um die vergrösserte Karte */
         .focused { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.10), 0 30px 100px rgba(0, 0, 0, 0.8); }
         .stocks-panel.focused { box-shadow: none; }
-        .focused:not(.stocks-panel):not(.bs-card) > .widget-title { text-align: left; font-size: 24px; padding: 2px 70px 6px 2px; margin-bottom: 11px; border-bottom: 1px solid rgba(255, 255, 255, 0.10); }
+        .focused:not(.stocks-panel):not(.bs-card) > .widget-title { text-align: left; font-size: 24px; padding: 2px 70px 9px 2px; margin-bottom: 9px; }
         #focus-backdrop { background: rgba(5, 5, 5, 0.78); }
 
         /* Mappe / Glühbirne: 4 gleiche Spalten */
         .stock-col { padding: 22px; }
-        .stock-title { font-size: 30px; font-weight: 700; margin-bottom: 16px; }
-        .stock-col .sym-box, .stock-col .fin-box, .stock-col .ta-box { border-radius: 14px; overflow: hidden; }
+        .stock-title { font-size: 30px; font-weight: 700; }
+        .stock-col .sym-box, .stock-col .fin-box, .stock-col .ta-box { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.07); }
+        .stock-title { margin-bottom: 14px; }
         .stock-actions { display: flex; gap: 8px; margin-bottom: 9px; }
         .stock-actions .white-btn-style { flex: 1; width: auto; height: 50px; margin-bottom: 0; font-size: 17px; }
         .stock-actions .white-btn-style:last-child { flex: 1.5; }
@@ -526,8 +527,8 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:CELH", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": "100%", "height": 550 }</script>
             </div>
             <div class="stock-actions">
-                <button class="white-btn-style ghost" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">News</button>
-                <a class="white-btn-style ghost" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit?usp=sharing" target="_blank">These</a>
+                <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24CELH', '_blank')">News</button>
+                <a class="white-btn-style" href="https://docs.google.com/document/d/1T97PiqgncvsyzGFe1H6IEQSl7AwHTZldI9N3HDHZvMw/edit?usp=sharing" target="_blank">These</a>
                 <button class="white-btn-style" type="button" data-bs="CELH">Balance sheet</button>
             </div>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:CELH" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
@@ -544,8 +545,8 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:SOFI", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": "100%", "height": 550 }</script>
             </div>
             <div class="stock-actions">
-                <button class="white-btn-style ghost" onclick="window.open('https://x.com/search?q=%24sofi&src=recent_search_click', '_blank')">News</button>
-                <a class="white-btn-style ghost" href="https://docs.google.com/document/d/1LzEyjhSjwh2Rhki6vTS5lFEpgwtgBeOhgYcARmOd6Ek/edit?usp=sharing" target="_blank">These</a>
+                <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24sofi&src=recent_search_click', '_blank')">News</button>
+                <a class="white-btn-style" href="https://docs.google.com/document/d/1LzEyjhSjwh2Rhki6vTS5lFEpgwtgBeOhgYcARmOd6Ek/edit?usp=sharing" target="_blank">These</a>
                 <button class="white-btn-style" type="button" data-bs="SOFI">Balance sheet</button>
             </div>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:SOFI" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
@@ -568,8 +569,8 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NYSE:PATH", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": "100%", "height": 550 }</script>
             </div>
             <div class="stock-actions">
-                <button class="white-btn-style ghost" onclick="window.open('https://x.com/search?q=%24path', '_blank')">News</button>
-                <a class="white-btn-style ghost" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">These</a>
+                <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24path', '_blank')">News</button>
+                <a class="white-btn-style" href="https://docs.google.com/document/d/1FTWQAI1QQKQqkydtbsWNR69pCp7OSIF9Z-sUMaZH3os/edit" target="_blank">These</a>
                 <button class="white-btn-style" type="button" data-bs="PATH">Balance sheet</button>
             </div>
             <div class="ta-box"><tv-technical-analysis symbol="NYSE:PATH" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
@@ -586,8 +587,8 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:AMZN", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": "100%", "height": 550 }</script>
             </div>
             <div class="stock-actions">
-                <button class="white-btn-style ghost" onclick="window.open('https://x.com/search?q=%24amzn&src=typed_query&f=top', '_blank')">News</button>
-                <a class="white-btn-style ghost" href="https://docs.google.com/document/d/1Xf5zrdtqt9IMGYJoWfp16olbjPgvdTCd6uznVuBAFy4/edit?usp=sharing" target="_blank">These</a>
+                <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24amzn&src=typed_query&f=top', '_blank')">News</button>
+                <a class="white-btn-style" href="https://docs.google.com/document/d/1Xf5zrdtqt9IMGYJoWfp16olbjPgvdTCd6uznVuBAFy4/edit?usp=sharing" target="_blank">These</a>
                 <button class="white-btn-style" type="button" data-bs="AMZN">Balance sheet</button>
             </div>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:AMZN" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
@@ -604,8 +605,8 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:HNST", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": "100%", "height": 550 }</script>
             </div>
             <div class="stock-actions">
-                <button class="white-btn-style ghost" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">News</button>
-                <a class="white-btn-style ghost" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">These</a>
+                <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24hnst', '_blank')">News</button>
+                <a class="white-btn-style" href="https://docs.google.com/document/d/12VfG6KI030VOc7L-iZLUSKet20cDYAEvMzOnTV5ioxE/edit" target="_blank">These</a>
                 <button class="white-btn-style" type="button" data-bs="HNST">Balance sheet</button>
             </div>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:HNST" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
@@ -622,8 +623,8 @@
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>{ "symbol": "NASDAQ:NAUT", "colorTheme": "dark", "displayMode": "regular", "isTransparent": false, "locale": "en", "width": "100%", "height": 550 }</script>
             </div>
             <div class="stock-actions">
-                <button class="white-btn-style ghost" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">News</button>
-                <a class="white-btn-style ghost" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">These</a>
+                <button class="white-btn-style" onclick="window.open('https://x.com/search?q=%24NAUT', '_blank')">News</button>
+                <a class="white-btn-style" href="https://docs.google.com/document/d/1-X8FBsrXvDo7lEXaOoEVkB6CigfCSH3TOzj6QMNB_aE/edit" target="_blank">These</a>
                 <button class="white-btn-style" type="button" data-bs="NAUT">Balance sheet</button>
             </div>
             <div class="ta-box"><tv-technical-analysis symbol="NASDAQ:NAUT" interval="1M" hide-logo-and-name transparent></tv-technical-analysis></div>
