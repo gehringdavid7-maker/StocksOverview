@@ -98,7 +98,7 @@
         .stock-col .ta-box { width: 100%; height: 330px; margin-bottom: 9px; flex: none; }
         .stock-col .ta-box tv-technical-analysis { display: block; width: 100%; height: 330px; }
         .stock-col .fin-box { width: 100%; margin-bottom: 9px; position: relative; }
-        .fin-zoom { top: 6px; right: 6px; }
+        .fin-zoom { top: 14px; right: 14px; }
         .stock-col .fin-box > * { max-width: 100%; }
 
 
@@ -432,12 +432,12 @@
         .stock-actions > :nth-child(2):hover::before { transform: rotate(-9deg) scale(1.12); }
         .stock-actions > :nth-child(3):hover::before { transform: scaleY(1.28); transform-origin: bottom; }
 
-        .focused .zoom-btn { transition: background-color .15s ease, transform .2s cubic-bezier(.3, 1.5, .5, 1); }
-        .focused .zoom-btn:hover { transform: scale(1.08); }
-        .focused .zoom-btn:active { transform: scale(0.92); }
-        .focused .zoom-btn svg { transition: transform .3s cubic-bezier(.3, 1.4, .5, 1); }
-        .focused .zoom-btn:hover svg { transform: rotate(90deg); }
-        .fin-zoom:hover svg { transform: scale(1.12); }
+        .zoom-btn { transition: background-color .15s ease, transform .2s cubic-bezier(.3, 1.5, .5, 1); }
+        .zoom-btn:hover { transform: scale(1.08); }
+        .zoom-btn:active { transform: scale(0.92); }
+        .zoom-btn svg { transition: transform .3s cubic-bezier(.3, 1.4, .5, 1); }
+        .zoom-btn:hover .ico-close { transform: rotate(90deg); }
+        .zoom-btn:hover .ico-search { transform: scale(1.12) rotate(-8deg); }
         .focused .zoom-btn .ico-close { animation: iconIn .5s .15s cubic-bezier(.3, 1.4, .5, 1) both; }
 
         .bs-seg button, .bs-chip, .bs-kpi, .bs-copy { transition: background-color .18s ease, color .18s ease, border-color .18s ease, transform .2s cubic-bezier(.3, 1.5, .5, 1); }
@@ -485,7 +485,13 @@
     const errorBox = document.getElementById('login-error');
     const overlay = document.getElementById('login-overlay');
 
-    function unlock() {
+    const SESSION_KEY = 'so_unlocked_at', SESSION_MS = 10 * 60 * 1000;
+    const sessionValid = () => { try { const t = +localStorage.getItem(SESSION_KEY); return t && Date.now() - t < SESSION_MS; } catch (e) { return false; } };
+    const touchSession = () => { try { localStorage.setItem(SESSION_KEY, Date.now()); } catch (e) {} };
+
+    function unlock(silent) {
+        touchSession();
+        if (silent) { document.body.classList.add('unlocked'); overlay.remove(); return; }
         document.body.classList.add('unlocked');   // startet Intro-Animation
         overlay.classList.add('hide');
         setTimeout(() => overlay.remove(), 450);   // Formular entfernen -> Safari bietet "Passwort sichern" an
@@ -513,6 +519,8 @@
     }
 
     form.addEventListener('submit', (e) => { e.preventDefault(); attemptLogin(); });
+    if (sessionValid()) unlock(true);          // noch eingeloggt -> kein Passwort nötig
+    else { try { localStorage.removeItem(SESSION_KEY); } catch (e) {} }
 
     // Passwort-Manager / AutoFill (z.B. Apple Passwörter, 1Password) rufen teils form.submit() direkt auf.
     // Das löst kein "submit"-Event aus -> hier abfangen, damit die Seite nicht neu geladen wird.
