@@ -145,7 +145,8 @@
         .bs-slot:hover .bs-bar, .bs-slot.sel .bs-bar { opacity: 1; }
         .bs-slot.sel .bs-band, .bs-slot:hover .bs-band { opacity: 1; }
         .bs-band { fill: rgba(255, 255, 255, 0.06); opacity: 0; transition: opacity .12s; }
-        .bs-bar { transform-box: fill-box; transform-origin: bottom; animation: bsgrow .45s ease-out both; }
+        .bs-bar { transform-box: fill-box; transform-origin: bottom; }
+        .bs-chart.anim .bs-bar { animation: bsgrow .5s cubic-bezier(.2, .8, .2, 1) both; }
         @keyframes bsgrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
         .bs-tip { position: absolute; pointer-events: none; background: rgba(10, 10, 10, 0.96); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 12px; padding: 10px 13px; font-size: 14px; min-width: 190px; z-index: 5; display: none; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); }
         .bs-tip b { display: block; font-size: 16px; margin-bottom: 4px; }
@@ -209,7 +210,7 @@
             backdrop-filter: blur(4px);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease;
+            transition: opacity 0.4s ease;
         }
         #focus-backdrop.show { opacity: 1; pointer-events: auto; }
 
@@ -357,7 +358,7 @@
         .dashboard > :nth-child(7) { --d: 360ms; } .dashboard > :nth-child(n+8) { --d: 420ms; }
         @media (prefers-reduced-motion: reduce) {
             body.unlocked .header-container, body.unlocked .widget, body.unlocked .widget-transparent, body.unlocked .widget-wrapper { animation: fadeInAll .3s ease-out forwards; }
-            .bs-bar { animation: none; }
+            .bs-chart.anim .bs-bar { animation: none; }
         }
 
         /* Login */
@@ -398,6 +399,57 @@
         .stock-actions > :nth-child(1) { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E"); }
         .stock-actions > :nth-child(2) { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 3v5h5M9 13h6M9 17h6'/%3E%3C/svg%3E"); }
         .stock-actions > :nth-child(3) { --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 20V11M12 20V4M19 20v-6'/%3E%3C/svg%3E"); }
+
+        /* =====================================================================
+           Overlay-Animationen: Inhalte folgen gestaffelt, Knöpfe reagieren auf Hover/Klick
+           ===================================================================== */
+        @keyframes colIn { from { opacity: 0; translate: 0 34px; } to { opacity: 1; translate: 0 0; } }
+        @keyframes popIn { from { opacity: 0; translate: 0 12px; scale: 0.88; } to { opacity: 1; translate: 0 0; scale: 1; } }
+        @keyframes secIn { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+        @keyframes iconIn { from { opacity: 0; rotate: -90deg; scale: 0.4; } to { opacity: 1; rotate: 0deg; scale: 1; } }
+
+        /* Mappe / Glühbirne: Spalten fahren nacheinander hoch, danach springen die Knöpfe auf */
+        .focused .stock-col { animation: colIn .6s cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(.18s + var(--c, 0) * 90ms); }
+        .stocks-panel > .stock-col:nth-child(1) { --c: 0; } .stocks-panel > .stock-col:nth-child(2) { --c: 1; }
+        .stocks-panel > .stock-col:nth-child(3) { --c: 2; } .stocks-panel > .stock-col:nth-child(4) { --c: 3; }
+        .focused .stock-actions .white-btn-style { animation: popIn .5s cubic-bezier(.3, 1.4, .5, 1) both; animation-delay: calc(.55s + var(--c, 0) * 90ms + var(--b, 0) * 70ms); }
+        .stock-actions > :nth-child(1) { --b: 0; } .stock-actions > :nth-child(2) { --b: 1; } .stock-actions > :nth-child(3) { --b: 2; }
+        .stocks-panel > .stock-col:nth-child(1) .stock-actions { --c: 0; } .stocks-panel > .stock-col:nth-child(2) .stock-actions { --c: 1; }
+        .stocks-panel > .stock-col:nth-child(3) .stock-actions { --c: 2; } .stocks-panel > .stock-col:nth-child(4) .stock-actions { --c: 3; }
+
+        /* Balance-sheet-Overlay: Bereiche erscheinen von oben nach unten */
+        .focused .bs-bar, .focused .bs-kpis, .focused .bs-main > .bs-panel, .focused .bs-scroll > .bs-panel { animation: secIn .55s cubic-bezier(.2, .8, .2, 1) both; }
+        .focused .bs-bar { animation-delay: .15s; } .focused .bs-kpis { animation-delay: .24s; }
+        .focused .bs-main > .bs-panel:nth-child(1) { animation-delay: .34s; } .focused .bs-main > .bs-panel:nth-child(2) { animation-delay: .42s; }
+        .focused .bs-scroll > .bs-panel { animation-delay: .52s; }
+
+        /* Knöpfe im Overlay: federn beim Hover, geben beim Klick nach */
+        .focused .white-btn-style { transition: transform .2s cubic-bezier(.3, 1.5, .5, 1), background-color .15s ease; }
+        .focused .white-btn-style:hover { transform: translateY(-2px); }
+        .focused .white-btn-style:active { transform: translateY(0) scale(0.95); }
+        .stock-actions .white-btn-style::before { transition: transform .28s cubic-bezier(.3, 1.6, .5, 1); }
+        .stock-actions > :nth-child(1):hover::before { transform: translate(2px, -2px); }
+        .stock-actions > :nth-child(2):hover::before { transform: rotate(-9deg) scale(1.12); }
+        .stock-actions > :nth-child(3):hover::before { transform: scaleY(1.28); transform-origin: bottom; }
+
+        .focused .zoom-btn { transition: background-color .15s ease, transform .2s cubic-bezier(.3, 1.5, .5, 1); }
+        .focused .zoom-btn:hover { transform: scale(1.08); }
+        .focused .zoom-btn:active { transform: scale(0.92); }
+        .focused .zoom-btn svg { transition: transform .3s cubic-bezier(.3, 1.4, .5, 1); }
+        .focused .zoom-btn:hover svg { transform: rotate(90deg); }
+        .fin-zoom:hover svg { transform: scale(1.12); }
+        .focused .zoom-btn .ico-close { animation: iconIn .5s .15s cubic-bezier(.3, 1.4, .5, 1) both; }
+
+        .bs-seg button, .bs-chip, .bs-kpi, .bs-copy { transition: background-color .18s ease, color .18s ease, border-color .18s ease, transform .2s cubic-bezier(.3, 1.5, .5, 1); }
+        .bs-seg button:hover, .bs-chip:hover { transform: translateY(-1px); }
+        .bs-seg button:active, .bs-chip:active, .bs-copy:active { transform: scale(0.94); }
+        .bs-kpi:active { transform: scale(0.97); }
+        .bs-table th { transition: color .15s ease; }
+        .bs-slot .bs-hit:active { cursor: pointer; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .focused .stock-col, .focused .stock-actions .white-btn-style, .focused .bs-bar, .focused .bs-kpis, .focused .bs-main > .bs-panel, .focused .bs-scroll > .bs-panel, .focused .zoom-btn .ico-close { animation: none; }
+        }
     </style>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-single-ticker.js"></script>
     <script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-seasonal-chart.js"></script>
@@ -894,7 +946,63 @@ const BALANCE_DATA = {
             '<svg class="ico-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>' +
             '<svg class="ico-close" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';
 
-        function openFocus(el, keepReturn) {
+        // ---------- Animation: Karte wächst aus ihrem Platz / aus dem Knopf, schliesst wieder dorthin ----------
+        const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let lastClick = null;
+        document.addEventListener('click', (e) => {
+            const b = e.target.closest && e.target.closest('button, a');
+            if (b) { const r = b.getBoundingClientRect(); lastClick = r.width > 0 ? { r, t: Date.now() } : null; }
+        }, true);
+        const freshClick = () => (lastClick && Date.now() - lastClick.t < 1500 ? lastClick.r : null);
+
+        // Wie viele Bildschirm-Pixel entsprechen 1 CSS-px "translate"? (hängt vom Zoom-Verhalten des Browsers ab)
+        function unitFactor(el) {
+            const a = el.getBoundingClientRect();
+            el.style.translate = '100px 0px';
+            const b = el.getBoundingClientRect();
+            el.style.translate = '';
+            const f = (b.left - a.left) / 100;
+            return f > 0.05 ? f : PAGE_ZOOM;
+        }
+        function frame(el, other, small) {      // Zustand, in dem die Karte so aussieht, als läge sie bei "other"
+            const to = el.getBoundingClientRect(), f = unitFactor(el);
+            const dx = (other.left + other.width / 2 - (to.left + to.width / 2)) / f;
+            const dy = (other.top + other.height / 2 - (to.top + to.height / 2)) / f;
+            const kx = small ? 0.16 : other.width / to.width, ky = small ? 0.16 : other.height / to.height;
+            return { translate: dx + 'px ' + dy + 'px', scale: kx + ' ' + ky };
+        }
+        function animateOpen(el, from) {
+            if (REDUCE.matches || !el.animate) return;
+            let kf;
+            if (from && from.width > 0) {
+                const small = from.width < 260;
+                const st = frame(el, from, small);
+                kf = small
+                    ? [Object.assign({ opacity: 0 }, st), { opacity: 1, offset: 0.4 }, { opacity: 1, translate: '0px 0px', scale: '1 1' }]
+                    : [Object.assign({ opacity: 1 }, st), { opacity: 1, translate: '0px 0px', scale: '1 1' }];
+            } else kf = [{ opacity: 0, scale: '0.94' }, { opacity: 1, scale: '1' }];
+            el.animate(kf, { duration: 520, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        }
+        function animateClose(el, to, isSlot, done) {
+            if (REDUCE.matches || !el.animate) { done(); return; }
+            let kf, dur = 380, ease = 'cubic-bezier(.5,0,.2,1)';
+            if (to && to.width > 0) {
+                const small = !isSlot && to.width < 260;
+                const st = frame(el, to, small);
+                kf = small
+                    ? [{ opacity: 1, translate: '0px 0px', scale: '1 1' }, { opacity: 0, offset: 0.7 }, Object.assign({ opacity: 0 }, st)]
+                    : [{ opacity: 1, translate: '0px 0px', scale: '1 1' }, Object.assign({ opacity: 1 }, st)];
+                if (small) dur = 300;
+            } else { kf = [{ opacity: 1, scale: '1' }, { opacity: 0, scale: '0.95' }]; dur = 220; }
+            const anim = el.animate(kf, { duration: dur, easing: ease, fill: 'forwards' });
+            let ended = false;
+            const end = () => { if (ended) return; ended = true; el._closing = null; done(); anim.cancel(); };
+            el._closing = end;
+            anim.onfinish = end;
+        }
+
+        function openFocus(el, keepReturn, origin) {
+            if (el._closing) el._closing();       // laufende Schliess-Animation sofort beenden
             if (current) closeFocus(false);
 
             // Grösse des Widgets (CSS-Pixel) -> passt den Zoom-Faktor an kleine Bildschirme an
@@ -906,8 +1014,12 @@ const BALANCE_DATA = {
                 (window.innerHeight * 0.94) / (h * PAGE_ZOOM)
             );
 
+            const isPopup = el.hasAttribute('data-popup');
+            const from = isPopup ? (origin === undefined ? freshClick() : origin) : el.getBoundingClientRect();
+            el._origin = isPopup ? from : null;
+
             // Platzhalter, damit das Layout an seinem Platz bleibt (nicht nötig für Popups wie BTC Seasonal)
-            if (!el.hasAttribute('data-popup')) {
+            if (!isPopup) {
                 spacer = document.createElement('div');
                 spacer.style.width = w + 'px';
                 spacer.style.height = h + 'px';
@@ -920,6 +1032,7 @@ const BALANCE_DATA = {
             backdrop.classList.add('show');
             current = el;
             setLabel(el, true);
+            animateOpen(el, from);
         }
 
         let finCard = null;     // Financials-Popup (wird beim Klick auf die Lupe erzeugt)
@@ -927,19 +1040,18 @@ const BALANCE_DATA = {
 
         function closeFocus(reopen = true) {
             if (!current) return;
-            const closing = current;
-            current.classList.remove('focused');
-            if (spacer) { spacer.remove(); spacer = null; }
+            const closing = current, sp = spacer, isFin = closing === finCard, back = isFin ? returnTo : null;
+            const to = sp ? sp.getBoundingClientRect() : closing._origin;
+            current = null; spacer = null;
+            if (isFin) { finCard = null; returnTo = null; }
             backdrop.classList.remove('show');
-            setLabel(current, false);
-            current = null;
-            if (closing === finCard) {
-                finCard.remove();
-                finCard = null;
-                const back = returnTo;
-                returnTo = null;
-                if (back && reopen) openFocus(back);
-            }
+            setLabel(closing, false);
+            animateClose(closing, to, !!sp, () => {
+                closing.classList.remove('focused');
+                if (sp) sp.remove();
+                if (isFin) closing.remove();
+            });
+            if (back && reopen) openFocus(back, false, null);
         }
 
 
@@ -1224,7 +1336,7 @@ const BALANCE_DATA = {
             return lines.join('\n');
         }
 
-        function bsDraw() {
+        function bsDraw(anim) {
             const c = BS.card;
             BS.rows = bsBuild(BS.d, BS.mode);
             const total = BS.rows.length;
@@ -1247,12 +1359,14 @@ const BALANCE_DATA = {
             const ovOpts = ['none', 'yoy', 'gm', 'nm'].filter((k) => k === 'none' || av.some((m) => m.k === k));
             c.querySelector('.bs-ovr').innerHTML = (mm.kind === 'money' || mm.kind === 'count') && ovOpts.length > 1 ?
                 '<span class="bs-lbl" style="margin-right:2px">Overlay line</span>' + ovOpts.map((k) => '<button type="button" class="bs-chip' + (BS.overlay === k ? ' on' : '') + '" data-o="' + k + '">' + (k === 'none' ? 'off' : bsLab(BS_METRICS.find((x) => x.k === k))) + '</button>').join('') : '';
-            c.querySelector('.bs-chart').innerHTML = bsChart();
+            const ch = c.querySelector('.bs-chart');
+            ch.classList.toggle('anim', anim !== false);
+            ch.innerHTML = bsChart();
             c.querySelector('.bs-detail').innerHTML = bsDetail();
             c.querySelector('.bs-tblwrap').innerHTML = bsTable();
         }
 
-        function bsSelect(p) { BS.sel = p; bsDraw(); }
+        function bsSelect(p) { BS.sel = p; bsDraw(false); }
 
         function openBalance(sym, panel) {
             const d = BALANCE_DATA[sym];
